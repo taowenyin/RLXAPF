@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_layout"
+        android:title="@string/device_preferences_local"
+        android:key="device_pref_storage_local">
+
+        <EditTextPreference
+            android:layout="@layout/prefs_item_layout_divider"
+            android:key="@string/device_preferences_local_key"
+            android:title="@string/device_preferences_local_title"
+            android:defaultValue="@string/pref_local_default"/>
+
+        <EditTextPreference
+            android:layout="@layout/prefs_item_layout"
+            android:key="@string/device_preferences_address_key"
+            android:title="@string/device_preferences_address_title"
+            android:defaultValue="@string/pref_address_default"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_layout"
+        android:title="@string/device_preferences_custom"
+        android:key="device_pref_storage_custom">
+
+        <EditTextPreference
+            android:layout="@layout/prefs_item_layout"
+            android:key="@string/device_preferences_name_key"
+            android:title="@string/device_preferences_name_title"
+            android:defaultValue="@string/custom_name_default"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_layout"
+        android:title="@string/device_preferences_device"
+        android:key="device_pref_storage_device">
+
+        <EditTextPreference
+            android:layout="@layout/prefs_item_layout_divider"
+            android:key="@string/device_preferences_device_type_key"
+            android:title="@string/device_preferences_device_type_title"
+            android:defaultValue="@string/device_type_default"/>
+
+        <EditTextPreference
+            android:layout="@layout/prefs_item_layout_divider"
+            android:key="@string/device_preferences_device_gps_key"
+            android:title="@string/device_preferences_device_gps_title"
+            android:defaultValue="@string/device_gps_default"/>
+
+        <EditTextPreference
+            android:layout="@layout/prefs_item_layout"
+            android:key="@string/device_preferences_device_no_key"
+            android:title="@string/device_preferences_device_no_title"
+            android:defaultValue="@string/device_no_default"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/prefs_category_layout"
+        android:title="@string/device_preferences_collection"
+        android:key="device_pref_storage_collection">
+
+        <ListPreference
+            android:layout="@layout/prefs_item_layout"
+            android:key="@string/device_preferences_collection_freq_key"
+            android:title="@string/device_preferences_collection_freq_title"
+            android:entries="@array/collection_freq_entries"
+            android:entryValues="@array/collection_freq_values"
+            android:defaultValue="@integer/collection_freq_default"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

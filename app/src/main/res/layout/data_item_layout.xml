@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/specturm_horizontal_padding"
+    android:paddingRight="@dimen/specturm_horizontal_padding"
+    android:paddingTop="@dimen/specturm_vertical_padding"
+    android:paddingBottom="@dimen/specturm_vertical_padding">
+
+    <TextView
+        android:id="@+id/data_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/specturm_font_size"
+        android:textColor="@color/label_color"/>
+
+    <TextView
+        android:id="@+id/data_data"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:textSize="@dimen/specturm_font_size"
+        android:textColor="@android:color/black"/>
+
+</LinearLayout>

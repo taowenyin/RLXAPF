@@ -1,0 +1,229 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/app_bg"
+    tools:context="cn.edu.siso.rlxapf.UserFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/prefs_user_header_padding"
+        android:paddingLeft="@dimen/prefs_user_header_padding"
+        android:paddingRight="@dimen/prefs_user_header_padding"
+        android:background="@color/toolbar_bg_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/user_img"
+            android:layout_width="@dimen/prefs_user_img_size"
+            android:layout_height="@dimen/prefs_user_img_size"
+            android:layout_marginRight="@dimen/prefs_user_header_title_margin"
+            android:src="@drawable/ic_user_img"
+            app:civ_border_width="@dimen/prefs_user_img_border_size"
+            app:civ_border_color="@android:color/white"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/prefs_user_header_font_size"
+                android:layout_marginBottom="@dimen/prefs_user_header_title_margin"
+                android:text="wenyin.tao@163.com"/>
+
+            <TextView
+                android:id="@+id/device_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/prefs_user_header_font_size"
+                android:text="APF 3201"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:paddingLeft="@dimen/prefs_item_horizontal_padding"-->
+        <!--android:layout_marginTop="@dimen/prefs_user_item_vertical_margin">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingBottom="@dimen/prefs_item_vertical_padding"-->
+            <!--android:paddingRight="@dimen/prefs_item_horizontal_padding"-->
+            <!--android:paddingTop="@dimen/prefs_item_vertical_padding">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/user_preferences_device"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center_vertical"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:text="@string/user_preferences_device"-->
+                <!--android:textColor="@color/label_color"-->
+                <!--android:textSize="@dimen/prefs_user_header_font_size"-->
+                <!--android:minHeight="0dp"-->
+                <!--style="?android:attr/borderlessButtonStyle"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/prefs_item_icon_size"-->
+                <!--android:layout_height="@dimen/prefs_item_icon_size"-->
+                <!--android:layout_marginLeft="@dimen/prefs_item_icon_left_margin"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@mipmap/ic_prefs_arr_right" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/split_line_width"-->
+            <!--android:src="@color/split_line_color"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingBottom="@dimen/prefs_item_vertical_padding"-->
+            <!--android:paddingRight="@dimen/prefs_item_horizontal_padding"-->
+            <!--android:paddingTop="@dimen/prefs_item_vertical_padding">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/user_preferences_operation"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center_vertical"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:text="@string/user_preferences_operation"-->
+                <!--android:textColor="@color/label_color"-->
+                <!--android:textSize="@dimen/prefs_user_header_font_size"-->
+                <!--android:minHeight="0dp"-->
+                <!--style="?android:attr/borderlessButtonStyle"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/prefs_item_icon_size"-->
+                <!--android:layout_height="@dimen/prefs_item_icon_size"-->
+                <!--android:layout_marginLeft="@dimen/prefs_item_icon_left_margin"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@mipmap/ic_prefs_arr_right" />-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/prefs_item_horizontal_padding"
+        android:layout_marginTop="@dimen/prefs_user_item_vertical_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/prefs_item_vertical_padding"
+            android:paddingRight="@dimen/prefs_item_horizontal_padding"
+            android:paddingTop="@dimen/prefs_item_vertical_padding">
+
+            <Button
+                android:id="@+id/user_preferences_parameter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:background="@android:color/transparent"
+                android:text="@string/user_preferences_parameter"
+                android:textColor="@color/label_color"
+                android:textSize="@dimen/prefs_user_header_font_size"
+                android:minHeight="0dp"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <ImageView
+                android:layout_width="@dimen/prefs_item_icon_size"
+                android:layout_height="@dimen/prefs_item_icon_size"
+                android:layout_marginLeft="@dimen/prefs_item_icon_left_margin"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_prefs_arr_right" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/prefs_item_horizontal_padding"
+        android:layout_marginTop="@dimen/prefs_user_item_vertical_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/prefs_item_vertical_padding"
+            android:paddingRight="@dimen/prefs_item_horizontal_padding"
+            android:paddingTop="@dimen/prefs_item_vertical_padding">
+
+            <Button
+                android:id="@+id/user_preferences_about"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:background="@android:color/transparent"
+                android:text="@string/user_preferences_about"
+                android:textColor="@color/label_color"
+                android:textSize="@dimen/prefs_user_header_font_size"
+                android:minHeight="0dp"
+                style="?android:attr/borderlessButtonStyle" />
+
+            <ImageView
+                android:layout_width="@dimen/prefs_item_icon_size"
+                android:layout_height="@dimen/prefs_item_icon_size"
+                android:layout_marginLeft="@dimen/prefs_item_icon_left_margin"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_prefs_arr_right" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/user_pref_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/prefs_user_item_vertical_margin"
+        android:paddingTop="@dimen/prefs_user_cancel_vertical_padding"
+        android:paddingBottom="@dimen/prefs_user_cancel_vertical_padding"
+        android:minHeight="0dp"
+        android:background="@android:color/white"
+        android:text="@string/user_preferences_cancel"
+        android:textSize="@dimen/prefs_font_size"
+        android:textColor="@color/label_color"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</LinearLayout>

@@ -1,0 +1,308 @@
+<resources>
+    <string name="app_name">RLXAPF</string>
+
+    <string name="title_activity_first">FirstActivity</string>
+    <string name="title_activity_login">登录</string>
+    <string name="title_activity_device">设备选择</string>
+    <string name="title_activity_device_list">设备列表</string>
+    <string name="title_activity_real_time_data">实时数据</string>
+    <string name="title_activity_spectrum_data">谐波数据</string>
+    <string name="title_activity_user">我的</string>
+    <string name="title_activity_about">关于我们</string>
+    <string name="title_activity_param">通讯设置</string>
+
+    <string name="split_line_txt">分割线</string>
+
+    <!--登录表单-->
+    <string name="login_form_account_label">账户</string>
+    <string name="login_form_account_hint">手机</string>
+    <string name="login_form_password_label">密码</string>
+    <string name="login_form_password_hint">请输入密码</string>
+    <string name="login_form_login_txt">登录</string>
+
+    <!--设备选择-->
+    <string name="device_preferences_name">device_preferences</string>
+
+    <string name="device_preferences_local">地域</string>
+    <string name="device_preferences_local_title">地区</string>
+    <string name="device_preferences_local_key">device_pref_local</string>
+    <string name="device_preferences_address_title">街道</string>
+    <string name="device_preferences_address_key">device_pref_address</string>
+
+    <string name="device_preferences_custom">客户信息</string>
+    <string name="device_preferences_name_title">名称</string>
+    <string name="device_preferences_name_key">device_pref_custom_name</string>
+
+    <string name="device_preferences_device">设备信息</string>
+    <string name="device_preferences_device_type_title">设备类型</string>
+    <string name="device_preferences_device_type_key">device_pref_device_type</string>
+    <string name="device_preferences_device_gps_title">GPS模块号</string>
+    <string name="device_preferences_device_gps_key">device_pref_device_gps</string>
+    <string name="device_preferences_device_no_title">设备号</string>
+    <string name="device_preferences_device_no_key">device_pref_device_no</string>
+
+    <string name="device_preferences_collection">采集设置</string>
+    <string name="device_preferences_collection_freq_title">采集频率</string>
+    <string name="device_preferences_collection_freq_key">device_pref_collection</string>
+
+    <string name="pref_local_default">江苏省 苏州市 吴中区</string>
+    <string name="pref_address_default">海德公园2幢901</string>
+    <string name="custom_name_default">苏州力旭</string>
+    <string name="device_type_default">APF</string>
+    <string name="device_gps_default">01001015</string>
+    <string name="device_no_default">3201</string>
+    <integer name="collection_freq_default">0</integer>
+    <string-array name="collection_freq_entries">
+        <item>10ms</item>
+        <item>100ms</item>
+        <item>1000ms</item>
+        <item>10000ms</item>
+    </string-array>
+    <string-array name="collection_freq_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="device_select_ok">确认</string>
+
+    <!--主页面底部标题栏-->
+    <string name="main_tab_real_time_title">实时数据</string>
+    <string name="main_tab_spectrum_title">谐波频谱</string>
+    <string name="main_tab_user_title">我的</string>
+
+    <!--实时数据的顶部标题-->
+    <string name="main_top_tab_real_curve_title">实时曲线</string>
+    <string name="main_top_tab_real_data_title">实时数据</string>
+
+    <!--谐波数据标题-->
+    <string-array name="specturm_sections">
+        <item>A相谐波电流</item>
+        <item>B相谐波电流</item>
+        <item>C相谐波电流</item>
+    </string-array>
+
+    <!--实时数据标题-->
+    <string-array name="real_data_sections">
+        <item>电压电流</item>
+        <item>功率即其他</item>
+        <item>THD</item>
+    </string-array>
+
+    <!--实时电压电流数据标题-->
+    <string-array name="real_data_voltage_titles">
+        <item>系统A相电压</item>
+        <item>系统B相电压</item>
+        <item>系统C相电压</item>
+        <item>系统A相电流</item>
+        <item>系统B相电流</item>
+        <item>系统C相电流</item>
+        <item>负载A相电流</item>
+        <item>负载B相电流</item>
+        <item>负载C相电流</item>
+        <item>补偿A相电流</item>
+        <item>补偿B相电流</item>
+        <item>补偿C相电流</item>
+    </string-array>
+
+    <!--实时功率数据标题-->
+    <string-array name="real_data_power_titles">
+        <item>系统功率因数</item>
+        <item>系统电流不平衡度</item>
+        <item>负载功率因数</item>
+        <item>负载电流不平衡度</item>
+        <item>IGBT温度</item>
+    </string-array>
+
+    <!--实时thd数据标题-->
+    <string-array name="real_data_thd_titles">
+        <item>A相电压总畸变率</item>
+        <item>B相电压总畸变率</item>
+        <item>C相电压总畸变率</item>
+        <item>系统A相电流总畸变率</item>
+        <item>系统B相电流总畸变率</item>
+        <item>系统C相电流总畸变率</item>
+        <item>负载A相电流总畸变率</item>
+        <item>负载B相电流总畸变率</item>
+        <item>负载C相电流总畸变率</item>
+    </string-array>
+
+    <!--系统电压图表的标题-->
+    <string name="curve_voltage_title">系统电压</string>
+    <string name="curve_a_voltage_title">系统A相电压</string>
+    <string name="curve_b_voltage_title">系统B相电压</string>
+    <string name="curve_c_voltage_title">系统C相电压</string>
+
+    <!--系统电流图表的标题-->
+    <string name="curve_ampere_title">系统电流</string>
+    <string name="curve_a_ampere_title">系统A相电流</string>
+    <string name="curve_b_ampere_title">系统B相电流</string>
+    <string name="curve_c_ampere_title">系统C相电流</string>
+
+    <!--负载电流图表的标题-->
+    <string name="curve_load_title">负载电流</string>
+    <string name="curve_a_load_title">负载A相电流</string>
+    <string name="curve_b_load_title">负载B相电流</string>
+    <string name="curve_c_load_title">负载C相电流</string>
+
+    <!--补偿电流图表的标题-->
+    <string name="curve_compensate_title">补偿电流</string>
+    <string name="curve_a_compensate_title">补偿A相电流</string>
+    <string name="curve_b_compensate_title">补偿B相电流</string>
+    <string name="curve_c_compensate_title">补偿C相电流</string>
+
+    <!--实时图表X轴标签-->
+    <string-array name="curve_x_axis_labels">
+        <item>1ms</item>
+        <item>2ms</item>
+        <item>3ms</item>
+        <item>4ms</item>
+        <item>5ms</item>
+        <item>6ms</item>
+        <item>7ms</item>
+        <item>8ms</item>
+        <item>9ms</item>
+        <item>10ms</item>
+    </string-array>
+
+    <!--实时图表Y轴标签-->
+    <string-array name="curve_y_axis_labels">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <integer-array name="cure_line_colors">
+        <item>@color/cure_a_color</item>
+        <item>@color/cure_b_color</item>
+        <item>@color/cure_c_color</item>
+    </integer-array>
+
+    <string name="user_preferences_device">设备选择</string>
+    <string name="user_preferences_operation">设备操作</string>
+    <string name="user_preferences_parameter">通讯设置</string>
+    <string name="user_preferences_about">关于我们</string>
+    <!--用户退出当前账户的按钮文字-->
+    <string name="user_preferences_cancel">退出当前账号</string>
+
+    <!--关于界面的版权说明-->
+    <string name="about_copy_right">苏州立旭 版权所有</string>
+    <string name="about_label_sw_version">软件版本</string>
+    <string name="about_sw_version">V0.1</string>
+    <string name="about_label_contact_us">联系我们</string>
+    <string name="about_contact_us">1234567890</string>
+    <string name="about_label_description">功能说明</string>
+    <string name="about_description">电力质量管理系统</string>
+
+    <!--通讯设置-->
+    <string name="param_preferences_name">param_preferences</string>
+
+    <string name="param_preferences_compensate">采样与补偿</string>
+    <string name="param_preferences_unit_title">单元数</string>
+    <string name="param_preferences_unit_key">param_pref_unit</string>
+    <string name="param_preferences_sampling_model_title">采样模式</string>
+    <string name="param_preferences_sampling_model_key">param_pref_sampling</string>
+    <string name="param_preferences_compensate_model_title">补偿模式</string>
+    <string name="param_preferences_compensate_model_key">param_pref_compensate</string>
+
+    <string name="param_preferences_factor">因数与补偿率</string>
+    <string name="param_preferences_system_ct_title">系统CT变比</string>
+    <string name="param_preferences_system_ct_key">param_pref_system_ct</string>
+    <string name="param_preferences_load_ct_title">负载CT变比</string>
+    <string name="param_preferences_load_ct_key">param_pref_load_ct</string>
+    <string name="param_preferences_target_power_title">目标功率因数</string>
+    <string name="param_preferences_target_power_key">param_pref_target_power</string>
+    <string name="param_preferences_3_compensate_title">3次谐波补偿率</string>
+    <string name="param_preferences_3_compensate_key">param_pref_3_compensate</string>
+    <string name="param_preferences_5_compensate_title">5次谐波补偿率</string>
+    <string name="param_preferences_5_compensate_key">param_pref_5_compensate</string>
+    <string name="param_preferences_7_compensate_title">7次谐波补偿率</string>
+    <string name="param_preferences_7_compensate_key">param_pref_7_compensate</string>
+    <string name="param_preferences_9_compensate_title">9次谐波补偿率</string>
+    <string name="param_preferences_9_compensate_key">param_pref_9_compensate</string>
+    <string name="param_preferences_11_compensate_title">11次谐波补偿率</string>
+    <string name="param_preferences_11_compensate_key">param_pref_11_compensate</string>
+    <string name="param_preferences_13_compensate_title">13次谐波补偿率</string>
+    <string name="param_preferences_13_compensate_key">param_pref_13_compensate</string>
+    <string name="param_preferences_15_compensate_title">15次谐波补偿率</string>
+    <string name="param_preferences_15_compensate_key">param_pref_15_compensate</string>
+    <string name="param_preferences_17_compensate_title">17次谐波补偿率</string>
+    <string name="param_preferences_17_compensate_key">param_pref_17_compensate</string>
+    <string name="param_preferences_19_compensate_title">19次谐波补偿率</string>
+    <string name="param_preferences_19_compensate_key">param_pref_19_compensate</string>
+    <string name="param_preferences_21_compensate_title">21次谐波补偿率</string>
+    <string name="param_preferences_21_compensate_key">param_pref_21_compensate</string>
+    <string name="param_preferences_23_compensate_title">23次谐波补偿率</string>
+    <string name="param_preferences_23_compensate_key">param_pref_23_compensate</string>
+    <string name="param_preferences_25_compensate_title">25次谐波补偿率</string>
+    <string name="param_preferences_25_compensate_key">param_pref_25_compensate</string>
+    <string name="param_preferences_26_compensate_title">偶次及26~50次谐波补偿率</string>
+    <string name="param_preferences_26_compensate_key">param_pref_26_compensate</string>
+
+    <string name="pref_unit_default">128</string>
+    <integer name="pref_sampling_model_default">0</integer>
+    <integer name="pref_compensate_model_default">0</integer>
+    <string name="pref_system_ct_default">128</string>
+    <string name="pref_load_ct_default">128</string>
+    <string name="pref_target_power_default">128</string>
+    <string name="pref_3_compensate_default">128</string>
+    <string name="pref_5_compensate_default">128</string>
+    <string name="pref_7_compensate_default">128</string>
+    <string name="pref_9_compensate_default">128</string>
+    <string name="pref_11_compensate_default">128</string>
+    <string name="pref_13_compensate_default">128</string>
+    <string name="pref_15_compensate_default">128</string>
+    <string name="pref_17_compensate_default">128</string>
+    <string name="pref_19_compensate_default">128</string>
+    <string name="pref_21_compensate_default">128</string>
+    <string name="pref_23_compensate_default">128</string>
+    <string name="pref_25_compensate_default">128</string>
+    <string name="pref_26_compensate_default">128</string>
+    <string-array name="sampling_model_entries">
+        <item>采负载电流</item>
+        <item>采系统电流</item>
+    </string-array>
+    <string-array name="sampling_model_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="compensate_model_entries">
+        <item>谐波补偿</item>
+        <item>无功功率补偿</item>
+        <item>无功谐波混合补偿谐波优先</item>
+        <item>无功谐波混合补偿无功优先</item>
+        <item>不平衡补偿控制</item>
+    </string-array>
+    <string-array name="compensate_model_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="operate_popup_window">
+        <item>设备停止</item>
+        <item>设备重启</item>
+        <item>通讯设置</item>
+    </string-array>
+    <string name="operate_popup_cancel">取消</string>
+
+    <!--设备列表分割线-->
+    <string name="device_list_split">|</string>
+    <string name="device_gps_no_label">GPS编号:</string>
+    <string name="device_no_label">设备编号:</string>
+    <string name="device_delete_0">正常</string>
+    <string name="device_delete_1">已删除</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

@@ -1,0 +1,143 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--标题栏字体大小-->
+    <dimen name="toolbar_font_size">16sp</dimen>
+    <!--标题栏图标大小-->
+    <dimen name="toolbar_icon_size">32dp</dimen>
+    <!--标题栏内边距大小-->
+    <dimen name="toolbar_horizontal_padding">10dp</dimen>
+
+    <!--按钮的圆角大小-->
+    <dimen name="btn_radius_size">5dp</dimen>
+
+    <!--分割线的宽度-->
+    <dimen name="split_line_width">1dp</dimen>
+
+    <!--表单字体-->
+    <dimen name="form_font_size">14sp</dimen>
+    <!--登录表单的上边距-->
+    <dimen name="login_form_top_margin">20dp</dimen>
+    <!--登录表单的下边距-->
+    <dimen name="login_form_bottom_margin">40dp</dimen>
+    <!--登录表单的水平内边距-->
+    <dimen name="login_form_horizontal_left_padding">15dp</dimen>
+    <!--登录表单项的垂直内边距-->
+    <dimen name="login_form_item_vertical_padding">10dp</dimen>
+    <!--登录表单标签的右边距-->
+    <dimen name="login_form_label_right_margin">20dp</dimen>
+    <!--登录表单按钮的水平边距-->
+    <dimen name="login_form_btn_horizontal_margin">15dp</dimen>
+    <!--登录表单按钮的垂直内边距-->
+    <dimen name="login_form_btn_vertical_padding">15dp</dimen>
+
+    <!--配置界面字体-->
+    <dimen name="prefs_font_size">14sp</dimen>
+    <!--配置界面每项内边距-->
+    <dimen name="prefs_item_horizontal_padding">18dp</dimen>
+    <dimen name="prefs_item_vertical_padding">10dp</dimen>
+    <!--配置界面每项图标-->
+    <dimen name="prefs_item_icon_size">25dp</dimen>
+    <!--配置界面每项图标的左边距-->
+    <dimen name="prefs_item_icon_left_margin">10dp</dimen>
+
+    <!--设备选择界面完成按钮的垂直外边距-->
+    <dimen name="prefs_device_ok_vertical_margin">20dp</dimen>
+    <!--设备选择界面完成按钮的垂直内边距-->
+    <dimen name="prefs_device_ok_vertical_padding">8dp</dimen>
+    <!--设备选择界面完成按钮边框的内边距-->
+    <dimen name="prefs_device_ok_border_padding">8dp</dimen>
+
+    <!--主页面指示器垂直内边距-->
+    <dimen name="main_tab_indicator_vertical_padding">5dp</dimen>
+    <!--主页面指示器字体-->
+    <dimen name="main_tab_indicator_font_size">12sp</dimen>
+    <!--主页面指示器高度-->
+    <dimen name="main_top_tab_indicator_height">2dp</dimen>
+    <!--主页面指示器水平内边距-->
+    <dimen name="main_top_tab_indicator_horizontal_padding">20dp</dimen>
+
+    <!--谐波数据水平内边距-->
+    <dimen name="specturm_horizontal_padding">15dp</dimen>
+    <!--谐波数据垂直内边距-->
+    <dimen name="specturm_vertical_padding">10dp</dimen>
+    <!--谐波数据底部内边距-->
+    <dimen name="specturm_bottom_height">20dp</dimen>
+    <!--谐波数据字体-->
+    <dimen name="specturm_font_size">14sp</dimen>
+
+    <!--实时数据图表高度-->
+    <dimen name="real_curve_chart_height">200dp</dimen>
+    <!--实时数据图表底部外边距-->
+    <dimen name="real_curve_chart_bottom_margin">20dp</dimen>
+    <!--实时数据图表底部左外边距-->
+    <dimen name="real_curve_chart_left_margin">-40dp</dimen>
+    <!--实时数据图表底部右内边距-->
+    <dimen name="real_curve_chart_right_padding">10dp</dimen>
+    <!--实时数据图表底部垂直内边距-->
+    <dimen name="real_curve_chart_vertical_padding">10dp</dimen>
+    <!--实时数据图表标题文字大小-->
+    <dimen name="real_curve_chart_title_font_size">20sp</dimen>
+    <!--实时数据图表标题文字垂直内边距-->
+    <dimen name="real_curve_chart_title_vertical_margin">10dp</dimen>
+    <!--实时数据图表标分割线大小-->
+    <dimen name="real_curve_chart_divide_dash">5dp</dimen>
+    <!--实时数据图表标分割线宽度-->
+    <dimen name="real_curve_chart_divide_stroke_width">1dp</dimen>
+    <!--实时数据图表标分割线宽度-->
+    <dimen name="real_curve_chart_divide_width">2dp</dimen>
+    <!--实时数据图表图例宽度-->
+    <dimen name="real_curve_chart_legend_width">20dp</dimen>
+    <!--实时数据图表图例高度-->
+    <dimen name="real_curve_chart_legend_height">4dp</dimen>
+    <!--实时数据图表图例文字大小-->
+    <dimen name="real_curve_chart_legend_font_size">10sp</dimen>
+    <!--实时数据图表图例间距-->
+    <dimen name="real_curve_chart_legend_margin">5dp</dimen>
+    <!--实时数据图表图例下外间距-->
+    <dimen name="real_curve_chart_legend_bottom_margin">10dp</dimen>
+
+    <!--用户配置界面退出账号按钮的垂直外边距-->
+    <dimen name="prefs_user_item_vertical_margin">20dp</dimen>
+    <!--用户配置界面退出账号按钮边框的内边距-->
+    <dimen name="prefs_user_cancel_border_padding">8dp</dimen>
+    <!--用户配置界面退出账号按钮的垂直内边距-->
+    <dimen name="prefs_user_cancel_vertical_padding">8dp</dimen>
+    <!--用户配置界面的用户头像-->
+    <dimen name="prefs_user_img_size">64dp</dimen>
+    <!--用户配置界面的用户头像边框大小-->
+    <dimen name="prefs_user_img_border_size">2dp</dimen>
+    <!--用户配置界面的头部内边距-->
+    <dimen name="prefs_user_header_padding">20dp</dimen>
+    <!--用户配置界面的头部文字大小-->
+    <dimen name="prefs_user_header_font_size">14sp</dimen>
+    <!--用户配置界面的头部文字边距-->
+    <dimen name="prefs_user_header_title_margin">10dp</dimen>
+
+    <!--关于界面Logo的大小-->
+    <dimen name="about_logo_size">100dp</dimen>
+    <!--关于界面的文字大小-->
+    <dimen name="about_font_size">14sp</dimen>
+    <!--关于界面的垂直外边距-->
+    <dimen name="about_vertical_margin">20dp</dimen>
+
+    <!--弹出菜单项的内边距-->
+    <dimen name="popup_window_vertical_padding">15dp</dimen>
+    <!--弹出菜单项的字体大小-->
+    <dimen name="popup_window_font_size">14sp</dimen>
+
+    <!--设备列表的设备ID字号-->
+    <dimen name="device_list_item_device_id_font_size">14sp</dimen>
+    <!--设备列表的字号-->
+    <dimen name="device_list_item_font_size">12sp</dimen>
+    <!--设备列表的间距-->
+    <dimen name="device_list_item_padding">10dp</dimen>
+    <!--设备列表的垂直间距-->
+    <dimen name="device_list_item_vertical_margin">5dp</dimen>
+    <!--设备列表的标签间距-->
+    <dimen name="device_list_item_label_margin">5dp</dimen>
+    <!--设备列表按钮大小-->
+    <dimen name="device_list_item_img_btn_size">24dp</dimen>
+
+</resources>

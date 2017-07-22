@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--Preference样式-->
+        <item name="preferenceTheme">@style/PreferenceStyle</item>
+
+    </style>
+
+    <style name="AppNoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--Preference样式-->
+        <item name="preferenceTheme">@style/PreferenceStyle</item>
+
+        <!--标题栏透明设置-->
+
+    </style>
+
+    <style name="PreferenceStyle">
+
+    </style>
+    
+    <style name="popup_menu_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/in_popup_menu</item>
+        <item name="android:windowExitAnimation">@anim/out_popup_menu</item>
+    </style>
+
+</resources>

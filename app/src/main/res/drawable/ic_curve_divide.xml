@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+
+    <stroke
+        android:color="@color/split_line_color"
+        android:width="@dimen/real_curve_chart_divide_stroke_width"
+        android:dashGap="@dimen/real_curve_chart_divide_dash"
+        android:dashWidth="@dimen/real_curve_chart_divide_dash"/>
+
+    <size android:height="@dimen/real_curve_chart_divide_width" />
+
+</shape>
