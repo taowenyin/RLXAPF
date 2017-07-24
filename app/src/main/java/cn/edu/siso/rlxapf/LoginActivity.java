@@ -1,7 +1,9 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,41 +37,82 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginFormLoginBtn = (Button) findViewById(R.id.login_form_login_btn);
-        loginAccount = (EditText) findViewById(R.id.login_form_account);
-        loginPassword = (EditText) findViewById(R.id.login_form_password);
+        SharedPreferences accountPref = getSharedPreferences(
+                getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
 
-        loginFormLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // 如果用户ID已经保存，则直接跳转
+//        if (accountPref.contains(UserBean.ACCOUNT_KEY)
+//                && accountPref.contains(UserBean.PASSWORD_KEY)
+//                && accountPref.contains(UserBean.NAME_KEY)
+//                && accountPref.contains(UserBean.ADDRESS_KEY)
+//                && accountPref.contains(UserBean.CONTACT_KEY)
+//                && accountPref.contains(UserBean.PHONE_KEY)
+//                && accountPref.contains(UserBean.MOBILE_ID_KEY)) {
+//            UserBean userData = new UserBean();
+//            userData.setAccount(accountPref.getString(UserBean.ACCOUNT_KEY, ""));
+//            userData.setPassword(accountPref.getString(UserBean.PASSWORD_KEY, ""));
+//            userData.setName(accountPref.getString(UserBean.NAME_KEY, ""));
+//            userData.setAddress(accountPref.getString(UserBean.ADDRESS_KEY, ""));
+//            userData.setContact(accountPref.getString(UserBean.CONTACT_KEY, ""));
+//            userData.setPhone(accountPref.getString(UserBean.PHONE_KEY, ""));
+//            userData.setMobileId(accountPref.getString(UserBean.MOBILE_ID_KEY, ""));
+//
+//            Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
+//            String data = JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue);
+//            intent.putExtra(USER_KEY, data);
+//            startActivity(intent);
+//        } else {
+        {
+            loginFormLoginBtn = (Button) findViewById(R.id.login_form_login_btn);
+            loginAccount = (EditText) findViewById(R.id.login_form_account);
+            loginPassword = (EditText) findViewById(R.id.login_form_password);
 
-                HttpUtil http = HttpUtil.getInstance(getApplicationContext());
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("u", loginAccount.getText().toString());
-                params.put("p", loginPassword.getText().toString());
-                http.getAsyn("Jasonlogin.aspx", params, new HttpUtil.OnReqCallBack() {
-                    @Override
-                    public void onReqSuccess(String result) {
-                        if (result.equals("1")) {
+            loginFormLoginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                        } else if (result.equals("2")) {
+                    HttpUtil http = HttpUtil.getInstance(getApplicationContext());
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("u", loginAccount.getText().toString());
+                    params.put("p", loginPassword.getText().toString());
+                    http.getAsyn("Jasonlogin.aspx", params, new HttpUtil.OnReqCallBack() {
+                        @Override
+                        public void onReqSuccess(String result) {
+                            if (result.equals("1")) {
 
-                        } else if (result.equals("3")) {
+                            } else if (result.equals("2")) {
 
-                        } else {
-                            UserBean userData = JSON.parseObject(result, UserBean.class);
-                            Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
-                            intent.putExtra(USER_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
-                            startActivity(intent);
+                            } else if (result.equals("3")) {
+
+                            } else {
+                                UserBean userData = JSON.parseObject(result, UserBean.class);
+
+                                // 账户验证成功后把信息保存在本地
+                                SharedPreferences accountPref = getSharedPreferences(
+                                        getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
+                                SharedPreferences.Editor editor = accountPref.edit();
+                                editor.putString(UserBean.ACCOUNT_KEY, userData.getAccount());
+                                editor.putString(UserBean.PASSWORD_KEY, userData.getPassword());
+                                editor.putString(UserBean.NAME_KEY, userData.getName());
+                                editor.putString(UserBean.ADDRESS_KEY, userData.getAddress());
+                                editor.putString(UserBean.CONTACT_KEY, userData.getContact());
+                                editor.putString(UserBean.PHONE_KEY, userData.getPhone());
+                                editor.putString(UserBean.MOBILE_ID_KEY, userData.getMobileId());
+                                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+
+                                Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
+                                intent.putExtra(USER_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
+                                startActivity(intent);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onReqFailed(String errorMsg) {
+                        @Override
+                        public void onReqFailed(String errorMsg) {
 
-                    }
-                });
-            }
-        });
+                        }
+                    });
+                }
+            });
+        }
     }
 }

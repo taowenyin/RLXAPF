@@ -130,46 +130,46 @@
 
     <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/white"
-        android:paddingLeft="@dimen/prefs_item_horizontal_padding"
-        android:layout_marginTop="@dimen/prefs_user_item_vertical_margin">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:paddingLeft="@dimen/prefs_item_horizontal_padding"-->
+        <!--android:layout_marginTop="@dimen/prefs_user_item_vertical_margin">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/prefs_item_vertical_padding"
-            android:paddingRight="@dimen/prefs_item_horizontal_padding"
-            android:paddingTop="@dimen/prefs_item_vertical_padding">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingBottom="@dimen/prefs_item_vertical_padding"-->
+            <!--android:paddingRight="@dimen/prefs_item_horizontal_padding"-->
+            <!--android:paddingTop="@dimen/prefs_item_vertical_padding">-->
 
-            <Button
-                android:id="@+id/user_preferences_parameter"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:background="@android:color/transparent"
-                android:text="@string/user_preferences_parameter"
-                android:textColor="@color/label_color"
-                android:textSize="@dimen/prefs_user_header_font_size"
-                android:minHeight="0dp"
-                style="?android:attr/borderlessButtonStyle"/>
+            <!--<Button-->
+                <!--android:id="@+id/user_preferences_parameter"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center_vertical"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:text="@string/user_preferences_parameter"-->
+                <!--android:textColor="@color/label_color"-->
+                <!--android:textSize="@dimen/prefs_user_header_font_size"-->
+                <!--android:minHeight="0dp"-->
+                <!--style="?android:attr/borderlessButtonStyle"/>-->
 
-            <ImageView
-                android:layout_width="@dimen/prefs_item_icon_size"
-                android:layout_height="@dimen/prefs_item_icon_size"
-                android:layout_marginLeft="@dimen/prefs_item_icon_left_margin"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_prefs_arr_right" />
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/prefs_item_icon_size"-->
+                <!--android:layout_height="@dimen/prefs_item_icon_size"-->
+                <!--android:layout_marginLeft="@dimen/prefs_item_icon_left_margin"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@mipmap/ic_prefs_arr_right" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"

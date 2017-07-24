@@ -18,7 +18,7 @@
         android:paddingTop="@dimen/popup_window_vertical_padding"
         android:paddingBottom="@dimen/popup_window_vertical_padding"
         android:background="@android:color/white"
-        android:text="@string/operate_popup_cancel"
+        android:text="@string/device_operate_popup_cancel"
         android:textSize="@dimen/popup_window_font_size"
         android:textColor="@color/popup_cancel_text_color"/>
 

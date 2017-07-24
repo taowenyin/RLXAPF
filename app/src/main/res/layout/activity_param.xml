@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@color/toolbar_bg_color"
     android:fitsSystemWindows="true"
+    android:id="@+id/main"
     tools:context="cn.edu.siso.rlxapf.ParamActivity">
 
     <android.support.v7.widget.Toolbar
@@ -42,20 +43,54 @@
                 android:textSize="@dimen/toolbar_font_size"
                 android:textColor="@android:color/white"/>
 
+            <ImageButton
+                android:id="@+id/toolbar_operate"
+                android:layout_width="@dimen/toolbar_icon_size"
+                android:layout_height="@dimen/toolbar_icon_size"
+                android:src="@drawable/ic_device_operate"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/app_bg">
 
         <FrameLayout
             android:id="@+id/param_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/device_param_ok_vertical_margin"
+            android:padding="@dimen/device_param_ok_border_padding"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/device_param_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/device_param_ok_vertical_padding"
+                android:paddingBottom="@dimen/device_param_ok_vertical_padding"
+                android:minHeight="0dp"
+                android:background="@drawable/button_bg_rectangle"
+                android:text="@string/device_param_ok"
+                android:textSize="@dimen/device_param_font_size"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

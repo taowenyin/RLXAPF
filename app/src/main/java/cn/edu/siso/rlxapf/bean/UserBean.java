@@ -7,12 +7,25 @@ package cn.edu.siso.rlxapf.bean;
 public class UserBean {
 
     private String account = null;
+    public static String ACCOUNT_KEY = "account";
+
     private String password = null;
+    public static String PASSWORD_KEY = "password";
+
     private String name = null;
+    public static String NAME_KEY = "name";
+
     private String address = null;
+    public static String ADDRESS_KEY = "address";
+
     private String contact = null;
+    public static String CONTACT_KEY = "contact";
+
     private String phone = null;
+    public static String PHONE_KEY = "phone";
+
     private String mobileId = null;
+    public static String MOBILE_ID_KEY = "mobileId";
 
     public String getAccount() {
         return account;

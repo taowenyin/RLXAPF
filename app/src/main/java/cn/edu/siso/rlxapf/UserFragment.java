@@ -40,13 +40,13 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         userPrefCancel = (Button) rootView.findViewById(R.id.user_pref_cancel);
 //        userPrefDevice = (Button) rootView.findViewById(R.id.user_preferences_device);
 //        userPrefOperation = (Button) rootView.findViewById(R.id.user_preferences_operation);
-        userPrefParameter = (Button) rootView.findViewById(R.id.user_preferences_parameter);
+//        userPrefParameter = (Button) rootView.findViewById(R.id.user_preferences_parameter);
         userPrefAbout = (Button) rootView.findViewById(R.id.user_preferences_about);
 
         userPrefCancel.setOnClickListener(this);
 //        userPrefDevice.setOnClickListener(this);
 //        userPrefOperation.setOnClickListener(this);
-        userPrefParameter.setOnClickListener(this);
+//        userPrefParameter.setOnClickListener(this);
         userPrefAbout.setOnClickListener(this);
 
         return rootView;

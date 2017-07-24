@@ -1,33 +1,26 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.ListPopupWindowCompat;
-import android.support.v4.widget.PopupWindowCompat;
-import android.support.v7.app.ActionBar;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ListPopupWindow;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.PopupWindow;
-import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
+
+import static cn.edu.siso.rlxapf.DeviceListActivity.DATA_KEY;
+import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
 
 public class MainActivity extends AppCompatActivity implements
         TabHost.OnTabChangeListener,
@@ -81,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements
         // 得到设备数据和选择的设备索引
         Bundle deviceBundle = getIntent().getExtras();
         deviceData = JSON.parseArray(
-                deviceBundle.getString(DeviceListActivity.DATA_KEY),
+                deviceBundle.getString(DATA_KEY),
                 DeviceBean.class);
-        currPosition = deviceBundle.getInt(DeviceListActivity.POSITION_KEY);
+        currPosition = deviceBundle.getInt(POSITION_KEY);
 
         FragmentTabHost mainTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
@@ -92,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements
 
         wLP = getWindow().getAttributes();
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        String[] operatePopupData = getResources().getStringArray(R.array.operate_popup_window);
+        String[] operatePopupData = getResources().getStringArray(R.array.device_operate_popup_window);
         for (int i = 0; i < operatePopupData.length; i++) {
             Map<String, String> item = new HashMap<String, String>();
             item.put(PopupBottomMenu.TITLE_KEY, operatePopupData[i]);
@@ -113,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements
                                 break;
                             case 2:
                                 Intent intent = new Intent(MainActivity.this, ParamActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString(DATA_KEY, JSON.toJSONString(
+                                        deviceData, SerializerFeature.WriteMapNullValue));
+                                bundle.putInt(POSITION_KEY, currPosition);
+                                intent.putExtras(bundle);
                                 startActivity(intent);
                                 break;
                         }
@@ -202,6 +203,13 @@ public class MainActivity extends AppCompatActivity implements
 
             switch (id) {
                 case R.id.user_pref_cancel:
+                    // 清空账户信息
+                    SharedPreferences accountPref = getSharedPreferences(
+                            getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
+                    SharedPreferences.Editor editor = accountPref.edit();
+                    editor.clear();
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+
                     intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -214,10 +222,10 @@ public class MainActivity extends AppCompatActivity implements
 //                case R.id.user_preferences_operation:
 //                    Log.i(TAG, "===user_preferences_operation===");
 //                    break;
-                case R.id.user_preferences_parameter:
-                    intent = new Intent(MainActivity.this, ParamActivity.class);
-                    startActivity(intent);
-                    break;
+//                case R.id.user_preferences_parameter:
+//                    intent = new Intent(MainActivity.this, ParamActivity.class);
+//                    startActivity(intent);
+//                    break;
                 case R.id.user_preferences_about:
                     intent = new Intent(MainActivity.this, AboutActivity.class);
                     startActivity(intent);
