@@ -25,6 +25,20 @@
         <item name="preferenceTheme">@style/PreferenceStyle</item>
     </style>
 
+    <style name="AppNoActionBarThemeLogo" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--标题栏透明设置-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+
+        <!--Preference样式-->
+        <item name="preferenceTheme">@style/PreferenceStyle</item>
+    </style>
+
     <style name="PreferenceStyle">
 
     </style>
