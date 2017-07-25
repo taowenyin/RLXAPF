@@ -1,12 +1,9 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,20 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import cn.edu.siso.rlxapf.bean.DataBean;
 import cn.edu.siso.rlxapf.bean.DataGroupBean;
-import lecho.lib.hellocharts.gesture.ContainerScrollType;
-import lecho.lib.hellocharts.gesture.ZoomType;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.view.LineChartView;
 
 public class RealCurveFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -42,6 +32,8 @@ public class RealCurveFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private RecyclerView curveDataRecyclerView = null;
+
+    private List<DataGroupBean> data = null;
 
     private Context context = null;
 
@@ -77,13 +69,21 @@ public class RealCurveFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_real_curve, container, false);
         curveDataRecyclerView = (RecyclerView) rootView.findViewById(R.id.curve_data_view);
 
-        List<Float> data11 = new ArrayList<Float>();
-        List<Float> data12 = new ArrayList<Float>();
-        List<Float> data13 = new ArrayList<Float>();
+        List<Map<String, Float>> data11 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data12 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data13 = new ArrayList<Map<String, Float>>();
         for (int j = 0; j < 10; j++) {
-            data11.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data12.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data13.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data11.add(value1);
+
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data12.add(value2);
+
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data13.add(value3);
         }
         List<DataBean> dataBeen1 = new ArrayList<DataBean>();
         DataBean dataBean11 = new DataBean("系统A相电压", data11);
@@ -94,13 +94,21 @@ public class RealCurveFragment extends Fragment {
         dataBeen1.add(dataBean13);
         DataGroupBean groupBean1 = new DataGroupBean("系统电压", dataBeen1);
 
-        List<Float> data21 = new ArrayList<Float>();
-        List<Float> data22 = new ArrayList<Float>();
-        List<Float> data23 = new ArrayList<Float>();
+        List<Map<String, Float>> data21 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data22 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data23 = new ArrayList<Map<String, Float>>();
         for (int j = 0; j < 10; j++) {
-            data21.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data22.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data23.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data21.add(value1);
+
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data22.add(value2);
+
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data23.add(value3);
         }
         List<DataBean> dataBeen2 = new ArrayList<DataBean>();
         DataBean dataBean21 = new DataBean("系统A相电流", data21);
@@ -111,13 +119,21 @@ public class RealCurveFragment extends Fragment {
         dataBeen2.add(dataBean23);
         DataGroupBean groupBean2 = new DataGroupBean("系统电流", dataBeen2);
 
-        List<Float> data31 = new ArrayList<Float>();
-        List<Float> data32 = new ArrayList<Float>();
-        List<Float> data33 = new ArrayList<Float>();
+        List<Map<String, Float>> data31 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data32 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data33 = new ArrayList<Map<String, Float>>();
         for (int j = 0; j < 10; j++) {
-            data31.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data32.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data33.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data31.add(value1);
+
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data32.add(value2);
+
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data33.add(value3);
         }
         List<DataBean> dataBeen3 = new ArrayList<DataBean>();
         DataBean dataBean31 = new DataBean("负载A相电流", data31);
@@ -128,13 +144,21 @@ public class RealCurveFragment extends Fragment {
         dataBeen3.add(dataBean33);
         DataGroupBean groupBean3 = new DataGroupBean("负载电流", dataBeen3);
 
-        List<Float> data41 = new ArrayList<Float>();
-        List<Float> data42 = new ArrayList<Float>();
-        List<Float> data43 = new ArrayList<Float>();
+        List<Map<String, Float>> data41 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data42 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data43 = new ArrayList<Map<String, Float>>();
         for (int j = 0; j < 10; j++) {
-            data41.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data42.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
-            data43.add(Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data41.add(value1);
+
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data42.add(value2);
+
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data43.add(value3);
         }
         List<DataBean> dataBeen4 = new ArrayList<DataBean>();
         DataBean dataBean41 = new DataBean("补偿A相电流", data41);
@@ -145,7 +169,7 @@ public class RealCurveFragment extends Fragment {
         dataBeen4.add(dataBean43);
         DataGroupBean groupBean4 = new DataGroupBean("补偿电流", dataBeen4);
 
-        List<DataGroupBean> data = new ArrayList<DataGroupBean>();
+        data = new ArrayList<DataGroupBean>();
         data.add(groupBean1);
         data.add(groupBean2);
         data.add(groupBean3);

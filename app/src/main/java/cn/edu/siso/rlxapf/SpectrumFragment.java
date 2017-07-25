@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.siso.rlxapf.bean.DataBean;
+import cn.edu.siso.rlxapf.bean.DataGroupBean;
+
 public class SpectrumFragment extends Fragment {
     private static final String ARG_DEVICE_PARAM = "device_param";
 
@@ -28,11 +31,7 @@ public class SpectrumFragment extends Fragment {
     private RecyclerView spectrumRecyclerView = null;
     private DataSectionRecyclerAdapter adapter = null;
 
-    private List<List<Map<String, String>>> spectrumData = null;
-
-    private static final int SPECTRUM_SECTIION_COUNT = 3;
-
-    private static final int SPECTRUM_DATA_COUNT = 25;
+    private List<DataGroupBean> spectrumData = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,34 +41,41 @@ public class SpectrumFragment extends Fragment {
         }
 
         // 初始化谐波数据
-        this.spectrumData = new ArrayList<List<Map<String,String>>>();
-        for (int i = 0; i < SPECTRUM_SECTIION_COUNT; i++) {
-            List<Map<String, String>> dataItem = new ArrayList<Map<String, String>>();
+        spectrumData = new ArrayList<DataGroupBean>();
 
-            for (int j = 0; j < SPECTRUM_DATA_COUNT; j++) {
-                Map<String, String> item = new HashMap<String, String>();
+        String[] spectrumSectionData = getResources().getStringArray(R.array.real_data_sections);
+        for (int i = 0; i < spectrumSectionData.length; i++) {
 
+            List<DataBean> data = new ArrayList<DataBean>();
+            for (int j = 0; j < 25; j++) {
+                List<Map<String, Integer>> item = new ArrayList<Map<String, Integer>>();
+
+                Map<String, Integer> value = new HashMap<String, Integer>();
+                value.put(DataBean.DATA_KEY, 0);
+                item.add(value);
+
+                DataBean itemData = null;
                 if (j == 0) {
-                    switch (i) {
+                    switch (j) {
                         case 0:
-                            item.put(DataSectionRecyclerAdapter.TITLE_KEY, "A相谐波电流");
+                            itemData = new DataBean("A相谐波电流", item);
                             break;
                         case 1:
-                            item.put(DataSectionRecyclerAdapter.TITLE_KEY, "B相谐波电流");
+                            itemData = new DataBean("B相谐波电流", item);
                             break;
                         case 2:
-                            item.put(DataSectionRecyclerAdapter.TITLE_KEY, "C相谐波电流");
+                            itemData = new DataBean("C相谐波电流", item);
                             break;
                     }
                 } else {
-                    item.put(DataSectionRecyclerAdapter.TITLE_KEY, j + 1 + "次");
+                    itemData = new DataBean(j + 1 + "次", item);
                 }
-                item.put(DataSectionRecyclerAdapter.DATA_KEY, "0");
 
-                dataItem.add(item);
+                data.add(itemData);
             }
 
-            spectrumData.add(dataItem);
+            DataGroupBean spectrumGroupData = new DataGroupBean(spectrumSectionData[0], data);
+            spectrumData.add(spectrumGroupData);
         }
     }
 

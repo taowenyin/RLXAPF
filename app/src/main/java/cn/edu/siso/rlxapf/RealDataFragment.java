@@ -15,14 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.siso.rlxapf.bean.DataBean;
+import cn.edu.siso.rlxapf.bean.DataGroupBean;
+
 
 public class RealDataFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -31,7 +31,7 @@ public class RealDataFragment extends Fragment {
     private RecyclerView realDataRecyclerView = null;
     private DataSectionRecyclerAdapter adapter = null;
 
-    private List<List<Map<String, String>>> realData = null;
+    private List<DataGroupBean> realData = null;
 
     public RealDataFragment() {
         // Required empty public constructor
@@ -54,41 +54,58 @@ public class RealDataFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        String[] realDataSections = getResources().getStringArray(R.array.real_data_sections);
+
         // 数据列表
-        this.realData = new ArrayList<List<Map<String,String>>>();
+        this.realData = new ArrayList<DataGroupBean>();
 
         // 添加电压、电流数据
-        List<Map<String, String>> voltageData = new ArrayList<Map<String, String>>();
         String[] voltageTitles = getResources().getStringArray(R.array.real_data_voltage_titles);
+        List<DataBean> voltageData = new ArrayList<DataBean>();
         for (int i = 0; i < voltageTitles.length; i++) {
-            Map<String, String> itemData = new HashMap<String, String>();
-            itemData.put(DataSectionRecyclerAdapter.TITLE_KEY, voltageTitles[i]);
-            itemData.put(DataSectionRecyclerAdapter.DATA_KEY, "0");
+            List<Map<String, Integer>> item = new ArrayList<Map<String, Integer>>();
+
+            Map<String, Integer> value = new HashMap<String, Integer>();
+            value.put(DataBean.DATA_KEY, 0);
+            item.add(value);
+
+            DataBean itemData = new DataBean(voltageTitles[i], item);
             voltageData.add(itemData);
         }
-        realData.add(voltageData);
+        DataGroupBean voltageGroupData = new DataGroupBean(realDataSections[0], voltageData);
+        realData.add(voltageGroupData);
 
         // 添加功率数据
-        List<Map<String, String>>  powerData = new ArrayList<Map<String, String>>();
         String[] powerTitles = getResources().getStringArray(R.array.real_data_power_titles);
+        List<DataBean> powerData = new ArrayList<DataBean>();
         for (int i = 0; i < powerTitles.length; i++) {
-            Map<String, String> itemData = new HashMap<String, String>();
-            itemData.put(DataSectionRecyclerAdapter.TITLE_KEY, powerTitles[i]);
-            itemData.put(DataSectionRecyclerAdapter.DATA_KEY, "0");
+            List<Map<String, Integer>> item = new ArrayList<Map<String, Integer>>();
+
+            Map<String, Integer> value = new HashMap<String, Integer>();
+            value.put(DataBean.DATA_KEY, 0);
+            item.add(value);
+
+            DataBean itemData = new DataBean(powerTitles[i], item);
             powerData.add(itemData);
         }
-        realData.add(powerData);
+        DataGroupBean powerGroupData = new DataGroupBean(realDataSections[1], powerData);
+        realData.add(powerGroupData);
 
         // 添加thd数据
-        List<Map<String, String>> thdData = new ArrayList<Map<String, String>>();
         String[] thdTitles = getResources().getStringArray(R.array.real_data_thd_titles);
+        List<DataBean> thdData = new ArrayList<DataBean>();
         for (int i = 0; i < thdTitles.length; i++) {
-            Map<String, String> itemData = new HashMap<String, String>();
-            itemData.put(DataSectionRecyclerAdapter.TITLE_KEY, thdTitles[i]);
-            itemData.put(DataSectionRecyclerAdapter.DATA_KEY, "0");
+            List<Map<String, Integer>> item = new ArrayList<Map<String, Integer>>();
+
+            Map<String, Integer> value = new HashMap<String, Integer>();
+            value.put(DataBean.DATA_KEY, 0);
+            item.add(value);
+
+            DataBean itemData = new DataBean(thdTitles[i], item);
             thdData.add(itemData);
         }
-        realData.add(thdData);
+        DataGroupBean thdGroupData = new DataGroupBean(realDataSections[2], thdData);
+        realData.add(thdGroupData);
     }
 
     @Override

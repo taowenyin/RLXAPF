@@ -107,7 +107,8 @@ public class DataCurveRecycleAdapter extends SectionedRecyclerViewAdapter<
         for (int i = 0; i < groupBean.getDataSize(); i++) {
             List<PointValue> pointItemData = new ArrayList<PointValue>();
             for (int j = 0; j < groupBean.getIndexData(i).getDataSize(); j++) {
-                pointItemData.add(new PointValue(j, groupBean.getIndexData(i).getIndexData(j)));
+                Float value = (Float) groupBean.getIndexData(i).getIndexData(j).get(DataBean.DATA_KEY);
+                pointItemData.add(new PointValue(j, value));
             }
             pointValueDatas.add(pointItemData);
         }
