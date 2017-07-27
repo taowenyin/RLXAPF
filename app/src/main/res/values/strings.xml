@@ -9,9 +9,12 @@
     <string name="title_activity_spectrum_data">谐波数据</string>
     <string name="title_activity_user">我的</string>
     <string name="title_activity_about">关于我们</string>
-    <string name="title_activity_param">通讯设置</string>
+    <string name="title_activity_param">参数设置</string>
 
     <string name="split_line_txt">分割线</string>
+
+    <!--用户账户信息-->
+    <string name="account_pref_name">account_pref</string>
 
     <!--登录表单-->
     <string name="login_form_account_label">账户</string>
@@ -185,9 +188,7 @@
         <item>@color/cure_c_color</item>
     </integer-array>
 
-    <string name="user_preferences_device">设备选择</string>
-    <string name="user_preferences_operation">设备操作</string>
-    <string name="user_preferences_parameter">通讯设置</string>
+    <!--我的界面文字-->
     <string name="user_preferences_about">关于我们</string>
     <!--用户退出当前账户的按钮文字-->
     <string name="user_preferences_cancel">退出当前账号</string>
@@ -201,7 +202,7 @@
     <string name="about_label_description">功能说明</string>
     <string name="about_description">电力质量管理系统</string>
 
-    <!--通讯设置-->
+    <!--参数设置-->
     <string name="param_preferences_name">param_preferences</string>
 
     <string name="param_preferences_compensate">采样与补偿</string>
@@ -288,12 +289,17 @@
         <item>4</item>
     </string-array>
 
-    <string-array name="operate_popup_window">
+    <string-array name="device_operate_popup_window">
         <item>设备停止</item>
         <item>设备重启</item>
-        <item>通讯设置</item>
+        <item>参数设置</item>
     </string-array>
-    <string name="operate_popup_cancel">取消</string>
+    <string name="device_operate_popup_cancel">取消</string>
+
+    <string-array name="param_operate_popup_window">
+        <item>参数下载</item>
+        <item>参数上传</item>
+    </string-array>
 
     <!--设备列表分割线-->
     <string name="device_list_split">|</string>
@@ -301,6 +307,9 @@
     <string name="device_no_label">设备编号:</string>
     <string name="device_delete_0">正常</string>
     <string name="device_delete_1">已删除</string>
+
+    <!--设备参数完成按钮的文字-->
+    <string name="device_param_ok">确认</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

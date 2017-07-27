@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -84,7 +83,7 @@ public class DeviceListActivity extends AppCompatActivity implements
 
         wLP = getWindow().getAttributes();
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        String[] operatePopupData = getResources().getStringArray(R.array.operate_popup_window);
+        String[] operatePopupData = getResources().getStringArray(R.array.device_operate_popup_window);
         for (int i = 0; i < operatePopupData.length; i++) {
             Map<String, String> item = new HashMap<String, String>();
             item.put(PopupBottomMenu.TITLE_KEY, operatePopupData[i]);
@@ -105,6 +104,11 @@ public class DeviceListActivity extends AppCompatActivity implements
                                 break;
                             case 2:
                                 Intent intent = new Intent(DeviceListActivity.this, ParamActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString(DATA_KEY, JSON.toJSONString(
+                                        deviceData, SerializerFeature.WriteMapNullValue));
+                                bundle.putInt(POSITION_KEY, position);
+                                intent.putExtras(bundle);
                                 startActivity(intent);
                                 break;
                         }
@@ -162,7 +166,7 @@ public class DeviceListActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(DeviceListActivity.this, MainActivity.class);
+        Intent intent = new Intent(DeviceListActivity.this, ParamActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(DATA_KEY, JSON.toJSONString(
                 deviceData, SerializerFeature.WriteMapNullValue));

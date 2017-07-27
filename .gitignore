@@ -53,3 +53,4 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+将删除 app/src/main/res/drawable-v21/

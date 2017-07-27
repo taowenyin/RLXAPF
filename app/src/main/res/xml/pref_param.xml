@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
         android:layout="@layout/prefs_category_layout"
         android:title="@string/param_preferences_compensate"
         android:key="param_pref_storage_compensate">
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_unit_key"
             android:title="@string/param_preferences_unit_title"
             android:defaultValue="@string/pref_unit_default"/>
 
-        <ListPreference
+        <android.support.v7.preference.ListPreference
             android:layout="@layout/prefs_item_layout_divider"
             android:key="@string/param_preferences_sampling_model_key"
             android:title="@string/param_preferences_sampling_model_title"
@@ -20,7 +23,7 @@
             android:entryValues="@array/sampling_model_values"
             android:defaultValue="@integer/pref_sampling_model_default"/>
 
-        <ListPreference
+        <android.support.v7.preference.ListPreference
             android:layout="@layout/prefs_item_layout_divider"
             android:key="@string/param_preferences_compensate_model_key"
             android:title="@string/param_preferences_compensate_model_title"
@@ -28,109 +31,125 @@
             android:entryValues="@array/compensate_model_values"
             android:defaultValue="@integer/pref_compensate_model_default"/>
 
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:layout="@layout/prefs_category_layout"
         android:title="@string/param_preferences_factor"
         android:key="param_pref_storage_factor">
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_system_ct_key"
             android:title="@string/param_preferences_system_ct_title"
             android:defaultValue="@string/pref_system_ct_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_load_ct_key"
             android:title="@string/param_preferences_load_ct_title"
             android:defaultValue="@string/pref_load_ct_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_target_power_key"
             android:title="@string/param_preferences_target_power_title"
             android:defaultValue="@string/pref_target_power_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_3_compensate_key"
             android:title="@string/param_preferences_3_compensate_title"
             android:defaultValue="@string/pref_3_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_5_compensate_key"
             android:title="@string/param_preferences_5_compensate_title"
             android:defaultValue="@string/pref_5_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_7_compensate_key"
             android:title="@string/param_preferences_7_compensate_title"
             android:defaultValue="@string/pref_7_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_9_compensate_key"
             android:title="@string/param_preferences_9_compensate_title"
             android:defaultValue="@string/pref_9_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_11_compensate_key"
             android:title="@string/param_preferences_11_compensate_title"
             android:defaultValue="@string/pref_11_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_13_compensate_key"
             android:title="@string/param_preferences_13_compensate_title"
             android:defaultValue="@string/pref_13_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_15_compensate_key"
             android:title="@string/param_preferences_15_compensate_title"
             android:defaultValue="@string/pref_15_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_17_compensate_key"
             android:title="@string/param_preferences_17_compensate_title"
             android:defaultValue="@string/pref_17_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_19_compensate_key"
             android:title="@string/param_preferences_19_compensate_title"
             android:defaultValue="@string/pref_19_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_21_compensate_key"
             android:title="@string/param_preferences_21_compensate_title"
             android:defaultValue="@string/pref_21_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_23_compensate_key"
             android:title="@string/param_preferences_23_compensate_title"
             android:defaultValue="@string/pref_23_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout_divider"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_25_compensate_key"
             android:title="@string/param_preferences_25_compensate_title"
             android:defaultValue="@string/pref_25_compensate_default"/>
 
-        <EditTextPreference
+        <android.support.v7.preference.EditTextPreference
             android:layout="@layout/prefs_item_layout"
+            android:dialogLayout="@layout/pref_dialog_edit_text_layout"
             android:key="@string/param_preferences_26_compensate_key"
             android:title="@string/param_preferences_26_compensate_title"
             android:defaultValue="@string/pref_26_compensate_default"/>
 
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

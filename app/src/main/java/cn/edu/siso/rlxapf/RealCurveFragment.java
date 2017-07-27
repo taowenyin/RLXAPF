@@ -1,30 +1,24 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-import lecho.lib.hellocharts.gesture.ContainerScrollType;
-import lecho.lib.hellocharts.gesture.ZoomType;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.view.LineChartView;
+import cn.edu.siso.rlxapf.bean.DataBean;
+import cn.edu.siso.rlxapf.bean.DataGroupBean;
 
 public class RealCurveFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -37,21 +31,9 @@ public class RealCurveFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private LineChartView voltageChart = null;
-    private LineChartView ampereChart = null;
-    private LineChartView loadChart = null;
-    private LineChartView compensateChart = null;
+    private RecyclerView curveDataRecyclerView = null;
 
-    private List<AxisValue> xAxisLabels = null;
-    private List<AxisValue> yAxisLabels = null;
-    private List<List<PointValue>> voltageDatas = null;
-    private List<List<PointValue>> ampereDatas = null;
-    private List<List<PointValue>> loadDatas = null;
-    private List<List<PointValue>> compensateDatas = null;
-    private List<Line> voltageLines = null;
-    private List<Line> ampereLines = null;
-    private List<Line> loadLines = null;
-    private List<Line> compensateLines = null;
+    private List<DataGroupBean> data = null;
 
     private Context context = null;
 
@@ -85,192 +67,118 @@ public class RealCurveFragment extends Fragment {
         Log.i(TAG, "===onCreateView===");
 
         View rootView = inflater.inflate(R.layout.fragment_real_curve, container, false);
+        curveDataRecyclerView = (RecyclerView) rootView.findViewById(R.id.curve_data_view);
 
-        // 系统电压图表
-        voltageChart = (LineChartView) rootView.findViewById(R.id.voltage_chart);
-        // 系统电流图表
-        ampereChart = (LineChartView) rootView.findViewById(R.id.ampere_chart);
-        // 负载电流图表
-        loadChart = (LineChartView) rootView.findViewById(R.id.load_chart);
-        // 补偿电流图表
-        compensateChart = (LineChartView) rootView.findViewById(R.id.compensate_chart);
+        List<Map<String, Float>> data11 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data12 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data13 = new ArrayList<Map<String, Float>>();
+        for (int j = 0; j < 10; j++) {
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data11.add(value1);
 
-        // 初始化数据和标题
-        xAxisLabels = new ArrayList<AxisValue>();
-        yAxisLabels = new ArrayList<AxisValue>();
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data12.add(value2);
 
-        voltageDatas = new ArrayList<List<PointValue>>();
-        voltageDatas.add(new ArrayList<PointValue>());
-        voltageDatas.add(new ArrayList<PointValue>());
-        voltageDatas.add(new ArrayList<PointValue>());
-
-        ampereDatas = new ArrayList<List<PointValue>>();
-        ampereDatas.add(new ArrayList<PointValue>());
-        ampereDatas.add(new ArrayList<PointValue>());
-        ampereDatas.add(new ArrayList<PointValue>());
-
-        loadDatas = new ArrayList<List<PointValue>>();
-        loadDatas.add(new ArrayList<PointValue>());
-        loadDatas.add(new ArrayList<PointValue>());
-        loadDatas.add(new ArrayList<PointValue>());
-
-        compensateDatas = new ArrayList<List<PointValue>>();
-        compensateDatas.add(new ArrayList<PointValue>());
-        compensateDatas.add(new ArrayList<PointValue>());
-        compensateDatas.add(new ArrayList<PointValue>());
-
-        String[] xLabels = getResources().getStringArray(R.array.curve_x_axis_labels);
-        String[] yLabels = getResources().getStringArray(R.array.curve_y_axis_labels);
-        for (int i = 0; i < xLabels.length; i++) {
-            xAxisLabels.add(new AxisValue(i).setLabel(xLabels[i]));
-            yAxisLabels.add(new AxisValue(i).setLabel(yLabels[i]));
-
-            voltageDatas.get(0).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            voltageDatas.get(1).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            voltageDatas.get(2).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-
-            ampereDatas.get(0).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            ampereDatas.get(1).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            ampereDatas.get(2).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-
-            loadDatas.get(0).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            loadDatas.get(1).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            loadDatas.get(2).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-
-            compensateDatas.get(0).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            compensateDatas.get(1).add(new PointValue(i, (new Random().nextInt(10) + 1)));
-            compensateDatas.get(2).add(new PointValue(i, (new Random().nextInt(10) + 1)));
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data13.add(value3);
         }
+        List<DataBean> dataBeen1 = new ArrayList<DataBean>();
+        DataBean dataBean11 = new DataBean("系统A相电压", data11);
+        DataBean dataBean12 = new DataBean("系统B相电压", data12);
+        DataBean dataBean13 = new DataBean("系统C相电压", data13);
+        dataBeen1.add(dataBean11);
+        dataBeen1.add(dataBean12);
+        dataBeen1.add(dataBean13);
+        DataGroupBean groupBean1 = new DataGroupBean("系统电压", dataBeen1);
 
-        // 初始化曲线样式
-        voltageLines = new ArrayList<Line>();
-        ampereLines = new ArrayList<Line>();
-        loadLines = new ArrayList<Line>();
-        compensateLines = new ArrayList<Line>();
-        // int[] cureLineColors = getResources().getIntArray(R.array.cure_line_colors);
-        String[] cureLineColors = new String[]{"#0C85BF", "#1DBA11", "#5406C2"};
-        for (int i = 0; i < cureLineColors.length; i++) {
-            Line voltageLine = new Line(voltageDatas.get(i));
-            Line ampereLine = new Line(ampereDatas.get(i));
-            Line loadLine = new Line(loadDatas.get(i));
-            Line compensateLine = new Line(compensateDatas.get(i));
+        List<Map<String, Float>> data21 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data22 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data23 = new ArrayList<Map<String, Float>>();
+        for (int j = 0; j < 10; j++) {
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data21.add(value1);
 
-            // voltageLine.setColor(ContextCompat.getColor(context, cureLineColors[i]));
-            voltageLine.setColor(Color.parseColor(cureLineColors[i]));
-            voltageLine.setShape(ValueShape.CIRCLE); // 折线图上每个数据点的形状  这里是圆形
-            voltageLine.setCubic(true); // 曲线是否平滑，即是曲线还是折线
-            voltageLine.setFilled(false); // 是否填充曲线的面积 ?
-            voltageLine.setHasLabels(true); // 曲线的数据坐标是否加上备注
-            // voltageLine.setHasLabelsOnlyForSelected(true);// 点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
-            voltageLine.setHasLines(true); // 是否用线显示。如果为false 则没有曲线只有点显示
-            voltageLine.setHasPoints(true); // 是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data22.add(value2);
 
-            // ampereLine.setColor(ContextCompat.getColor(context, cureLineColors[i]));
-            ampereLine.setColor(Color.parseColor(cureLineColors[i]));
-            ampereLine.setShape(ValueShape.CIRCLE); // 折线图上每个数据点的形状  这里是圆形
-            ampereLine.setCubic(true); // 曲线是否平滑，即是曲线还是折线
-            ampereLine.setFilled(false); // 是否填充曲线的面积 ?
-            ampereLine.setHasLabels(true); // 曲线的数据坐标是否加上备注
-            // ampereLine.setHasLabelsOnlyForSelected(true);// 点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
-            ampereLine.setHasLines(true); // 是否用线显示。如果为false 则没有曲线只有点显示
-            ampereLine.setHasPoints(true); // 是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
-
-            // loadLine.setColor(ContextCompat.getColor(context, cureLineColors[i]));
-            loadLine.setColor(Color.parseColor(cureLineColors[i]));
-            loadLine.setShape(ValueShape.CIRCLE); // 折线图上每个数据点的形状  这里是圆形
-            loadLine.setCubic(true); // 曲线是否平滑，即是曲线还是折线
-            loadLine.setFilled(false); // 是否填充曲线的面积 ?
-            loadLine.setHasLabels(true); // 曲线的数据坐标是否加上备注
-            // loadLine.setHasLabelsOnlyForSelected(true);// 点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
-            loadLine.setHasLines(true); // 是否用线显示。如果为false 则没有曲线只有点显示
-            loadLine.setHasPoints(true); // 是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
-
-            // compensateLine.setColor(ContextCompat.getColor(context, cureLineColors[i]));
-            compensateLine.setColor(Color.parseColor(cureLineColors[i]));
-            compensateLine.setShape(ValueShape.CIRCLE); // 折线图上每个数据点的形状  这里是圆形
-            compensateLine.setCubic(true); // 曲线是否平滑，即是曲线还是折线
-            compensateLine.setFilled(false); // 是否填充曲线的面积 ?
-            compensateLine.setHasLabels(true); // 曲线的数据坐标是否加上备注
-            // compensateLine.setHasLabelsOnlyForSelected(true);// 点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
-            compensateLine.setHasLines(true); // 是否用线显示。如果为false 则没有曲线只有点显示
-            compensateLine.setHasPoints(true); // 是否显示圆点 如果为false 则没有原点只有点显示（每个数据点都是个大的圆点）
-
-            voltageLines.add(voltageLine);
-            ampereLines.add(ampereLine);
-            loadLines.add(loadLine);
-            compensateLines.add(compensateLine);
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data23.add(value3);
         }
+        List<DataBean> dataBeen2 = new ArrayList<DataBean>();
+        DataBean dataBean21 = new DataBean("系统A相电流", data21);
+        DataBean dataBean22 = new DataBean("系统B相电流", data22);
+        DataBean dataBean23 = new DataBean("系统C相电流", data23);
+        dataBeen2.add(dataBean21);
+        dataBeen2.add(dataBean22);
+        dataBeen2.add(dataBean23);
+        DataGroupBean groupBean2 = new DataGroupBean("系统电流", dataBeen2);
 
-        // 初始化X轴样式
-        Axis axisX = new Axis(); //X轴
-        axisX.setHasTiltedLabels(false); //X坐标轴字体是斜的显示还是直的，true是斜的显示
-//        axisX.setTextColor(ContextCompat.getColor(context, R.color.label_color));  //设置字体颜色
-        axisX.setTextColor(Color.parseColor("#6C6C6C"));  //设置字体颜色
-//        axisX.setName("时间");  //表格名称 ?
-        axisX.setTextSize(10); // 设置字体大小
-        axisX.setMaxLabelChars(10); // 最多几个X轴坐标，意思就是你的缩放让X轴上数据的个数7<=x<=mAxisXValues.length ?
-        axisX.setValues(xAxisLabels); // 填充X轴的坐标名称
-        axisX.setHasLines(true); // x 轴分割线 ?
+        List<Map<String, Float>> data31 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data32 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data33 = new ArrayList<Map<String, Float>>();
+        for (int j = 0; j < 10; j++) {
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data31.add(value1);
 
-        // 初始化Y轴样式
-        Axis axisY = new Axis(); //Y轴
-        axisY.setHasTiltedLabels(false); //X坐标轴字体是斜的显示还是直的，true是斜的显示
-        axisY.setTextColor(Color.parseColor("#6C6C6C"));  //设置字体颜色
-//        axisY.setName("数值"); //y轴标注
-        axisY.setTextSize(10); //设置字体大小
-        axisY.setMaxLabelChars(10);//max label length, for example 60
-        // Y轴固定
-        axisY.setValues(yAxisLabels);
-        axisY.setHasLines(true);
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data32.add(value2);
 
-        LineChartData voltageCharData = new LineChartData();
-        voltageCharData.setLines(voltageLines);
-        voltageCharData.setAxisXBottom(axisX); // x轴在底部
-        voltageCharData.setAxisYLeft(axisY); //Y轴设置在左边
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data33.add(value3);
+        }
+        List<DataBean> dataBeen3 = new ArrayList<DataBean>();
+        DataBean dataBean31 = new DataBean("负载A相电流", data31);
+        DataBean dataBean32 = new DataBean("负载B相电流", data32);
+        DataBean dataBean33 = new DataBean("负载C相电流", data33);
+        dataBeen3.add(dataBean31);
+        dataBeen3.add(dataBean32);
+        dataBeen3.add(dataBean33);
+        DataGroupBean groupBean3 = new DataGroupBean("负载电流", dataBeen3);
 
-        LineChartData ampereCharData = new LineChartData();
-        ampereCharData.setLines(voltageLines);
-        ampereCharData.setAxisXBottom(axisX); // x轴在底部
-        ampereCharData.setAxisYLeft(axisY); //Y轴设置在左边
+        List<Map<String, Float>> data41 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data42 = new ArrayList<Map<String, Float>>();
+        List<Map<String, Float>> data43 = new ArrayList<Map<String, Float>>();
+        for (int j = 0; j < 10; j++) {
+            Map<String, Float> value1 = new HashMap<String, Float>();
+            value1.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data41.add(value1);
 
-        LineChartData loadCharData = new LineChartData();
-        loadCharData.setLines(loadLines);
-        loadCharData.setAxisXBottom(axisX); // x轴在底部
-        loadCharData.setAxisYLeft(axisY); //Y轴设置在左边
+            Map<String, Float> value2 = new HashMap<String, Float>();
+            value2.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data42.add(value2);
 
-        LineChartData compensateCharData = new LineChartData();
-        compensateCharData.setLines(compensateLines);
-        compensateCharData.setAxisXBottom(axisX); // x轴在底部
-        compensateCharData.setAxisYLeft(axisY); //Y轴设置在左边
+            Map<String, Float> value3 = new HashMap<String, Float>();
+            value3.put(DataBean.DATA_KEY, Float.valueOf(String.valueOf((new Random().nextInt(10) + 1))));
+            data43.add(value3);
+        }
+        List<DataBean> dataBeen4 = new ArrayList<DataBean>();
+        DataBean dataBean41 = new DataBean("补偿A相电流", data41);
+        DataBean dataBean42 = new DataBean("补偿B相电流", data42);
+        DataBean dataBean43 = new DataBean("补偿C相电流", data43);
+        dataBeen4.add(dataBean41);
+        dataBeen4.add(dataBean42);
+        dataBeen4.add(dataBean43);
+        DataGroupBean groupBean4 = new DataGroupBean("补偿电流", dataBeen4);
 
-        //设置行为属性，支持缩放、滑动以及平移
-        voltageChart.setInteractive(false);
-        voltageChart.setZoomType(ZoomType.HORIZONTAL);
-        voltageChart.setMaxZoom((float) 2);//最大方法比例
-        voltageChart.setContainerScrollEnabled(false, ContainerScrollType.HORIZONTAL);
-        voltageChart.setLineChartData(voltageCharData);
-        voltageChart.setVisibility(View.VISIBLE);
+        data = new ArrayList<DataGroupBean>();
+        data.add(groupBean1);
+        data.add(groupBean2);
+        data.add(groupBean3);
+        data.add(groupBean4);
 
-        ampereChart.setInteractive(false);
-        ampereChart.setZoomType(ZoomType.HORIZONTAL);
-        ampereChart.setMaxZoom((float) 2);//最大方法比例
-        ampereChart.setContainerScrollEnabled(false, ContainerScrollType.HORIZONTAL);
-        ampereChart.setLineChartData(ampereCharData);
-        ampereChart.setVisibility(View.VISIBLE);
-
-        loadChart.setInteractive(false);
-        loadChart.setZoomType(ZoomType.HORIZONTAL);
-        loadChart.setMaxZoom((float) 2);//最大方法比例
-        loadChart.setContainerScrollEnabled(false, ContainerScrollType.HORIZONTAL);
-        loadChart.setLineChartData(loadCharData);
-        loadChart.setVisibility(View.VISIBLE);
-
-        compensateChart.setInteractive(false);
-        compensateChart.setZoomType(ZoomType.HORIZONTAL);
-        compensateChart.setMaxZoom((float) 2);//最大方法比例
-        compensateChart.setContainerScrollEnabled(false, ContainerScrollType.HORIZONTAL);
-        compensateChart.setLineChartData(compensateCharData);
-        compensateChart.setVisibility(View.VISIBLE);
+        DataCurveRecycleAdapter adapter = new DataCurveRecycleAdapter(context, data);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        curveDataRecyclerView.setLayoutManager(layoutManager);
+        curveDataRecyclerView.setAdapter(adapter);
 
         return rootView;
     }

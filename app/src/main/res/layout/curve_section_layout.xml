@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/curve_group_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/real_curve_chart_title_vertical_margin"
+        android:layout_marginBottom="@dimen/real_curve_chart_title_vertical_margin"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/real_curve_chart_title_font_size"
+        android:gravity="center_horizontal"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/real_curve_chart_title_vertical_margin"
+        android:layerType="software"
+        android:background="@drawable/ic_curve_divide"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/real_curve_chart_legend_bottom_margin"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/real_curve_chart_legend_width"
+                android:layout_height="@dimen/real_curve_chart_legend_height"
+                android:layout_marginRight="@dimen/real_curve_chart_legend_margin"
+                android:background="@color/cure_a_color"/>
+
+            <TextView
+                android:id="@+id/curve_a_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/real_curve_chart_legend_font_size"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/real_curve_chart_legend_width"
+                android:layout_height="@dimen/real_curve_chart_legend_height"
+                android:layout_marginRight="@dimen/real_curve_chart_legend_margin"
+                android:background="@color/cure_b_color"/>
+
+            <TextView
+                android:id="@+id/curve_b_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/real_curve_chart_legend_font_size"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/real_curve_chart_legend_width"
+                android:layout_height="@dimen/real_curve_chart_legend_height"
+                android:layout_marginRight="@dimen/real_curve_chart_legend_margin"
+                android:background="@color/cure_c_color"/>
+
+            <TextView
+                android:id="@+id/curve_c_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/real_curve_chart_legend_font_size"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

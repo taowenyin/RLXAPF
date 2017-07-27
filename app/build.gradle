@@ -33,6 +33,7 @@ dependencies {
     compile 'com.truizlop.sectionedrecyclerview:library:1.2.0'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     compile 'com.android.support:preference-v7:25.3.1'
+    compile 'com.android.support:preference-v14:25.3.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.alibaba:fastjson:1.2.35'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'

@@ -20,8 +20,6 @@ import android.view.ViewGroup;
 public class ParamPrefFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static String TAG = "ParamPrefFragment";
-
     private SharedPreferences paramPrefs = null;
 
     public ParamPrefFragment() {
@@ -46,64 +44,92 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         this.paramPrefs = getPreferenceScreen().getSharedPreferences();
 
         // 把每个Preference的设置到Summary中
-        findPreference(getResources().getString(R.string.param_preferences_unit_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_unit_key), ""));
+        EditTextPreference editTextPreference = null;
+
+        // 单元数
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_unit_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_unit_key), ""));
+
         findPreference(getResources().getString(R.string.param_preferences_sampling_model_key))
                 .setSummary(((ListPreference) findPreference(
                         getResources().getString(R.string.param_preferences_sampling_model_key))).getEntry());
         findPreference(getResources().getString(R.string.param_preferences_compensate_model_key))
                 .setSummary(((ListPreference) findPreference(
                         getResources().getString(R.string.param_preferences_compensate_model_key))).getEntry());
-        findPreference(getResources().getString(R.string.param_preferences_system_ct_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_system_ct_key), ""));
 
-        findPreference(getResources().getString(R.string.param_preferences_load_ct_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_load_ct_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_target_power_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_target_power_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_3_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_3_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_5_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_5_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_7_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_7_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_9_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_9_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_11_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_11_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_13_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_13_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_15_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_15_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_17_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_17_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_19_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_19_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_21_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_21_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_23_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_23_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_25_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_25_compensate_key), ""));
-        findPreference(getResources().getString(R.string.param_preferences_26_compensate_key))
-                .setSummary(this.paramPrefs.getString(
-                        getResources().getString(R.string.param_preferences_26_compensate_key), ""));
+        // 系统CT
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_system_ct_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_system_ct_key), ""));
+
+        // 负载CT
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_load_ct_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_load_ct_key), ""));
+
+        // 目标功率因素
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_target_power_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_target_power_key), ""));
+
+        // N次谐波
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_3_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_3_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_5_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_5_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_7_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_7_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_9_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_9_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_11_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_11_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_13_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_13_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_15_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_15_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_17_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_17_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_19_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_19_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_21_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_21_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_23_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_23_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_25_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_25_compensate_key), ""));
+        editTextPreference = (EditTextPreference) findPreference(
+                getResources().getString(R.string.param_preferences_26_compensate_key));
+        editTextPreference.setSummary(this.paramPrefs.getString(
+                getResources().getString(R.string.param_preferences_26_compensate_key), ""));
     }
 
     @Override

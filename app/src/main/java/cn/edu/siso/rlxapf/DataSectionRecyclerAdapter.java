@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.siso.rlxapf.bean.DataBean;
+import cn.edu.siso.rlxapf.bean.DataGroupBean;
 import cn.edu.siso.rlxapf.data.viewholder.DataFooterViewHolder;
 import cn.edu.siso.rlxapf.data.viewholder.DataItemViewHolder;
 import cn.edu.siso.rlxapf.data.viewholder.DataSectionViewHolder;
@@ -20,39 +22,30 @@ public class DataSectionRecyclerAdapter extends SectionedRecyclerViewAdapter<
         DataItemViewHolder,
         DataFooterViewHolder> {
 
-    public static String TITLE_KEY = "title";
-    public static String DATA_KEY = "data";
-
-    private List<List<Map<String, String>>> dataData = null;
-    private List<String> sectionData = null;
+    private List<DataGroupBean> dataData = null;
 
     private Context context = null;
 
-    public DataSectionRecyclerAdapter(Context context, List<List<Map<String, String>>> dataData) {
+    public DataSectionRecyclerAdapter(Context context, List<DataGroupBean> dataData) {
         super();
 
         this.context = context;
-
-        // 初始化实时数据分组标题
-        this.sectionData = Arrays.asList(
-                this.context.getResources().getStringArray(R.array.real_data_sections));
-        // 初始化实时数据
         this.dataData = dataData;
     }
 
     @Override
     protected int getSectionCount() {
-        return sectionData.size();
+        return dataData.size();
     }
 
     @Override
     protected int getItemCountForSection(int section) {
-        return dataData.get(section).size();
+        return dataData.get(section).getDataSize();
     }
 
     @Override
     protected boolean hasFooterInSection(int section) {
-        if (section == sectionData.size() - 1) {
+        if (section == dataData.size() - 1) {
             return true;
         }
         return false;
@@ -78,7 +71,7 @@ public class DataSectionRecyclerAdapter extends SectionedRecyclerViewAdapter<
 
     @Override
     protected void onBindSectionHeaderViewHolder(DataSectionViewHolder holder, int section) {
-        holder.setSection(sectionData.get(section));
+        holder.setSection(dataData.get(section).getGroupSection());
     }
 
     @Override
@@ -88,7 +81,12 @@ public class DataSectionRecyclerAdapter extends SectionedRecyclerViewAdapter<
 
     @Override
     protected void onBindItemViewHolder(DataItemViewHolder holder, int section, int position) {
-        holder.setTitle(dataData.get(section).get(position).get(TITLE_KEY));
-        holder.setValue(dataData.get(section).get(position).get(DATA_KEY));
+        DataGroupBean groupBean = dataData.get(section);
+        DataBean dataBean = groupBean.getIndexData(position);
+        String title = dataBean.getSection();
+        String value = String.valueOf(dataBean.getIndexData(0).get(DataBean.DATA_KEY));
+
+        holder.setTitle(title);
+        holder.setValue(value);
     }
 }

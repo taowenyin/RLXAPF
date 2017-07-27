@@ -9,6 +9,9 @@
     <!--标题栏内边距大小-->
     <dimen name="toolbar_horizontal_padding">10dp</dimen>
 
+    <!--配置页面的文本输入框的内边距-->
+    <dimen name="pref_editer_text_dialog_padding">20dp</dimen>
+
     <!--按钮的圆角大小-->
     <dimen name="btn_radius_size">5dp</dimen>
 
@@ -139,5 +142,14 @@
     <dimen name="device_list_item_label_margin">5dp</dimen>
     <!--设备列表按钮大小-->
     <dimen name="device_list_item_img_btn_size">24dp</dimen>
+
+    <!--设备参数完成按钮的垂直外边距-->
+    <dimen name="device_param_ok_vertical_margin">10dp</dimen>
+    <!--设备参数完成按钮边框的内边距-->
+    <dimen name="device_param_ok_border_padding">8dp</dimen>
+    <!--设备参数完成按钮的垂直内边距-->
+    <dimen name="device_param_ok_vertical_padding">8dp</dimen>
+    <!--设备参数字体-->
+    <dimen name="device_param_font_size">14sp</dimen>
 
 </resources>
