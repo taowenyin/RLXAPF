@@ -36,5 +36,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.alibaba:fastjson:1.2.35'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile files('libs/usr_cloud_com.jar')
+    compile files('libs/usrcloud.jar')
     testCompile 'junit:junit:4.12'
 }
