@@ -64,7 +64,12 @@ public class TCPUtil {
             @Override
             public void onReceviceData(String deviceId, byte[] data) {
                 if(onReceiveListener != null){
-                    onReceiveListener.onReceive(deviceId,data);
+                    if(data[0]==0x77&&data[1]==0x77&&data[2]==0x77){
+                        Log.i(TAG,"有人云数据，TCPUtil已过滤");
+                    }else{
+                        onReceiveListener.onReceive(deviceId,data);
+                    }
+
                 }
             }
 
