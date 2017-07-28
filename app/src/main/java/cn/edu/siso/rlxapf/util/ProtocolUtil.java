@@ -128,7 +128,7 @@ public class ProtocolUtil {
      * @return
      */
     public static byte[] readParamsDatas(byte deviceAddr){
-        byte[] bytes = {deviceAddr,0x03,0x00,0x00,0x00,0x1A,0x00,0x00};
+        byte[] bytes = {deviceAddr,0x03,0x00,0x00,0x00,0x14,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
