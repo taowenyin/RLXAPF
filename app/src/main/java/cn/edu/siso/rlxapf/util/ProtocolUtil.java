@@ -137,10 +137,167 @@ public class ProtocolUtil {
      * @param deviceAddr 设备地址
      * @return
      */
-    public static byte[] writeParamsDatas(byte deviceAddr,byte[] wdata){
-        byte[] bytes = {deviceAddr,0x06,0x00,0x00,wdata[0],wdata[1],0x00,0x00};
+    public static byte[] writeParamsDatas(byte deviceAddr,byte regAddrH,byte regAddrL,byte wdataH,byte wdataL){
+        byte[] bytes = {deviceAddr,0x06,regAddrH,regAddrL,wdataH,wdataL,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
+    }
+    public static byte[] writeParamsUnitCount(byte deviceAddr, int unitCount){
+        byte dataH = (byte)((unitCount >> 8)&0xFF);
+        byte dataL = (byte)(unitCount&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x00;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+    public static byte[] writeParamsSampleMode(byte deviceAddr, int sampleMode){
+        byte dataH = (byte)((sampleMode >> 8)&0xFF);
+        byte dataL = (byte)(sampleMode&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x01;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+    public static byte[] writeParamsCompensationMode(byte deviceAddr, int compensationMode){
+        byte dataH = (byte)((compensationMode >> 8)&0xFF);
+        byte dataL = (byte)(compensationMode&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x02;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsSystemCTChangeRate(byte deviceAddr, int systemCTChangeRate){
+        byte dataH = (byte)((systemCTChangeRate >> 8)&0xFF);
+        byte dataL = (byte)(systemCTChangeRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x03;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+    public static byte[] writeParamsLoadCTChangeRate(byte deviceAddr, int loadCTChangeRate){
+        byte dataH = (byte)((loadCTChangeRate >> 8)&0xFF);
+        byte dataL = (byte)(loadCTChangeRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x04;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsObjectPowerFactor(byte deviceAddr, double objectPowerFactor){
+        int opfInt = (int)(objectPowerFactor * 100);
+        byte dataH = (byte)((opfInt >> 8)&0xFF);
+        byte dataL = (byte)(opfInt & 0xFF);
+        byte regH = 0x00;
+        byte regL = 0x05;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic3CompensationRate(byte deviceAddr, int harmonic3CompensationRate){
+        byte dataH = (byte)((harmonic3CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic3CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x06;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic5CompensationRate(byte deviceAddr, int harmonic5CompensationRate){
+        byte dataH = (byte)((harmonic5CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic5CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x07;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic7CompensationRate(byte deviceAddr, int harmonic7CompensationRate){
+        byte dataH = (byte)((harmonic7CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic7CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x08;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic9CompensationRate(byte deviceAddr, int harmonic9CompensationRate){
+        byte dataH = (byte)((harmonic9CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic9CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x09;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic11CompensationRate(byte deviceAddr, int harmonic11CompensationRate){
+        byte dataH = (byte)((harmonic11CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic11CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x0A;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic13CompensationRate(byte deviceAddr, int harmonic13CompensationRate){
+        byte dataH = (byte)((harmonic13CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic13CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x0B;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic15CompensationRate(byte deviceAddr, int harmonic15CompensationRate){
+        byte dataH = (byte)((harmonic15CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic15CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x0C;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic17CompensationRate(byte deviceAddr, int harmonic17CompensationRate){
+        byte dataH = (byte)((harmonic17CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic17CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x0D;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic19CompensationRate(byte deviceAddr, int harmonic19CompensationRate){
+        byte dataH = (byte)((harmonic19CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic19CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x0E;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic21CompensationRate(byte deviceAddr, int harmonic21CompensationRate){
+        byte dataH = (byte)((harmonic21CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic21CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x0F;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic23CompensationRate(byte deviceAddr, int harmonic23CompensationRate){
+        byte dataH = (byte)((harmonic23CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic23CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x10;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonic25CompensationRate(byte deviceAddr, int harmonic25CompensationRate){
+        byte dataH = (byte)((harmonic25CompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonic25CompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x11;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsHarmonicEvenCompensationRate(byte deviceAddr, int harmonicEvenCompensationRate){
+        byte dataH = (byte)((harmonicEvenCompensationRate >> 8)&0xFF);
+        byte dataL = (byte)(harmonicEvenCompensationRate&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x12;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
+    }
+
+    public static byte[] writeParamsUintRatedCapacity(byte deviceAddr, int uintRatedCapacity){
+        byte dataH = (byte)((uintRatedCapacity >> 8)&0xFF);
+        byte dataL = (byte)(uintRatedCapacity&0xFF);
+        byte regH = 0x00;
+        byte regL = 0x12;
+        return ProtocolUtil.writeParamsDatas(deviceAddr,regH,regL,dataH,dataL);
     }
     /**
      * 获取告警巡检数据协议
