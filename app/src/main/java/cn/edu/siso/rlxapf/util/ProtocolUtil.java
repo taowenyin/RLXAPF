@@ -118,7 +118,7 @@ public class ProtocolUtil {
         return crcBytes;
     }
     public static byte[] readHarmonicSpectrum(byte deviceAddr){
-        byte[] bytes = {deviceAddr,0x04,0x00,0x00,0x00,0x1A,0x00,0x00};
+        byte[] bytes = {deviceAddr,0x04,0x00,0x2E,0x00,0x4B,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
