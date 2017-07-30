@@ -6,6 +6,7 @@
     <dimen name="toolbar_font_size">16sp</dimen>
     <!--标题栏图标大小-->
     <dimen name="toolbar_icon_size">32dp</dimen>
+    <dimen name="toolbar_small_icon_size">24dp</dimen>
     <!--标题栏内边距大小-->
     <dimen name="toolbar_horizontal_padding">10dp</dimen>
 
@@ -71,11 +72,11 @@
     <dimen name="specturm_font_size">14sp</dimen>
 
     <!--实时数据图表高度-->
-    <dimen name="real_curve_chart_height">200dp</dimen>
+    <dimen name="real_curve_chart_height">350dp</dimen>
     <!--实时数据图表底部外边距-->
     <dimen name="real_curve_chart_bottom_margin">20dp</dimen>
     <!--实时数据图表底部左外边距-->
-    <dimen name="real_curve_chart_left_margin">-40dp</dimen>
+    <dimen name="real_curve_chart_left_margin">-65dp</dimen>
     <!--实时数据图表底部右内边距-->
     <dimen name="real_curve_chart_right_padding">10dp</dimen>
     <!--实时数据图表底部垂直内边距-->
@@ -151,5 +152,8 @@
     <dimen name="device_param_ok_vertical_padding">8dp</dimen>
     <!--设备参数字体-->
     <dimen name="device_param_font_size">14sp</dimen>
+
+    <!--图标的大小-->
+    <dimen name="connect_gif_size">48dp</dimen>
 
 </resources>

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RLXAPF</string>
 
+    <string name="base_url">http://xj.siso.edu.cn</string>
+
     <string name="title_activity_first">FirstActivity</string>
     <string name="title_activity_login">登录</string>
     <string name="title_activity_device">设备选择</string>
@@ -12,6 +14,8 @@
     <string name="title_activity_param">参数设置</string>
 
     <string name="split_line_txt">分割线</string>
+
+    <string name="connect_fragment_dialog_tag">connect_dialog</string>
 
     <!--用户账户信息-->
     <string name="account_pref_name">account_pref</string>
@@ -156,30 +160,36 @@
 
     <!--实时图表X轴标签-->
     <string-array name="curve_x_axis_labels">
-        <item>1ms</item>
-        <item>2ms</item>
-        <item>3ms</item>
-        <item>4ms</item>
-        <item>5ms</item>
-        <item>6ms</item>
-        <item>7ms</item>
-        <item>8ms</item>
-        <item>9ms</item>
-        <item>10ms</item>
+        <item>1次</item>
+        <item>2次</item>
+        <item>3次</item>
+        <item>4次</item>
+        <item>5次</item>
+        <item>6次</item>
+        <item>7次</item>
+        <item>8次</item>
+        <item>9次</item>
+        <item>10次</item>
     </string-array>
 
     <!--实时图表Y轴标签-->
     <string-array name="curve_y_axis_labels">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
+        <item>-30</item>
+        <item>-20</item>
+        <item>-10</item>
+        <item>0</item>
         <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+        <item>120</item>
     </string-array>
 
     <integer-array name="cure_line_colors">
@@ -310,6 +320,12 @@
 
     <!--设备参数完成按钮的文字-->
     <string name="device_param_ok">确认</string>
+
+    <string-array name="real_curve_line_color">
+        <item>#0C85BF</item>
+        <item>#1DBA11</item>
+        <item>#5406C2</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

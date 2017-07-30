@@ -48,23 +48,26 @@ public class DeviceListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
-        userBean = JSON.parseObject(
-                getIntent().getStringExtra(LoginActivity.USER_KEY),
-                UserBean.class);
+//        userBean = JSON.parseObject(
+//                getIntent().getStringExtra(LoginActivity.USER_KEY),
+//                UserBean.class);
 
         toolbarBack = (ImageButton) findViewById(R.id.toolbar_back);
         deviceListView  = (RecyclerView) findViewById(R.id.device_list_view);
         deviceData = new ArrayList<DeviceBean>();
-//        DeviceBean bean = new DeviceBean();
-//        bean.setId("57e7f306-5fb4-4ee0-b772-10deebfb6269");
-//        bean.setProvince("330000");
-//        bean.setCity("330200");
-//        bean.setCounty("330204");
-//        bean.setDeviceType("LXSVG");
-//        bean.setGPSDeviceNo("GPRS设备编号3");
-//        bean.setDeviceNo("设备编号3");
-//        bean.setDeleted("0");
-//        deviceData.add(bean);
+
+        /*测试数据********************/
+        DeviceBean bean = new DeviceBean();
+        bean.setId("57e7f306-5fb4-4ee0-b772-10deebfb6269");
+        bean.setProvince("330000");
+        bean.setCity("330200");
+        bean.setCounty("330204");
+        bean.setDeviceType("LXSVG");
+        bean.setGPSDeviceNo("GPRS设备编号3");
+        bean.setDeviceNo("设备编号3");
+        bean.setDeleted("0");
+        deviceData.add(bean);
+        /*****************************/
 
         toolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,36 +135,36 @@ public class DeviceListActivity extends AppCompatActivity implements
                 });
 
         // 获取设备列表
-        HttpUtil http = HttpUtil.getInstance(getApplicationContext());
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("mobileid", userBean.getMobileId());
-        params.put("account", userBean.getAccount());
-        http.getAsyn("JasonQueryDevice.aspx", params, new HttpUtil.OnReqCallBack() {
-            @Override
-            public void onReqSuccess(String result) {
-                if (result.equals("1")) {
-
-                } else if (result.equals("2")) {
-
-                } else if (result.equals("3")) {
-
-                } else if (result.equals("4")) {
-
-                } else {
-                    List<DeviceBean> devices = JSON.parseArray(result, DeviceBean.class);
-                    deviceData.clear();
-                    for (int i = 0; i < devices.size(); i++) {
-                        deviceData.add(devices.get(i));
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onReqFailed(String errorMsg) {
-
-            }
-        });
+//        HttpUtil http = HttpUtil.getInstance(getApplicationContext());
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put("mobileid", userBean.getMobileId());
+//        params.put("account", userBean.getAccount());
+//        http.getAsyn("JasonQueryDevice.aspx", params, new HttpUtil.OnReqCallBack() {
+//            @Override
+//            public void onReqSuccess(String result) {
+//                if (result.equals("1")) {
+//
+//                } else if (result.equals("2")) {
+//
+//                } else if (result.equals("3")) {
+//
+//                } else if (result.equals("4")) {
+//
+//                } else {
+//                    List<DeviceBean> devices = JSON.parseArray(result, DeviceBean.class);
+//                    deviceData.clear();
+//                    for (int i = 0; i < devices.size(); i++) {
+//                        deviceData.add(devices.get(i));
+//                    }
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onReqFailed(String errorMsg) {
+//
+//            }
+//        });
     }
 
     @Override

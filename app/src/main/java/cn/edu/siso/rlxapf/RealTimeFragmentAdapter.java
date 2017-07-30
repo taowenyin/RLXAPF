@@ -4,8 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 public class RealTimeFragmentAdapter extends FragmentPagerAdapter {
+
+    private IRealTimeData currentRealTime = null;
 
     private Fragment[] fragments = null;
     private int[] titles = null;
@@ -33,5 +36,18 @@ public class RealTimeFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return context.getResources().getString(titles[position]);
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        super.setPrimaryItem(container, position, object);
+
+        if (object instanceof IRealTimeData) {
+            currentRealTime = (IRealTimeData) object;
+        }
+    }
+
+    public IRealTimeData getCurrentRealTime() {
+        return currentRealTime;
     }
 }

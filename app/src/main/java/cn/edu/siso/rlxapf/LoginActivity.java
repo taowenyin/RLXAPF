@@ -3,6 +3,7 @@ package cn.edu.siso.rlxapf;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +16,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.UserBean;
 import cn.edu.siso.rlxapf.util.HttpUtil;
+import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginFormLoginBtn = null;
     private EditText loginAccount = null;
     private EditText loginPassword = null;
+
+    private Handler httpHandler = null;
 
     public static final String USER_KEY = "user_data";
 
@@ -39,6 +42,19 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences accountPref = getSharedPreferences(
                 getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
+
+        httpHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String resultType = data.getString(OkHttpClientManager.HTTP_RESPONSE_TYPE);
+                String resultData = data.getString(OkHttpClientManager.HTTP_RESPONSE_DATA);
+
+                Log.i(TAG, "resultType = " + resultType);
+                Log.i(TAG, "resultData = " + resultData);
+            }
+        };
 
         // 如果用户ID已经保存，则直接跳转
 //        if (accountPref.contains(UserBean.ACCOUNT_KEY)
@@ -71,46 +87,56 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    HttpUtil http = HttpUtil.getInstance(getApplicationContext());
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("u", loginAccount.getText().toString());
-                    params.put("p", loginPassword.getText().toString());
-                    http.getAsyn("Jasonlogin.aspx", params, new HttpUtil.OnReqCallBack() {
-                        @Override
-                        public void onReqSuccess(String result) {
-                            if (result.equals("1")) {
+                    Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
+                    startActivity(intent);
 
-                            } else if (result.equals("2")) {
+//                    RLXApplication application = (RLXApplication) getApplication();
+//                    OkHttpClientManager httpManager = application.getHttpManager();
+//                    Map<String, String> params = new HashMap<String, String>();
+//                    params.put("u", loginAccount.getText().toString());
+//                    params.put("p", loginPassword.getText().toString());
+//                    httpManager.httpStrGetAsyn("Jasonlogin.aspx", params, httpHandler);
 
-                            } else if (result.equals("3")) {
-
-                            } else {
-                                UserBean userData = JSON.parseObject(result, UserBean.class);
-
-                                // 账户验证成功后把信息保存在本地
-                                SharedPreferences accountPref = getSharedPreferences(
-                                        getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
-                                SharedPreferences.Editor editor = accountPref.edit();
-                                editor.putString(UserBean.ACCOUNT_KEY, userData.getAccount());
-                                editor.putString(UserBean.PASSWORD_KEY, userData.getPassword());
-                                editor.putString(UserBean.NAME_KEY, userData.getName());
-                                editor.putString(UserBean.ADDRESS_KEY, userData.getAddress());
-                                editor.putString(UserBean.CONTACT_KEY, userData.getContact());
-                                editor.putString(UserBean.PHONE_KEY, userData.getPhone());
-                                editor.putString(UserBean.MOBILE_ID_KEY, userData.getMobileId());
-                                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-
-                                Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
-                                intent.putExtra(USER_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
-                                startActivity(intent);
-                            }
-                        }
-
-                        @Override
-                        public void onReqFailed(String errorMsg) {
-
-                        }
-                    });
+//                    HttpUtil http = HttpUtil.getInstance(getApplicationContext());
+//                    Map<String, String> params = new HashMap<String, String>();
+//                    params.put("u", loginAccount.getText().toString());
+//                    params.put("p", loginPassword.getText().toString());
+//                    http.getAsyn("Jasonlogin.aspx", params, new HttpUtil.OnReqCallBack() {
+//                        @Override
+//                        public void onReqSuccess(String result) {
+//                            if (result.equals("1")) {
+//
+//                            } else if (result.equals("2")) {
+//
+//                            } else if (result.equals("3")) {
+//
+//                            } else {
+//                                UserBean userData = JSON.parseObject(result, UserBean.class);
+//
+//                                // 账户验证成功后把信息保存在本地
+//                                SharedPreferences accountPref = getSharedPreferences(
+//                                        getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
+//                                SharedPreferences.Editor editor = accountPref.edit();
+//                                editor.putString(UserBean.ACCOUNT_KEY, userData.getAccount());
+//                                editor.putString(UserBean.PASSWORD_KEY, userData.getPassword());
+//                                editor.putString(UserBean.NAME_KEY, userData.getName());
+//                                editor.putString(UserBean.ADDRESS_KEY, userData.getAddress());
+//                                editor.putString(UserBean.CONTACT_KEY, userData.getContact());
+//                                editor.putString(UserBean.PHONE_KEY, userData.getPhone());
+//                                editor.putString(UserBean.MOBILE_ID_KEY, userData.getMobileId());
+//                                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+//
+//                                Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
+//                                intent.putExtra(USER_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
+//                                startActivity(intent);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onReqFailed(String errorMsg) {
+//
+//                        }
+//                    });
                 }
             });
         }
