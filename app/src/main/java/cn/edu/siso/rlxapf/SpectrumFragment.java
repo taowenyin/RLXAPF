@@ -1,15 +1,11 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,26 +29,23 @@ import cn.edu.siso.rlxapf.config.TCPConfig;
 import cn.edu.siso.rlxapf.util.ProtocolUtil;
 import cn.edu.siso.rlxapf.util.TCPUtil;
 
-public class SpectrumFragment extends Fragment implements TCPUtil.OnConnectListener, TCPUtil.OnReceiveListener {
-
-    private TCPUtil tcpUtil = null; // 和有人云通信的对象
-
-    private String deviceParams;
+public class SpectrumFragment extends Fragment implements
+        TCPUtil.OnReceiveListener, TCPUtil.OnConnectListener {
 
     private RecyclerView spectrumRecyclerView = null;
     private DataSectionRecyclerAdapter adapter = null;
 
     private List<DataGroupBean> spectrumData = null;
 
+    private TCPUtil tcpUtil = null; // 和有人云通信的对象
+
     public static final String TAG = "SpectrumFragment";
-    public static final String ARG_DEVICE_PARAM = "device_param";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            deviceParams = getArguments().getString(ARG_DEVICE_PARAM);
-        }
+
+        tcpUtil = new TCPUtil();
 
         // 初始化谐波数据
         spectrumData = new ArrayList<DataGroupBean>();
@@ -121,8 +114,6 @@ public class SpectrumFragment extends Fragment implements TCPUtil.OnConnectListe
 
         Log.i(TAG, "===onResume===");
 
-        // 建立和有人云的通信
-        tcpUtil = new TCPUtil();
         tcpUtil.connect(TCPConfig.DEFAULT_DEVICE_ID, TCPConfig.DEFAULT_DEVICE_PWD, this);
     }
 
@@ -130,42 +121,7 @@ public class SpectrumFragment extends Fragment implements TCPUtil.OnConnectListe
     public void onPause() {
         super.onPause();
 
-        Log.i(TAG, "===onPause===");
-
-        // 关闭TCP连接
         tcpUtil.close(TCPConfig.DEFAULT_DEVICE_ID);
-    }
-
-    @Override
-    public void onSuccess(String deviceId) {
-        Log.i(TAG, "onSuccess Device Id = " + deviceId);
-
-        // 发送指令后休息1000ms
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // 执行读取实时数据的指令
-        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                byte deviceAddr = 0x01;
-                tcpUtil.send(ProtocolUtil.readHarmonicSpectrum(deviceAddr), SpectrumFragment.this);
-                return null;
-            }
-        });
-    }
-
-    @Override
-    public void onError(int errorCode, String errorMsg) {
-        Log.i(TAG, "onError Error Code = " + errorCode + " Error Msg = " + errorMsg);
-    }
-
-    @Override
-    public void onClose(String deviceId) {
-        Log.i(TAG, "onClose Device Id = " + deviceId);
     }
 
     @Override
@@ -204,7 +160,32 @@ public class SpectrumFragment extends Fragment implements TCPUtil.OnConnectListe
 //        }
     }
 
-    private void updateHarmonicDatas(HarmonicDatasBean datasBean) {
+    private void updateHarmonicDates(HarmonicDatasBean datesBean) {
 
+    }
+
+    @Override
+    public void onSuccess(String deviceId) {
+        Log.i(TAG, "onSuccess Device Id = " + deviceId);
+
+        // 执行读取实时数据的指令
+        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                byte deviceAddr = 0x01;
+                tcpUtil.send(ProtocolUtil.readHarmonicSpectrum(deviceAddr), SpectrumFragment.this);
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public void onError(int errorCode, String errorMsg) {
+        Log.i(TAG, "onError errorCode = " + errorCode + " errorMsg = " + errorMsg);
+    }
+
+    @Override
+    public void onClose(String deviceId) {
+        Log.i(TAG, "onClose Device Id = " + deviceId);
     }
 }

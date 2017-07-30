@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
+import cn.edu.siso.rlxapf.config.TCPConfig;
+import cn.edu.siso.rlxapf.util.TCPUtil;
 
 import static cn.edu.siso.rlxapf.DeviceListActivity.DATA_KEY;
 import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements
             UserFragment.class
     };
 
-    private String TAG = "===MainActivity===";
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,18 +216,6 @@ public class MainActivity extends AppCompatActivity implements
                     startActivity(intent);
                     finish();
                     break;
-//                case R.id.user_preferences_device:
-//                    getSupportFragmentManager().beginTransaction().replace(
-//                            android.R.id.tabcontent, DevicePrefFragment.newInstance()).commit();
-//                    Log.i(TAG, "===user_preferences_device===");
-//                    break;
-//                case R.id.user_preferences_operation:
-//                    Log.i(TAG, "===user_preferences_operation===");
-//                    break;
-//                case R.id.user_preferences_parameter:
-//                    intent = new Intent(MainActivity.this, ParamActivity.class);
-//                    startActivity(intent);
-//                    break;
                 case R.id.user_preferences_about:
                     intent = new Intent(MainActivity.this, AboutActivity.class);
                     startActivity(intent);

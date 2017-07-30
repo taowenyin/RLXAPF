@@ -12,24 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class UserFragment extends Fragment implements View.OnClickListener {
-    private static final String ARG_USER = "user_param";
-
-    private String userParam;
-
     private OnFragmentInteractionListener mListener = null;
 
-    private Button userPrefCancel = null;
-    private Button userPrefDevice = null, userPrefOperation = null;
-    private Button userPrefParameter = null, userPrefAbout = null;
-
-    private String TAG = "===UserFragment===";
+    public static final String TAG = "UserFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            userParam = getArguments().getString(ARG_USER);
-        }
     }
 
     @Override
@@ -37,16 +26,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_user, container, false);
 
-        userPrefCancel = (Button) rootView.findViewById(R.id.user_pref_cancel);
-//        userPrefDevice = (Button) rootView.findViewById(R.id.user_preferences_device);
-//        userPrefOperation = (Button) rootView.findViewById(R.id.user_preferences_operation);
-//        userPrefParameter = (Button) rootView.findViewById(R.id.user_preferences_parameter);
-        userPrefAbout = (Button) rootView.findViewById(R.id.user_preferences_about);
+        Button userPrefCancel = (Button) rootView.findViewById(R.id.user_pref_cancel);
+        Button userPrefAbout = (Button) rootView.findViewById(R.id.user_preferences_about);
 
         userPrefCancel.setOnClickListener(this);
-//        userPrefDevice.setOnClickListener(this);
-//        userPrefOperation.setOnClickListener(this);
-//        userPrefParameter.setOnClickListener(this);
         userPrefAbout.setOnClickListener(this);
 
         return rootView;

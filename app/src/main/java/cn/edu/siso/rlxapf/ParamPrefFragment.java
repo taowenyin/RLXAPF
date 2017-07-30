@@ -27,7 +27,8 @@ import cn.edu.siso.rlxapf.util.TCPUtil;
 public class ParamPrefFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener,
         TCPUtil.OnConnectListener,
-        TCPUtil.OnReceiveListener, Preference.OnPreferenceChangeListener {
+        TCPUtil.OnReceiveListener,
+        Preference.OnPreferenceChangeListener {
 
     private TCPUtil tcpUtil = null; // 和有人云通信的对象
 
