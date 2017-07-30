@@ -47,7 +47,7 @@ public class RealTimeDatasBean {
      * @return
      */
     private int bytes2int(byte b1 , byte b2){
-        return (int)(b1<<8|b2);
+        return (int)((b1&0xff)<<8)|(b2 & 0xff);
     }
 
     /**
