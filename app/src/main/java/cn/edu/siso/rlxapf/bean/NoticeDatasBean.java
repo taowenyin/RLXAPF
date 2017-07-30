@@ -31,6 +31,10 @@ public class NoticeDatasBean {
      * @return -1 CRC校验错误；  -2长度解析出错； 0解析成功
      */
     public int parse(byte[] bytes) {
+
+        if(bytes==null || bytes.length !=7)
+            return -2;
+
         if (!CRCUtil.decode(bytes))
             return -1;
 

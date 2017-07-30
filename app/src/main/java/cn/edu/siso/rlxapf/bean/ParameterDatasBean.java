@@ -40,10 +40,11 @@ public class ParameterDatasBean {
      * @return -1 CRC校验错误；  -2长度解析出错； 0解析成功
      */
     public int parse(byte[] bytes) {
+
+        if(bytes == null || bytes.length != 45 || bytes[2] != 40)//指定参数一次读出的长度
+            return -2;
         if (!CRCUtil.decode(bytes))
             return -1;
-        if (bytes.length - 2 - 3 < bytes[2])
-            return -2;
 
         int startLoc = 3;
 
