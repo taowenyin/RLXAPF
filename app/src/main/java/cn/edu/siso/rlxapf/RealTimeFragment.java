@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +31,8 @@ import cn.edu.siso.rlxapf.util.TCPUtil;
 
 public class RealTimeFragment extends Fragment implements
         TabLayout.OnTabSelectedListener,
-        TCPUtil.OnConnectListener, TCPUtil.OnReceiveListener {
-
-    private static final String ARG_DEVICE_PARAM = "device_param";
-
-    private String deviceParams;
+        TCPUtil.OnReceiveListener,
+        TCPUtil.OnConnectListener {
 
     private TCPUtil tcpUtil = null; // 和有人云通信的对象
 
@@ -59,9 +58,8 @@ public class RealTimeFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            deviceParams = getArguments().getString(ARG_DEVICE_PARAM);
-        }
+
+        tcpUtil = new TCPUtil();
 
         Log.i(TAG, "===onCreate===");
     }
@@ -93,13 +91,6 @@ public class RealTimeFragment extends Fragment implements
         super.onAttach(context);
 
         Log.i(TAG, "===onAttach===");
-
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -108,18 +99,13 @@ public class RealTimeFragment extends Fragment implements
 
         Log.i(TAG, "===onResume===");
 
-        // 建立和有人云的通信
-        tcpUtil = new TCPUtil();
-        tcpUtil.connect(TCPConfig.DEFAULT_DEVICE_ID, TCPConfig.DEFAULT_DEVICE_PWD, RealTimeFragment.this);
+        tcpUtil.connect(TCPConfig.DEFAULT_DEVICE_ID, TCPConfig.DEFAULT_DEVICE_PWD, this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        Log.i(TAG, "===onPause===");
-
-        // 并关闭TCP连接
         tcpUtil.close(TCPConfig.DEFAULT_DEVICE_ID);
     }
 
@@ -144,38 +130,6 @@ public class RealTimeFragment extends Fragment implements
     }
 
     @Override
-    public void onSuccess(String deviceId) {
-        Log.i(TAG, "onSuccess Device Id = " + deviceId);
-
-        // 发送指令后休息1000ms
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // 执行读取实时数据的指令
-        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                byte deviceAddr = 0x01;
-                tcpUtil.send(ProtocolUtil.readRealTimeDatas(deviceAddr), RealTimeFragment.this);
-                return null;
-            }
-        });
-    }
-
-    @Override
-    public void onError(int errorCode, String errorMsg) {
-        Log.i(TAG, "onError Error Code = " + errorCode + " Error Msg = " + errorMsg);
-    }
-
-    @Override
-    public void onClose(String deviceId) {
-        Log.i(TAG, "onClose Device Id = " + deviceId);
-    }
-
-    @Override
     public void onReceive(String deviceId, byte[] data) {
         Log.i(TAG, "onReceive Device Id = " + deviceId);
         Log.i(TAG, "onReceive Data = " + Arrays.toString(data));
@@ -195,7 +149,7 @@ public class RealTimeFragment extends Fragment implements
 
         // 发送指令后休息100ms
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -209,5 +163,32 @@ public class RealTimeFragment extends Fragment implements
                 return null;
             }
         });
+    }
+
+    @Override
+    public void onSuccess(String deviceId) {
+        Log.i(TAG, "onSuccess Device Id = " + deviceId);
+
+        // 执行读取实时数据的指令
+        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                byte deviceAddr = 0x01;
+                tcpUtil.send(ProtocolUtil.readRealTimeDatas(deviceAddr), RealTimeFragment.this);
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public void onError(int errorCode, String errorMsg) {
+        Log.i(TAG, "onError errorCode = " + errorCode + " errorMsg = " + errorMsg);
+
+        tcpUtil.close(TCPConfig.DEFAULT_DEVICE_ID);
+    }
+
+    @Override
+    public void onClose(String deviceId) {
+        Log.i(TAG, "onClose Device Id = " + deviceId);
     }
 }
