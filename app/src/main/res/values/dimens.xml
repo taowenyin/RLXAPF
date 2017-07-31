@@ -154,6 +154,6 @@
     <dimen name="device_param_font_size">14sp</dimen>
 
     <!--图标的大小-->
-    <dimen name="connect_gif_size">48dp</dimen>
+    <dimen name="connect_gif_size">36dp</dimen>
 
 </resources>

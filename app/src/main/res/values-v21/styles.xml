@@ -9,6 +9,9 @@
 
         <!--Preference样式-->
         <item name="preferenceTheme">@style/PreferenceStyle</item>
+
+        <!--设置对话框背景为透明-->
+        <item name="android:dialogTheme">@style/dialog_background_transparent</item>
     </style>
 
     <style name="AppNoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -25,10 +28,18 @@
 
         <!--Preference样式-->
         <item name="preferenceTheme">@style/PreferenceStyle</item>
+
+        <!--设置对话框背景为透明-->
+        <item name="android:dialogTheme">@style/dialog_background_transparent</item>
     </style>
 
     <style name="PreferenceStyle">
 
+    </style>
+
+    <style name="dialog_background_transparent" parent="android:style/Theme.Dialog">
+        <item name="android:background">@android:color/transparent</item> <!-- 设置自定义布局的背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>  <!-- 设置window背景透明，也就是去边框 -->
     </style>
 
 </resources>
