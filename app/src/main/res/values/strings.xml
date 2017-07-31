@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RLXAPF</string>
 
-    <string name="base_url">http://xj.siso.edu.cn</string>
+    <string name="base_url">http://byw2521870001.my3w.com</string>
 
     <string name="title_activity_first">FirstActivity</string>
     <string name="title_activity_login">登录</string>
@@ -22,10 +22,15 @@
 
     <!--登录表单-->
     <string name="login_form_account_label">账户</string>
-    <string name="login_form_account_hint">手机</string>
+    <string name="login_form_account_hint">登录账号</string>
     <string name="login_form_password_label">密码</string>
     <string name="login_form_password_hint">请输入密码</string>
     <string name="login_form_login_txt">登录</string>
+
+    <!--登录错误信息-->
+    <string name="login_error_account_no_set">账户或密码没有设置</string>
+    <string name="login_error_account_empty">账户或密码为空</string>
+    <string name="login_error_account_check_fail">账户验证失败</string>
 
     <!--设备选择-->
     <string name="device_preferences_name">device_preferences</string>

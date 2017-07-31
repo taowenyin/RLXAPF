@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import cn.edu.siso.rlxapf.config.HTTPConfig;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Cookie;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,7 +64,7 @@ public class OkHttpClientManager {
         if (instance == null) {
             synchronized (OkHttpClientManager.class) {
                 if (instance == null) {
-                    instance = new OkHttpClientManager(context, baseUrl, 10000);
+                    instance = new OkHttpClientManager(context, baseUrl, HTTPConfig.HTTP_TIME_TIME);
                 }
             }
         }
@@ -106,7 +106,7 @@ public class OkHttpClientManager {
         String requestUrl = String.format("%s/%s?%s", baseUrl, apiUrl, httpParams2String(params));
 
         Request request = new Request.Builder().url(requestUrl).build();
-        httpDeliveryHandler(request, httpHandler);
+        httpCallHandler(request, httpHandler);
     }
 
     // HTTP 同步 Post 操作
@@ -143,36 +143,12 @@ public class OkHttpClientManager {
         String requestUrl = String.format("%s/%s", baseUrl, apiUrl);
 
         Request request = new Request.Builder().url(requestUrl).post(httpParams2Body(params)).build();
-        httpDeliveryHandler(request, httpHandler);
+        httpCallHandler(request, httpHandler);
     }
 
     // 把异步Http结果传递到UI
-    private void httpDeliveryHandler(Request request, final Handler httpHandler) {
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Message message = new Message();
-
-                Bundle data = new Bundle();
-                data.putString(HTTP_RESPONSE_TYPE, HTTP_RESPONSE_TYPE_FAIL);
-                data.putString(HTTP_RESPONSE_DATA, e.toString());
-
-                message.setData(data);
-                httpHandler.sendMessage(message);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Message message = new Message();
-
-                Bundle data = new Bundle();
-                data.putString(HTTP_RESPONSE_TYPE, HTTP_RESPONSE_TYPE_SUCC);
-                data.putString(HTTP_RESPONSE_DATA, response.body().string());
-
-                message.setData(data);
-                httpHandler.sendMessage(message);
-            }
-        });
+    private void httpCallHandler(Request request, Handler httpHandler) {
+        okHttpClient.newCall(request).enqueue(new HttpCallback(httpHandler));
     }
 
     // 参数转化为String
@@ -190,8 +166,8 @@ public class OkHttpClientManager {
                 e.printStackTrace();
             }
         }
-        paramsBuilder = paramsBuilder.delete(paramsBuilder.length() - 2,
-                paramsBuilder.length() - 1);
+        paramsBuilder = paramsBuilder.delete(paramsBuilder.length() - 1,
+                paramsBuilder.length());
 
         return paramsBuilder.toString();
     }
@@ -206,5 +182,38 @@ public class OkHttpClientManager {
         }
 
         return builder.build();
+    }
+
+    private class HttpCallback implements Callback {
+
+        private Handler handler = null;
+
+        public HttpCallback(Handler handler) {
+            this.handler = handler;
+        }
+
+        @Override
+        public void onFailure(Call call, IOException e) {
+            Message message = new Message();
+
+            Bundle data = new Bundle();
+            data.putString(HTTP_RESPONSE_TYPE, HTTP_RESPONSE_TYPE_FAIL);
+            data.putString(HTTP_RESPONSE_DATA, e.toString());
+
+            message.setData(data);
+            handler.sendMessage(message);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            Message message = new Message();
+
+            Bundle data = new Bundle();
+            data.putString(HTTP_RESPONSE_TYPE, HTTP_RESPONSE_TYPE_SUCC);
+            data.putString(HTTP_RESPONSE_DATA, response.body().string());
+
+            message.setData(data);
+            handler.sendMessage(message);
+        }
     }
 }

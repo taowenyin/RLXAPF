@@ -38,6 +38,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.35'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.github.sahasbhop:apng-view:1.3'
+    compile 'org.apache.commons:commons-lang3:3.6'
     compile files('libs/usr_cloud_com.jar')
     compile files('libs/usrcloud.jar')
     testCompile 'junit:junit:4.12'

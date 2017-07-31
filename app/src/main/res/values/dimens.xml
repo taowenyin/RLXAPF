@@ -153,6 +153,17 @@
     <!--设备参数字体-->
     <dimen name="device_param_font_size">14sp</dimen>
 
+    <!--Toast的图片大小-->
+    <dimen name="toast_img_size">24dp</dimen>
+    <!--Toast的文字大小-->
+    <dimen name="toast_msg_size">14sp</dimen>
+    <!--Toast的内边距-->
+    <dimen name="toast_padding">15dp</dimen>
+    <!--Toast的垂直外边距-->
+    <dimen name="toast_vertical_margin">10dp</dimen>
+    <!--Toast的圆角大小-->
+    <dimen name="toast_radius_size">5dp</dimen>
+
     <!--图标的大小-->
     <dimen name="connect_gif_size">36dp</dimen>
 

@@ -30,4 +30,6 @@
 
     <color name="device_list_item_device_delete_color">#00FF00</color>
     <color name="device_list_item_color">#A9A9A9</color>
+
+    <color name="toast_connect_black">#303030</color>
 </resources>
