@@ -51,9 +51,7 @@ public class OkHttpClientManager {
     public static OkHttpClientManager getInstance(Context context, String baseUrl, long httpTimeOut) {
         if (instance == null) {
             synchronized (OkHttpClientManager.class) {
-                if (instance == null) {
-                    instance = new OkHttpClientManager(context, baseUrl, httpTimeOut);
-                }
+                instance = new OkHttpClientManager(context, baseUrl, httpTimeOut);
             }
         }
 

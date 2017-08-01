@@ -3,6 +3,8 @@ package cn.edu.siso.rlxapf;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.truizlop.sectionedrecyclerview.SectionedSpanSizeLookup;
 
 import java.util.ArrayList;
@@ -24,20 +28,32 @@ import java.util.TimerTask;
 
 import cn.edu.siso.rlxapf.bean.DataBean;
 import cn.edu.siso.rlxapf.bean.DataGroupBean;
+import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.HarmonicDatasBean;
 import cn.edu.siso.rlxapf.config.TCPConfig;
 import cn.edu.siso.rlxapf.util.ProtocolUtil;
 import cn.edu.siso.rlxapf.util.TCPUtil;
+import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
-public class SpectrumFragment extends Fragment implements
-        TCPUtil.OnReceiveListener, TCPUtil.OnConnectListener {
+import static cn.edu.siso.rlxapf.DeviceListActivity.DATA_KEY;
+import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
+
+public class SpectrumFragment extends Fragment {
 
     private RecyclerView spectrumRecyclerView = null;
     private DataSectionRecyclerAdapter adapter = null;
 
     private List<DataGroupBean> spectrumData = null;
 
-    private TCPUtil tcpUtil = null; // 和有人云通信的对象
+    private TcpClientManager tcpClientManager = null;
+    private Handler tcpHandler = null;
+    private boolean isTimeout = false;
+    private boolean isSpectrum = true;
+
+    private Context context = null;
+
+    private List<DeviceBean> deviceData = null;
+    private int currPosition = -1;
 
     public static final String TAG = "SpectrumFragment";
 
@@ -45,11 +61,89 @@ public class SpectrumFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        tcpUtil = new TCPUtil();
+        if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            deviceData = JSON.parseArray(
+                    bundle.getString(DATA_KEY),
+                    DeviceBean.class);
+            currPosition = bundle.getInt(POSITION_KEY);
+        }
+
+        tcpClientManager = TcpClientManager.getInstance();
+        tcpHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                Bundle data = msg.getData();
+                String operateType = data.getString(TcpClientManager.KEY_TCP_OPERATE_TYPE);
+                if (operateType.equals(TcpClientManager.TcpOperateType.OPERATE)) {
+                    int tcpCmdType = Integer.valueOf(data.getString(TcpClientManager.KEY_TCP_CMD_TYPE));
+
+                    // 载入数据
+                    if (TcpClientManager.TcpCmdType.SPECTRUM_DATA.ordinal() == tcpCmdType) {
+                        String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
+                        if (!isTimeout && isSpectrum) {
+                            if (resType.equals(TcpClientManager.TcpResType.CRC)) {
+                                ConnectToast toast = new ConnectToast(context,
+                                        ConnectToast.ConnectRes.BAD,
+                                        getResources().getString(R.string.tcp_connect_spectrum_data_error_crc),
+                                        Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                            if (resType.equals(TcpClientManager.TcpResType.LENGTH)) {
+                                ConnectToast toast = new ConnectToast(context,
+                                        ConnectToast.ConnectRes.BAD,
+                                        getResources().getString(R.string.tcp_connect_spectrum_data_error_length),
+                                        Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                            if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
+                                Log.i(TAG, "更新谐波数据");
+
+                                // 谐波数据还未定义
+//                                HarmonicDatasBean datasBean = JSON.parseObject(
+//                                        data.getString(TcpClientManager.KEY_TCP_RES_DATA),
+//                                        HarmonicDatasBean.class);
+//
+//                                // 更新谐波数据
+//                                updateHarmonicDates(datasBean);
+                            }
+                        }
+                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT) && isSpectrum) {
+                            // 标记当前为超时状态
+                            isTimeout = true;
+
+                            ConnectToast toast = new ConnectToast(getContext(),
+                                    ConnectToast.ConnectRes.BAD,
+                                    getResources().getString(R.string.tcp_connect_spectrum_data_time_out),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+
+                        if (isSpectrum) {
+                            // 发送指令后休息100ms
+                            try {
+                                Thread.sleep(context.getResources().getInteger(
+                                        R.integer.tcp_real_time_delay));
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            isTimeout = false; // 清空超时，允许进行TCP操作
+
+                            // 发送实时数据指令
+                            tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.SPECTRUM_DATA,
+                                    new String[]{deviceData.get(currPosition).getDeviceNo()},
+                                    tcpHandler);
+                        }
+                    }
+                }
+            }
+        };
 
         // 初始化谐波数据
         spectrumData = new ArrayList<DataGroupBean>();
-
         String[] spectrumSectionData = getResources().getStringArray(R.array.specturm_sections);
         for (int i = 0; i < spectrumSectionData.length; i++) {
 
@@ -106,86 +200,30 @@ public class SpectrumFragment extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        this.context = context;
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        Log.i(TAG, "===onResume===");
+        isTimeout = false; // 清空超时，允许进行TCP操作
+        isSpectrum = true; // 打开实时数据
 
-        tcpUtil.connect(TCPConfig.DEFAULT_DEVICE_ID, TCPConfig.DEFAULT_DEVICE_PWD, this);
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.SPECTRUM_DATA,
+                new String[]{deviceData.get(currPosition).getDeviceNo()},
+                tcpHandler);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
-        tcpUtil.close(TCPConfig.DEFAULT_DEVICE_ID);
-    }
-
-    @Override
-    public void onReceive(String deviceId, byte[] data) {
-        Log.i(TAG, "onReceive Device Id = " + deviceId);
-        Log.i(TAG, "onReceive Data = " + Arrays.toString(data));
-
-        HarmonicDatasBean datasBean = new HarmonicDatasBean();
-//        int res = datasBean.parse(data);
-//
-//        if (res == -1) {
-//            Log.i(TAG, "CRC教研失败");
-//        } else if (res == -2) {
-//            Log.i(TAG, "长度解析出错");
-//        } else {
-//            Log.i(TAG, "数据解析成功");
-//
-//            updateHarmonicDatas(datasBean);
-//
-//            // 发送指令后休息100ms
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            // 执行读取实时数据的指令
-//            AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
-//                @Override
-//                protected Void doInBackground(Void... params) {
-//                    byte deviceAddr = 0x01;
-//                    tcpUtil.send(ProtocolUtil.readHarmonicSpectrum(deviceAddr), SpectrumFragment.this);
-//                    return null;
-//                }
-//            });
-//        }
+        isSpectrum = false; // 关闭实时数据
     }
 
     private void updateHarmonicDates(HarmonicDatasBean datesBean) {
 
     }
 
-    @Override
-    public void onSuccess(String deviceId) {
-        Log.i(TAG, "onSuccess Device Id = " + deviceId);
-
-        // 执行读取实时数据的指令
-        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                byte deviceAddr = 0x01;
-                tcpUtil.send(ProtocolUtil.readHarmonicSpectrum(deviceAddr), SpectrumFragment.this);
-                return null;
-            }
-        });
-    }
-
-    @Override
-    public void onError(int errorCode, String errorMsg) {
-        Log.i(TAG, "onError errorCode = " + errorCode + " errorMsg = " + errorMsg);
-    }
-
-    @Override
-    public void onClose(String deviceId) {
-        Log.i(TAG, "onClose Device Id = " + deviceId);
-    }
 }

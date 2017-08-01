@@ -3,21 +3,14 @@ package cn.edu.siso.rlxapf;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 
@@ -68,17 +61,12 @@ public class ParamActivity extends AppCompatActivity {
         deviceParamOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ParamActivity.this, MainActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(DATA_KEY, JSON.toJSONString(
-                        deviceData, SerializerFeature.WriteMapNullValue));
-                bundle.putInt(POSITION_KEY, currPosition);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                finish();
             }
         });
 
         getSupportFragmentManager().beginTransaction().replace(
-                R.id.param_content, ParamPrefFragment.newInstance()).commit();
+                R.id.param_content, ParamPrefFragment.newInstance(
+                        JSON.toJSONString(deviceData.get(currPosition)))).commit();
     }
 }

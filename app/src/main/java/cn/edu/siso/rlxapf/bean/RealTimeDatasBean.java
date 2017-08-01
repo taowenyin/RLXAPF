@@ -99,6 +99,126 @@ public class RealTimeDatasBean {
         return 0;
     }
 
+    public void setSystemAVoltage(double systemAVoltage) {
+        this.systemAVoltage = systemAVoltage;
+    }
+
+    public void setSystemBVoltage(double systemBVoltage) {
+        this.systemBVoltage = systemBVoltage;
+    }
+
+    public void setSystemCVoltage(double systemCVoltage) {
+        this.systemCVoltage = systemCVoltage;
+    }
+
+    public void setSystemACurrent(int systemACurrent) {
+        this.systemACurrent = systemACurrent;
+    }
+
+    public void setSystemBCurrent(int systemBCurrent) {
+        this.systemBCurrent = systemBCurrent;
+    }
+
+    public void setSystemCCurrent(int systemCCurrent) {
+        this.systemCCurrent = systemCCurrent;
+    }
+
+    public void setLoadACurrent(int loadACurrent) {
+        this.loadACurrent = loadACurrent;
+    }
+
+    public void setLoadBCurrent(int loadBCurrent) {
+        this.loadBCurrent = loadBCurrent;
+    }
+
+    public void setLoadCCurrent(int loadCCurrent) {
+        this.loadCCurrent = loadCCurrent;
+    }
+
+    public void setCompensationACurrent(double compensationACurrent) {
+        this.compensationACurrent = compensationACurrent;
+    }
+
+    public void setCompensationBCurrent(double compensationBCurrent) {
+        this.compensationBCurrent = compensationBCurrent;
+    }
+
+    public void setCompensationCCurrent(double compensationCCurrent) {
+        this.compensationCCurrent = compensationCCurrent;
+    }
+
+    public void setVoltageATotalDistortionRate(double voltageATotalDistortionRate) {
+        this.voltageATotalDistortionRate = voltageATotalDistortionRate;
+    }
+
+    public void setVoltageBTotalDistortionRate(double voltageBTotalDistortionRate) {
+        this.voltageBTotalDistortionRate = voltageBTotalDistortionRate;
+    }
+
+    public void setVoltageCTotalDistortionRate(double voltageCTotalDistortionRate) {
+        this.voltageCTotalDistortionRate = voltageCTotalDistortionRate;
+    }
+
+    public void setSystemCurrentATotalDistortionRate(double systemCurrentATotalDistortionRate) {
+        this.systemCurrentATotalDistortionRate = systemCurrentATotalDistortionRate;
+    }
+
+    public void setSystemCurrentBTotalDistortionRate(double systemCurrentBTotalDistortionRate) {
+        this.systemCurrentBTotalDistortionRate = systemCurrentBTotalDistortionRate;
+    }
+
+    public void setSystemCurrentCTotalDistortionRate(double systemCurrentCTotalDistortionRate) {
+        this.systemCurrentCTotalDistortionRate = systemCurrentCTotalDistortionRate;
+    }
+
+    public void setLoadCurrentATotalDistortionRate(double loadCurrentATotalDistortionRate) {
+        this.loadCurrentATotalDistortionRate = loadCurrentATotalDistortionRate;
+    }
+
+    public void setLoadCurrentBTotalDistortionRate(double loadCurrentBTotalDistortionRate) {
+        this.loadCurrentBTotalDistortionRate = loadCurrentBTotalDistortionRate;
+    }
+
+    public void setLoadCurrentCTotalDistortionRate(double loadCurrentCTotalDistortionRate) {
+        this.loadCurrentCTotalDistortionRate = loadCurrentCTotalDistortionRate;
+    }
+
+    public void setSystemPowerFactor(double systemPowerFactor) {
+        this.systemPowerFactor = systemPowerFactor;
+    }
+
+    public void setLoadPowerFactor(double loadPowerFactor) {
+        this.loadPowerFactor = loadPowerFactor;
+    }
+
+    public void setSystemCurrentUnbalanceDegree(double systemCurrentUnbalanceDegree) {
+        this.systemCurrentUnbalanceDegree = systemCurrentUnbalanceDegree;
+    }
+
+    public void setLoadCurrentUnbalanceDegree(double loadCurrentUnbalanceDegree) {
+        this.loadCurrentUnbalanceDegree = loadCurrentUnbalanceDegree;
+    }
+
+    public void setTempratureIGBT(int tempratureIGBT) {
+        this.tempratureIGBT = tempratureIGBT;
+    }
+
+    public void setStateAPF(int stateAPF) {
+        this.stateAPF = stateAPF;
+    }
+
+    public void setVoltageDC1(int voltageDC1) {
+        this.voltageDC1 = voltageDC1;
+    }
+
+    public void setVoltageDC2(int voltageDC2) {
+        this.voltageDC2 = voltageDC2;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     public double getSystemAVoltage() {
         return systemAVoltage;
     }

@@ -73,6 +73,86 @@ public class ParameterDatasBean {
 
     }
 
+    public void setUnitCount(int unitCount) {
+        this.unitCount = unitCount;
+    }
+
+    public void setSampleMode(int sampleMode) {
+        this.sampleMode = sampleMode;
+    }
+
+    public void setCompensationMode(int compensationMode) {
+        this.compensationMode = compensationMode;
+    }
+
+    public void setSystemCTChangeRate(int systemCTChangeRate) {
+        this.systemCTChangeRate = systemCTChangeRate;
+    }
+
+    public void setLoadCTChangeRate(int loadCTChangeRate) {
+        this.loadCTChangeRate = loadCTChangeRate;
+    }
+
+    public void setObjectPowerFactor(double objectPowerFactor) {
+        this.objectPowerFactor = objectPowerFactor;
+    }
+
+    public void setHarmonic3CompensationRate(int harmonic3CompensationRate) {
+        this.harmonic3CompensationRate = harmonic3CompensationRate;
+    }
+
+    public void setHarmonic5CompensationRate(int harmonic5CompensationRate) {
+        this.harmonic5CompensationRate = harmonic5CompensationRate;
+    }
+
+    public void setHarmonic7CompensationRate(int harmonic7CompensationRate) {
+        this.harmonic7CompensationRate = harmonic7CompensationRate;
+    }
+
+    public void setHarmonic9CompensationRate(int harmonic9CompensationRate) {
+        this.harmonic9CompensationRate = harmonic9CompensationRate;
+    }
+
+    public void setHarmonic11CompensationRate(int harmonic11CompensationRate) {
+        this.harmonic11CompensationRate = harmonic11CompensationRate;
+    }
+
+    public void setHarmonic13CompensationRate(int harmonic13CompensationRate) {
+        this.harmonic13CompensationRate = harmonic13CompensationRate;
+    }
+
+    public void setHarmonic15CompensationRate(int harmonic15CompensationRate) {
+        this.harmonic15CompensationRate = harmonic15CompensationRate;
+    }
+
+    public void setHarmonic17CompensationRate(int harmonic17CompensationRate) {
+        this.harmonic17CompensationRate = harmonic17CompensationRate;
+    }
+
+    public void setHarmonic19CompensationRate(int harmonic19CompensationRate) {
+        this.harmonic19CompensationRate = harmonic19CompensationRate;
+    }
+
+    public void setHarmonic21CompensationRate(int harmonic21CompensationRate) {
+        this.harmonic21CompensationRate = harmonic21CompensationRate;
+    }
+
+    public void setHarmonic23CompensationRate(int harmonic23CompensationRate) {
+        this.harmonic23CompensationRate = harmonic23CompensationRate;
+    }
+
+    public void setHarmonic25CompensationRate(int harmonic25CompensationRate) {
+        this.harmonic25CompensationRate = harmonic25CompensationRate;
+    }
+
+    public void setHarmonicEvenCompensationRate(int harmonicEvenCompensationRate) {
+        this.harmonicEvenCompensationRate = harmonicEvenCompensationRate;
+    }
+
+    public void setUintRatedCapacity(int uintRatedCapacity) {
+        this.uintRatedCapacity = uintRatedCapacity;
+    }
+
     public int getUnitCount() {
         return unitCount;
     }

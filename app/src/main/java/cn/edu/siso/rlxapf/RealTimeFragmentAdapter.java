@@ -47,7 +47,7 @@ public class RealTimeFragmentAdapter extends FragmentPagerAdapter {
         }
     }
 
-    public IRealTimeData getCurrentRealTime() {
+    public IRealTimeData getCurrentRealTimeObject() {
         return currentRealTime;
     }
 }

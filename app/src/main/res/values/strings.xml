@@ -32,6 +32,19 @@
     <string name="login_error_account_empty">账户或密码为空</string>
     <string name="login_error_account_check_fail">账户验证失败</string>
 
+    <!--设备列表分割线-->
+    <string name="device_list_split">|</string>
+    <string name="device_gps_no_label">GPS编号:</string>
+    <string name="device_no_label">设备编号:</string>
+    <string name="device_delete_0">正常</string>
+    <string name="device_delete_1">已删除</string>
+
+    <!--设备列表获取错误信息-->
+    <string name="device_list_error_mobile_id_no_set">mobileid没有设置</string>
+    <string name="device_list_error_session_no_set">session没有设置</string>
+    <string name="device_list_error_session_error">session错误</string>
+    <string name="device_list_error_no_data">没有数据</string>
+
     <!--设备选择-->
     <string name="device_preferences_name">device_preferences</string>
 
@@ -179,9 +192,6 @@
 
     <!--实时图表Y轴标签-->
     <string-array name="curve_y_axis_labels">
-        <item>-30</item>
-        <item>-20</item>
-        <item>-10</item>
         <item>0</item>
         <item>10</item>
         <item>20</item>
@@ -306,7 +316,10 @@
 
     <string-array name="device_operate_popup_window">
         <item>设备停止</item>
-        <item>设备重启</item>
+        <item>设备启动</item>
+        <item>参数设置</item>
+    </string-array>
+    <string-array name="device_operate_little_popup_window">
         <item>参数设置</item>
     </string-array>
     <string name="device_operate_popup_cancel">取消</string>
@@ -316,13 +329,6 @@
         <item>参数上传</item>
     </string-array>
 
-    <!--设备列表分割线-->
-    <string name="device_list_split">|</string>
-    <string name="device_gps_no_label">GPS编号:</string>
-    <string name="device_no_label">设备编号:</string>
-    <string name="device_delete_0">正常</string>
-    <string name="device_delete_1">已删除</string>
-
     <!--设备参数完成按钮的文字-->
     <string name="device_param_ok">确认</string>
 
@@ -331,6 +337,32 @@
         <item>#1DBA11</item>
         <item>#5406C2</item>
     </string-array>
+
+    <!--TCP设备连接状态-->
+    <string name="tcp_connect_succ">恭喜！设备连接成功</string>
+    <string name="tcp_connect_close">对不起！设备连接已断开</string>
+    <string name="tcp_connect_data_succ">数据解析成功</string>
+    <string name="tcp_connect_data_error_crc">数据校验失败\r\n点击右上角重新下载</string>
+    <string name="tcp_connect_data_error_length">数据长度错误\r\n点击右上角重新下载</string>
+    <string name="tcp_connect_param_update_length">更改参数成功</string>
+    <string name="tcp_connect_time_out">连接设备超时</string>
+    <string name="tcp_connect_start_device_succ">启动设备成功</string>
+    <string name="tcp_connect_stop_device_succ">停止设备成功</string>
+    <string name="tcp_connect_load_params_time_out">载入参数超时</string>
+    <string name="tcp_connect_update_param_time_out">上传参数超时</string>
+    <string name="tcp_connect_start_device_time_out">启动设备超时</string>
+    <string name="tcp_connect_stop_device_time_out">停止设备超时</string>
+    <string name="tcp_connect_real_data_time_out">实时数据超时</string>
+    <string name="tcp_connect_real_data_error_crc">实时数据校验失败</string>
+    <string name="tcp_connect_real_data_error_length">实时数据长度错误</string>
+    <string name="tcp_connect_spectrum_data_time_out">谐波数据超时</string>
+    <string name="tcp_connect_spectrum_data_error_crc">谐波数据校验失败</string>
+    <string name="tcp_connect_spectrum_data_error_length">谐波数据长度错误</string>
+
+    <!--TCP连接超时时间-->
+    <integer name="tcp_time_out">15000</integer>
+    <!--实时数据指令发送延时-->
+    <integer name="tcp_real_time_delay">100</integer>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

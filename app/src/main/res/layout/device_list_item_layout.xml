@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="@dimen/device_list_item_padding"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -17,6 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="@dimen/device_list_item_padding"
             android:orientation="vertical">
 
             <TextView
@@ -133,7 +133,8 @@
         <ImageButton
             android:id="@+id/device_operator"
             android:layout_width="@dimen/device_list_item_img_btn_size"
-            android:layout_height="@dimen/device_list_item_img_btn_size"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/device_list_item_padding"
             android:src="@drawable/ic_device_operate_gray"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter" />

@@ -76,7 +76,7 @@
     <!--实时数据图表底部外边距-->
     <dimen name="real_curve_chart_bottom_margin">20dp</dimen>
     <!--实时数据图表底部左外边距-->
-    <dimen name="real_curve_chart_left_margin">-65dp</dimen>
+    <dimen name="real_curve_chart_left_margin">-45dp</dimen>
     <!--实时数据图表底部右内边距-->
     <dimen name="real_curve_chart_right_padding">10dp</dimen>
     <!--实时数据图表底部垂直内边距-->
@@ -142,7 +142,7 @@
     <!--设备列表的标签间距-->
     <dimen name="device_list_item_label_margin">5dp</dimen>
     <!--设备列表按钮大小-->
-    <dimen name="device_list_item_img_btn_size">24dp</dimen>
+    <dimen name="device_list_item_img_btn_size">40dp</dimen>
 
     <!--设备参数完成按钮的垂直外边距-->
     <dimen name="device_param_ok_vertical_margin">10dp</dimen>
@@ -154,7 +154,7 @@
     <dimen name="device_param_font_size">14sp</dimen>
 
     <!--Toast的图片大小-->
-    <dimen name="toast_img_size">24dp</dimen>
+    <dimen name="toast_img_size">30dp</dimen>
     <!--Toast的文字大小-->
     <dimen name="toast_msg_size">14sp</dimen>
     <!--Toast的内边距-->

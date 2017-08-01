@@ -24,7 +24,6 @@ import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.UserBean;
 import cn.edu.siso.rlxapf.config.HTTPConfig;
-import cn.edu.siso.rlxapf.util.HttpUtil;
 import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,9 +33,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText loginAccount = null;
     private EditText loginPassword = null;
 
+    private ConnectDialogFragment dialogFragment = null;
+
     private Handler httpHandler = null;
 
-    public static final String USER_KEY = "user_data";
+    public static final String USER_DATA_KEY = "user_data";
 
     public static final String TAG = "LoginActivity";
 
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         loginFormLoginBtn = (Button) findViewById(R.id.login_form_login_btn);
         loginAccount = (EditText) findViewById(R.id.login_form_account);
         loginPassword = (EditText) findViewById(R.id.login_form_password);
+        dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
 
         httpHandler = new Handler() {
             @Override
@@ -60,21 +62,20 @@ public class LoginActivity extends AppCompatActivity {
                 String resultType = data.getString(OkHttpClientManager.HTTP_RESPONSE_TYPE);
                 String resultData = data.getString(OkHttpClientManager.HTTP_RESPONSE_DATA);
 
-                Log.i(TAG, "resultType = " + resultType);
-                Log.i(TAG, "resultData = " + resultData);
+                dialogFragment.dismiss();
 
                 if (!TextUtils.isEmpty(resultData) && StringUtils.isNumeric(resultData)) {
 
                     String badMsg = "";
                     int resCode = Integer.parseInt(resultData);
                     switch (resCode) {
-                        case HTTPConfig.HttpLoginRes.ACCOUNT_NO_SET:
+                        case HTTPConfig.HttpLoginError.ACCOUNT_NO_SET:
                             badMsg = getResources().getString(R.string.login_error_account_no_set);
                             break;
-                        case HTTPConfig.HttpLoginRes.ACCOUNT_EMPTY:
+                        case HTTPConfig.HttpLoginError.ACCOUNT_EMPTY:
                             badMsg = getResources().getString(R.string.login_error_account_empty);
                             break;
-                        case HTTPConfig.HttpLoginRes.ACCOUNT_CHECK_FAIL:
+                        case HTTPConfig.HttpLoginError.ACCOUNT_CHECK_FAIL:
                             badMsg = getResources().getString(R.string.login_error_account_check_fail);
                             break;
                     }
@@ -100,8 +101,10 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
                     Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
-                    intent.putExtra(USER_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
+                    intent.putExtra(USER_DATA_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
                     startActivity(intent);
+
+                    LoginActivity.this.finish();
                 }
             }
         };
@@ -125,22 +128,25 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
             String data = JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue);
-            intent.putExtra(USER_KEY, data);
+            intent.putExtra(USER_DATA_KEY, data);
             startActivity(intent);
-        } else {
-            loginFormLoginBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    RLXApplication application = (RLXApplication) getApplication();
-                    OkHttpClientManager httpManager = application.getHttpManager();
-
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("u", loginAccount.getText().toString());
-                    params.put("p", loginPassword.getText().toString());
-                    httpManager.httpStrGetAsyn(HTTPConfig.API_URL_LOGIN, params, httpHandler);
-                }
-            });
+            LoginActivity.this.finish();
         }
+
+        loginFormLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RLXApplication application = (RLXApplication) getApplication();
+                OkHttpClientManager httpManager = application.getHttpManager();
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("u", loginAccount.getText().toString());
+                params.put("p", loginPassword.getText().toString());
+                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_LOGIN, params, httpHandler);
+                dialogFragment.show(getSupportFragmentManager(), LoginActivity.class.getName());
+            }
+        });
     }
 }

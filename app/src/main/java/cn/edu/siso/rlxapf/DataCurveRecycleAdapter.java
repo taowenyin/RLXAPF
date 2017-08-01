@@ -119,10 +119,10 @@ public class DataCurveRecycleAdapter extends SectionedRecyclerViewAdapter<
 
         // 为曲线控件设置视口
         Viewport v = new Viewport(curveChart.getMaximumViewport());
-        v.bottom = -30;
-        v.top = 120;
+        v.bottom = Integer.valueOf(yLabels[0]);
+        v.top = Integer.valueOf(yLabels[yLabels.length - 1]);
         v.left = 0;
-        v.right = 10 - 1;
+        v.right = yLabels.length - 1;
         curveChart.setMaximumViewport(v);
         curveChart.setCurrentViewport(v);
 

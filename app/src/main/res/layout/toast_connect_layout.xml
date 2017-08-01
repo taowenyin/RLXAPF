@@ -18,6 +18,7 @@
         android:id="@+id/toast_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/toast_msg_size"/>
 

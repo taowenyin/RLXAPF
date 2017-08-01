@@ -8,6 +8,8 @@ public class DeviceBean {
     private String account = null;
     private String deviceType = null;
     private String GPSDeviceNo = null;
+    private String GPRSComPw = null;
+    private String GPRSMobileNo = null;
     private String deviceNo = null;
     private String authority = null;
     private String deleted = null;
@@ -66,6 +68,22 @@ public class DeviceBean {
 
     public void setGPSDeviceNo(String GPSDeviceNo) {
         this.GPSDeviceNo = GPSDeviceNo;
+    }
+
+    public String getGPRSComPw() {
+        return GPRSComPw;
+    }
+
+    public void setGPRSComPw(String GPRSComPw) {
+        this.GPRSComPw = GPRSComPw;
+    }
+
+    public String getGPRSMobileNo() {
+        return GPRSMobileNo;
+    }
+
+    public void setGPRSMobileNo(String GPRSMobileNo) {
+        this.GPRSMobileNo = GPRSMobileNo;
     }
 
     public String getDeviceNo() {

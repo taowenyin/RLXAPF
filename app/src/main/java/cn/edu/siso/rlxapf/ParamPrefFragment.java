@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
@@ -13,24 +15,25 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
-import java.util.Arrays;
+import com.alibaba.fastjson.JSON;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.ParameterDatasBean;
-import cn.edu.siso.rlxapf.config.TCPConfig;
 import cn.edu.siso.rlxapf.util.ProtocolUtil;
-import cn.edu.siso.rlxapf.util.TCPUtil;
-
+import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
 public class ParamPrefFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener,
-        TCPUtil.OnConnectListener,
-        TCPUtil.OnReceiveListener,
         Preference.OnPreferenceChangeListener {
 
-    private TCPUtil tcpUtil = null; // 和有人云通信的对象
+    private TcpClientManager tcpClientManager = null;
+    private Handler tcpHandler = null;
+    private boolean isTimeout = false;
 
     private SharedPreferences paramPrefs = null;
 
@@ -38,22 +41,117 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
 
     private Context context = null;
 
-    public static final String UPDATE_DATA_KEY = "data";
-    public static final String UPDATE_PARAM_KEY = "param";
+    private DeviceBean deviceBean = null;
+
+    public static final String KEY_DEVICE_PARAM = "key_device_param";
 
     public static final String TAG = "ParamPrefFragment";
 
-    private enum NETWORK_TYPE {LOAD_PARAM, UPDATE_PARAM};
-
-    private NETWORK_TYPE currentNetworkType;
-
     public ParamPrefFragment() {
-        // Required empty public constructor
+        tcpClientManager = TcpClientManager.getInstance();
+
+        tcpHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                if (dialogFragment.getShowsDialog()) {
+                    dialogFragment.dismiss();
+                }
+
+                Bundle data = msg.getData();
+                String operateType = data.getString(TcpClientManager.KEY_TCP_OPERATE_TYPE);
+                if (operateType.equals(TcpClientManager.TcpOperateType.OPERATE)) {
+                    int tcpCmdType = Integer.valueOf(data.getString(TcpClientManager.KEY_TCP_CMD_TYPE));
+
+                    // 载入数据
+                    if (TcpClientManager.TcpCmdType.LOAD_PARAMS.ordinal() == tcpCmdType) {
+                        String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
+                        if (!isTimeout) {
+                            if (resType.equals(TcpClientManager.TcpResType.CRC)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.BAD,
+                                        getResources().getString(R.string.tcp_connect_data_error_crc),
+                                        Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                            if (resType.equals(TcpClientManager.TcpResType.LENGTH)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.BAD,
+                                        getResources().getString(R.string.tcp_connect_data_error_length),
+                                        Toast.LENGTH_LONG);
+                                toast.show();
+                            }
+                            if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        getResources().getString(R.string.tcp_connect_data_succ),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+
+                                ParameterDatasBean datasBean = JSON.parseObject(
+                                        data.getString(TcpClientManager.KEY_TCP_RES_DATA),
+                                        ParameterDatasBean.class);
+                                writePreference(datasBean);
+                            }
+                        }
+                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+                            // 标记当前为超时状态
+                            isTimeout = true;
+
+                            ConnectToast toast = new ConnectToast(getContext(),
+                                    ConnectToast.ConnectRes.BAD,
+                                    getResources().getString(R.string.tcp_connect_load_params_time_out),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    }
+
+                    // 上传参数
+                    if (TcpClientManager.TcpCmdType.UPDATE_PARAM.ordinal() == tcpCmdType) {
+                        String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
+
+                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+                            // 标记当前为超时状态
+                            isTimeout = true;
+
+                            ConnectToast toast = new ConnectToast(getContext(),
+                                    ConnectToast.ConnectRes.BAD,
+                                    getResources().getString(R.string.tcp_connect_update_param_time_out),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        if (!isTimeout) {
+                            if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        getResources().getString(R.string.tcp_connect_param_update_length),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+                }
+            }
+        };
     }
 
-    public static ParamPrefFragment newInstance() {
+    public static ParamPrefFragment newInstance(String deviceParam) {
         ParamPrefFragment fragment = new ParamPrefFragment();
+        Bundle data = new Bundle();
+        data.putString(KEY_DEVICE_PARAM, deviceParam);
+        fragment.setArguments(data);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            String device = getArguments().getString(KEY_DEVICE_PARAM);
+            deviceBean = JSON.parseObject(device, DeviceBean.class);
+        }
     }
 
     @Override
@@ -197,22 +295,17 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         super.onResume();
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-        // 建立和有人云的通信
-        tcpUtil = new TCPUtil();
-        tcpUtil.connect(TCPConfig.DEFAULT_DEVICE_ID, TCPConfig.DEFAULT_DEVICE_PWD, this);
-        dialogFragment.show(getFragmentManager(),
-                getResources().getString(R.string.connect_fragment_dialog_tag));
+        isTimeout = false; // 清空超时，允许进行TCP操作
 
-        currentNetworkType = NETWORK_TYPE.LOAD_PARAM;
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.LOAD_PARAMS,
+                new String[]{deviceBean.getDeviceNo()}, tcpHandler);
+        dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-
-        // 关闭与有人云的通信
-        tcpUtil.close(TCPConfig.DEFAULT_DEVICE_ID);
     }
 
     @Override
@@ -247,60 +340,17 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
     }
 
     @Override
-    public void onSuccess(String deviceId) {
-        Log.i(TAG, "onSuccess Device Id = " + deviceId);
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-        // 发送指令后休息100ms
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        isTimeout = false; // 清空超时，允许进行TCP操作
 
-        // 执行读取参数的指令
-        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                byte deviceAddr = 0x01;
-                tcpUtil.send(ProtocolUtil.readParamsDatas(deviceAddr), ParamPrefFragment.this);
-                return null;
-            }
-        });
-    }
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.UPDATE_PARAM,
+                new String[]{deviceBean.getDeviceNo(), preference.getKey(), newValue.toString()},
+                tcpHandler);
 
-    @Override
-    public void onError(int errorCode, String errorMsg) {
-        Log.i(TAG, "onError Error Code = " + errorCode + " Error Msg = " + errorMsg);
-    }
+        dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
 
-    @Override
-    public void onClose(String deviceId) {
-        Log.i(TAG, "onClose Device Id = " + deviceId);
-    }
-
-    @Override
-    public void onReceive(String deviceId, byte[] data) {
-        Log.i(TAG, "onReceive Device Id = " + deviceId);
-        Log.i(TAG, "onReceive Data = " + Arrays.toString(data));
-
-        dialogFragment.dismiss(); // 关闭进度框
-
-        if (currentNetworkType == NETWORK_TYPE.LOAD_PARAM) {
-            Log.i(TAG, "读取数据成功");
-            ParameterDatasBean datasBean = new ParameterDatasBean();
-            int res = datasBean.parse(data);
-            if (res == -1) {
-                Log.i(TAG, "CRC教研失败");
-            } else if (res == -2) {
-                Log.i(TAG, "长度解析出错");
-            } else {
-                Log.i(TAG, "数据解析成功");
-                writePreference(datasBean);
-            }
-        }
-        if (currentNetworkType == NETWORK_TYPE.UPDATE_PARAM) {
-            Log.i(TAG, "更新数据成功");
-        }
+        return true;
     }
 
     private void writePreference(ParameterDatasBean datasBean) {
@@ -409,113 +459,13 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
     }
 
     public void pullDeviceParams() {
+
+        isTimeout = false; // 清空超时，允许进行TCP操作
+
         // 执行读取参数的指令
-        AsyncTaskCompat.executeParallel(new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                byte deviceAddr = 0x01;
-                tcpUtil.send(ProtocolUtil.readParamsDatas(deviceAddr), ParamPrefFragment.this);
-                return null;
-            }
-        });
-        currentNetworkType = NETWORK_TYPE.LOAD_PARAM;
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.LOAD_PARAMS,
+                new String[]{deviceBean.getDeviceNo()}, tcpHandler);
 
-        dialogFragment.show(getFragmentManager(),
-                getResources().getString(R.string.connect_fragment_dialog_tag));
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-
-        Map<String, String> param = new HashMap<String, String>();
-        param.put(UPDATE_PARAM_KEY, preference.getKey());
-        param.put(UPDATE_DATA_KEY, newValue.toString());
-
-        AsyncTaskCompat.executeParallel(new ParamUpdateTask(), param);
-        dialogFragment.show(getFragmentManager(),
-                getResources().getString(R.string.connect_fragment_dialog_tag));
-
-        currentNetworkType = NETWORK_TYPE.UPDATE_PARAM;
-
-        return true;
-    }
-
-    private class ParamUpdateTask extends AsyncTask<Map<String, String>, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Map<String, String>... params) {
-            Map<String, String> param = params[0];
-
-            String paramKey = param.get(UPDATE_PARAM_KEY);
-            String paramData = param.get(UPDATE_DATA_KEY);
-
-            Log.i(TAG, "ParamUpdateTask Param Key = " + paramKey);
-            Log.i(TAG, "ParamUpdateTask Param Data = " + paramData);
-
-            byte[] bytesMsg = null;
-            byte deviceAddr = 0x01;
-
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_unit_key))) {
-                bytesMsg = ProtocolUtil.writeParamsUnitCount(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_system_ct_key))) {
-                bytesMsg = ProtocolUtil.writeParamsSystemCTChangeRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_load_ct_key))) {
-                bytesMsg = ProtocolUtil.writeParamsLoadCTChangeRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_target_power_key))) {
-                bytesMsg = ProtocolUtil.writeParamsObjectPowerFactor(deviceAddr, Double.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_3_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic3CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_5_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic5CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_7_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic7CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_9_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic9CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_11_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic11CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_13_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic13CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_15_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic15CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_17_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic17CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_19_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic19CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_21_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic21CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_23_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic23CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_25_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonic25CompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_26_compensate_key))) {
-                bytesMsg = ProtocolUtil.writeParamsHarmonicEvenCompensationRate(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_sampling_model_key))) {
-                bytesMsg = ProtocolUtil.writeParamsSampleMode(deviceAddr, Integer.valueOf(paramData));
-            }
-            if (paramKey.equals(getResources().getString(R.string.param_preferences_compensate_model_key))) {
-                bytesMsg = ProtocolUtil.writeParamsCompensationMode(deviceAddr, Integer.valueOf(paramData));
-            }
-
-            tcpUtil.send(bytesMsg, ParamPrefFragment.this);
-
-            return null;
-        }
+        dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
     }
 }
