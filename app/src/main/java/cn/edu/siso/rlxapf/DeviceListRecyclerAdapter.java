@@ -53,7 +53,8 @@ public class DeviceListRecyclerAdapter extends RecyclerView.Adapter<DeviceItemVi
         holder.setDeviceType(data.get(position).getDeviceType());
         holder.setGpsNo(data.get(position).getGPSDeviceNo());
         holder.setDeviceNo(data.get(position).getDeviceNo());
-        holder.setDeleted(data.get(position).getDeleted());
+//        holder.setDeleted(data.get(position).getDeleted());
+        holder.setDeleted(data.get(position).getOnoff());
 
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

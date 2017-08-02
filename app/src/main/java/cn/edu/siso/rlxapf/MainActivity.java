@@ -33,12 +33,16 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
+import cn.edu.siso.rlxapf.bean.UserBean;
+import cn.edu.siso.rlxapf.config.HTTPConfig;
 import cn.edu.siso.rlxapf.config.TCPConfig;
 import cn.edu.siso.rlxapf.util.TCPUtil;
+import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
 import static cn.edu.siso.rlxapf.DeviceListActivity.DATA_KEY;
 import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
+import static cn.edu.siso.rlxapf.DeviceListActivity.USER_KEY;
 import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_CMD_TYPE;
 import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_OPERATE_TYPE;
 import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_RES_TYPE;
@@ -64,7 +68,11 @@ public class MainActivity extends AppCompatActivity implements
     private Handler tcpHandler = null;
     private boolean isTimeout = false;
 
+    private Handler httpHandler = null;
+    private OkHttpClientManager httpManager = null;
+
     private List<DeviceBean> deviceData = null;
+    private UserBean userData = null;
     private int currPosition = -1;
 
     // 当前的操作
@@ -103,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements
         deviceData = JSON.parseArray(
                 deviceBundle.getString(DATA_KEY),
                 DeviceBean.class);
+        userData = JSON.parseObject(
+                deviceBundle.getString(USER_KEY),
+                UserBean.class);
         currPosition = deviceBundle.getInt(POSITION_KEY);
 
         FragmentTabHost mainTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
@@ -114,6 +125,42 @@ public class MainActivity extends AppCompatActivity implements
         ApngImageLoader.getInstance().displayImage("assets://apng/signal.png", signalView);
 
         dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
+
+        httpHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                Bundle data = msg.getData();
+                String resultType = data.getString(OkHttpClientManager.HTTP_RESPONSE_TYPE);
+                String resultData = data.getString(OkHttpClientManager.HTTP_RESPONSE_DATA);
+
+                if (currentOperate == CurrOperate.STOP_DEVICE) {
+                    ConnectToast toast = new ConnectToast(getApplicationContext(),
+                            ConnectToast.ConnectRes.SUCCESS,
+                            getResources().getString(R.string.tcp_connect_stop_device_succ),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                if (currentOperate == CurrOperate.START_DEVICE) {
+                    Message httpMsg = new Message();
+                    Bundle bundle = new Bundle();
+
+                    ConnectToast toast = new ConnectToast(getApplicationContext(),
+                            ConnectToast.ConnectRes.SUCCESS,
+                            getResources().getString(R.string.tcp_connect_start_device_succ),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                if (dialogFragment != null &&
+                        dialogFragment.getDialog() != null &&
+                        dialogFragment.getDialog().isShowing()) {
+                    dialogFragment.dismiss();
+                }
+            }
+        };
 
         tcpHandler = new Handler() {
             @Override
@@ -132,46 +179,47 @@ public class MainActivity extends AppCompatActivity implements
                 if (operateType.equals(TcpClientManager.TcpOperateType.OPERATE)) {
                     int tcpCmdType = Integer.valueOf(data.getString(KEY_TCP_CMD_TYPE));
 
-                    if (TcpClientManager.TcpCmdType.START_DEVICE.ordinal() == tcpCmdType) {
-                        String resType = data.getString(KEY_TCP_RES_TYPE);
-                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
-                            // 标记当前为超时状态
-                            isTimeout = true;
-
-                            ConnectToast toast = new ConnectToast(getApplicationContext(),
-                                    ConnectToast.ConnectRes.BAD,
-                                    getResources().getString(R.string.tcp_connect_start_device_time_out),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        if (!isTimeout) {
-                            ConnectToast toast = new ConnectToast(getApplicationContext(),
-                                    ConnectToast.ConnectRes.SUCCESS,
-                                    getResources().getString(R.string.tcp_connect_start_device_succ),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    }
-                    if (TcpClientManager.TcpCmdType.STOP_DEVICE.ordinal() == tcpCmdType) {
-                        String resType = data.getString(KEY_TCP_RES_TYPE);
-                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
-                            // 标记当前为超时状态
-                            isTimeout = true;
-
-                            ConnectToast toast = new ConnectToast(getApplicationContext(),
-                                    ConnectToast.ConnectRes.BAD,
-                                    getResources().getString(R.string.tcp_connect_stop_device_time_out),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        if (!isTimeout) {
-                            ConnectToast toast = new ConnectToast(getApplicationContext(),
-                                    ConnectToast.ConnectRes.SUCCESS,
-                                    getResources().getString(R.string.tcp_connect_stop_device_succ),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    }
+                    // 因为启动停止设备没有回复，所以屏蔽
+//                    if (TcpClientManager.TcpCmdType.START_DEVICE.ordinal() == tcpCmdType) {
+//                        String resType = data.getString(KEY_TCP_RES_TYPE);
+//                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+//                            // 标记当前为超时状态
+//                            isTimeout = true;
+//
+//                            ConnectToast toast = new ConnectToast(getApplicationContext(),
+//                                    ConnectToast.ConnectRes.BAD,
+//                                    getResources().getString(R.string.tcp_connect_start_device_time_out),
+//                                    Toast.LENGTH_LONG);
+//                            toast.show();
+//                        }
+//                        if (!isTimeout) {
+//                            ConnectToast toast = new ConnectToast(getApplicationContext(),
+//                                    ConnectToast.ConnectRes.SUCCESS,
+//                                    getResources().getString(R.string.tcp_connect_start_device_succ),
+//                                    Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
+//                    }
+//                    if (TcpClientManager.TcpCmdType.STOP_DEVICE.ordinal() == tcpCmdType) {
+//                        String resType = data.getString(KEY_TCP_RES_TYPE);
+//                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+//                            // 标记当前为超时状态
+//                            isTimeout = true;
+//
+//                            ConnectToast toast = new ConnectToast(getApplicationContext(),
+//                                    ConnectToast.ConnectRes.BAD,
+//                                    getResources().getString(R.string.tcp_connect_stop_device_time_out),
+//                                    Toast.LENGTH_LONG);
+//                            toast.show();
+//                        }
+//                        if (!isTimeout) {
+//                            ConnectToast toast = new ConnectToast(getApplicationContext(),
+//                                    ConnectToast.ConnectRes.SUCCESS,
+//                                    getResources().getString(R.string.tcp_connect_stop_device_succ),
+//                                    Toast.LENGTH_SHORT);
+//                            toast.show();
+//                        }
+//                    }
                 }
             }
         };
@@ -192,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements
                         wLP.alpha = 1f;
                         MainActivity.this.getWindow().setAttributes(wLP);
                         operateMenu.dismiss();
-                        Message msg = new Message();
                         Bundle bundle = new Bundle();
                         switch (position) {
                             case 0:
@@ -204,30 +251,34 @@ public class MainActivity extends AppCompatActivity implements
                                         new String[]{deviceData.get(currPosition).getDeviceNo()},
                                         tcpHandler);
 
-                                // 因为启动和停止设备没有返回值，所以不启动进度框，直接返回正确
-                                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpClientManager.TcpOperateType.OPERATE);
-                                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpClientManager.TcpCmdType.STOP_DEVICE.ordinal()));
-                                bundle.putString(KEY_TCP_RES_TYPE, TcpClientManager.TcpResType.SUCCESS);
-                                msg.setData(bundle);
-                                tcpHandler.sendMessage(msg);
-//                                dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
+                                // 发送HTTP关机指令
+                                Map<String, String> offParams = new HashMap<String, String>();
+                                offParams.put("mobileid", userData.getMobileId());
+                                offParams.put("id", deviceData.get(currPosition).getId());
+                                offParams.put("onoff", "0");
+                                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_ON_OFF_DEVICE, offParams, httpHandler);
+                                currentOperate = CurrOperate.STOP_DEVICE;
+
+                                dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
                                 break;
                             case 1:
                                 isTimeout = false; // 清空超时，允许进行TCP操作
 
-                                // 执行停止设备的指令
+                                // 执行启动设备的指令
                                 tcpClientManager.sendCmd(getApplicationContext(),
                                         TcpClientManager.TcpCmdType.START_DEVICE,
                                         new String[]{deviceData.get(currPosition).getDeviceNo()},
                                         tcpHandler);
 
-                                // 因为启动和停止设备没有返回值，所以不启动进度框，直接返回正确
-                                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpClientManager.TcpOperateType.OPERATE);
-                                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpClientManager.TcpCmdType.START_DEVICE.ordinal()));
-                                bundle.putString(KEY_TCP_RES_TYPE, TcpClientManager.TcpResType.SUCCESS);
-                                msg.setData(bundle);
-                                tcpHandler.sendMessage(msg);
-//                                dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
+                                // 发送HTTP停止指令
+                                Map<String, String> onParams = new HashMap<String, String>();
+                                onParams.put("mobileid", userData.getMobileId());
+                                onParams.put("id", deviceData.get(currPosition).getId());
+                                onParams.put("onoff", "1");
+                                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_ON_OFF_DEVICE, onParams, httpHandler);
+                                currentOperate = CurrOperate.START_DEVICE;
+
+                                dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
                                 break;
                             case 2:
                                 Intent intent = new Intent(MainActivity.this, ParamActivity.class);
@@ -298,6 +349,10 @@ public class MainActivity extends AppCompatActivity implements
 
         // 初始化TCP连接对象
         tcpClientManager = TcpClientManager.getInstance();
+
+        // 初始化HTTP连接对象
+        RLXApplication application = (RLXApplication) getApplication();
+        httpManager = application.getHttpManager();
     }
 
     @Override
@@ -352,8 +407,10 @@ public class MainActivity extends AppCompatActivity implements
         }
         if (uri.getQueryParameter(UriCommunication.Action).equals(UriCommunication.ActionParams.Signal)) {
             ApngDrawable signalDrawable = ApngDrawable.getFromView(signalView);
-            signalDrawable.setNumPlays(1); // Fix number of repetition
-            signalDrawable.start(); // Start animation
+            if (signalDrawable != null) {
+                signalDrawable.setNumPlays(1); // Fix number of repetition
+                signalDrawable.start(); // Start animation
+            }
         }
     }
 }

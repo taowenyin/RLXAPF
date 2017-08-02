@@ -12,6 +12,7 @@ public class DeviceBean {
     private String GPRSMobileNo = null;
     private String deviceNo = null;
     private String authority = null;
+    private String onoff = null;
     private String deleted = null;
 
     public String getId() {
@@ -100,6 +101,14 @@ public class DeviceBean {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    public String getOnoff() {
+        return onoff;
+    }
+
+    public void setOnoff(String onoff) {
+        this.onoff = onoff;
     }
 
     public String getDeleted() {

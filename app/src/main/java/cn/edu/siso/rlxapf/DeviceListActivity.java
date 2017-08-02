@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,18 +49,23 @@ public class DeviceListActivity extends AppCompatActivity implements
     private PopupBottomMenu operateMenu = null;
     private WindowManager.LayoutParams wLP = null;
     private ConnectDialogFragment dialogFragment = null;
+    private SwipeRefreshLayout swipeRefresh = null;
 
     private Handler httpHandler = null;
+    private OkHttpClientManager httpManager = null;
     private boolean isTimeout = false;
 
     private TcpClientManager tcpClientManager = null;
     private Handler tcpHandler = null;
+
+    private UserBean userBean = null;
 
     // 当前的操作
     private CurrOperate currentOperate = CurrOperate.NO_OPERATE;
 
     private int currentDevicePosition = -1;
 
+    public static final String USER_KEY = "user";
     public static final String DATA_KEY = "data";
     public static final String POSITION_KEY = "position";
 
@@ -70,12 +76,13 @@ public class DeviceListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
-        UserBean userBean = JSON.parseObject(
+        userBean = JSON.parseObject(
                 getIntent().getStringExtra(LoginActivity.USER_DATA_KEY),
                 UserBean.class);
 
         ImageButton toolbarBack = (ImageButton) findViewById(R.id.toolbar_back);
         RecyclerView deviceListView  = (RecyclerView) findViewById(R.id.device_list_view);
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
 
         deviceData = new ArrayList<DeviceBean>();
@@ -133,6 +140,16 @@ public class DeviceListActivity extends AppCompatActivity implements
                         deviceData.add(devices.get(i));
                     }
                     adapter.notifyDataSetChanged();
+
+                    if (swipeRefresh.isRefreshing()) {
+
+                        swipeRefresh.post(new Runnable(){
+                            @Override
+                            public void run() {
+                                swipeRefresh.setRefreshing(false);
+                            }
+                        });
+                    }
                 }
             }
         };
@@ -159,6 +176,8 @@ public class DeviceListActivity extends AppCompatActivity implements
                                 Bundle bundle = new Bundle();
                                 bundle.putString(DATA_KEY, JSON.toJSONString(
                                         deviceData, SerializerFeature.WriteMapNullValue));
+                                bundle.putString(USER_KEY, JSON.toJSONString(
+                                        userBean, SerializerFeature.WriteMapNullValue));
                                 bundle.putInt(POSITION_KEY, currentDevicePosition);
                                 intent.putExtras(bundle);
 
@@ -295,9 +314,20 @@ public class DeviceListActivity extends AppCompatActivity implements
             }
         });
 
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "onRefresh");
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mobileid", userBean.getMobileId());
+                params.put("account", userBean.getAccount());
+                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_DEVICE, params, httpHandler);
+            }
+        });
+
         // 获取设备列表
         RLXApplication application = (RLXApplication) getApplication();
-        OkHttpClientManager httpManager = application.getHttpManager();
+        httpManager = application.getHttpManager();
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobileid", userBean.getMobileId());
         params.put("account", userBean.getAccount());
@@ -318,6 +348,8 @@ public class DeviceListActivity extends AppCompatActivity implements
             Bundle bundle = new Bundle();
             bundle.putString(DATA_KEY, JSON.toJSONString(
                     deviceData, SerializerFeature.WriteMapNullValue));
+            bundle.putString(USER_KEY, JSON.toJSONString(
+                    userBean, SerializerFeature.WriteMapNullValue));
             bundle.putInt(POSITION_KEY, currentDevicePosition);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -344,5 +376,22 @@ public class DeviceListActivity extends AppCompatActivity implements
                 DeviceListActivity.this.findViewById(R.id.main),
                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                 0, 0);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        swipeRefresh.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefresh.setRefreshing(true);
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mobileid", userBean.getMobileId());
+                params.put("account", userBean.getAccount());
+                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_DEVICE, params, httpHandler);
+            }
+        });
     }
 }

@@ -54,4 +54,9 @@ public class HTTPConfig {
      */
     public static final String API_URL_QUERY_DEVICE = "JasonQueryDevice.aspx";
 
+    /**
+     * 开关设备
+     */
+    public static final String API_URL_ON_OFF_DEVICE = "JasonSetDevice.aspx";
+
 }

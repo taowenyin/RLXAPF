@@ -38,6 +38,8 @@
     <string name="device_no_label">设备编号:</string>
     <string name="device_delete_0">正常</string>
     <string name="device_delete_1">已删除</string>
+    <string name="device_onoff_0">停止中</string>
+    <string name="device_onoff_1">启动中</string>
 
     <!--设备列表获取错误信息-->
     <string name="device_list_error_mobile_id_no_set">mobileid没有设置</string>
