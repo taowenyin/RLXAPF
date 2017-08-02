@@ -54,6 +54,21 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = (EditText) findViewById(R.id.login_form_password);
         dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
 
+        loginFormLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RLXApplication application = (RLXApplication) getApplication();
+                OkHttpClientManager httpManager = application.getHttpManager();
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("u", loginAccount.getText().toString());
+                params.put("p", loginPassword.getText().toString());
+                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_LOGIN, params, httpHandler);
+                dialogFragment.show(getSupportFragmentManager(), LoginActivity.class.getName());
+            }
+        });
+
         httpHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -133,20 +148,5 @@ public class LoginActivity extends AppCompatActivity {
 
             LoginActivity.this.finish();
         }
-
-        loginFormLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                RLXApplication application = (RLXApplication) getApplication();
-                OkHttpClientManager httpManager = application.getHttpManager();
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("u", loginAccount.getText().toString());
-                params.put("p", loginPassword.getText().toString());
-                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_LOGIN, params, httpHandler);
-                dialogFragment.show(getSupportFragmentManager(), LoginActivity.class.getName());
-            }
-        });
     }
 }

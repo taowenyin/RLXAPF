@@ -1,6 +1,7 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +41,8 @@ import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
 
 public class SpectrumFragment extends Fragment {
 
+    private OnFragmentInteractionListener mListener = null;
+
     private RecyclerView spectrumRecyclerView = null;
     private DataSectionRecyclerAdapter adapter = null;
 
@@ -54,6 +57,14 @@ public class SpectrumFragment extends Fragment {
 
     private List<DeviceBean> deviceData = null;
     private int currPosition = -1;
+    private Uri signalUri = Uri.parse(
+            UriCommunication.SchemeParams.Fragment
+                    + "://"
+                    + getClass().getName()
+                    + "?"
+                    + UriCommunication.Action
+                    + "="
+                    + UriCommunication.ActionParams.Signal);
 
     public static final String TAG = "SpectrumFragment";
 
@@ -85,18 +96,22 @@ public class SpectrumFragment extends Fragment {
                         String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
                         if (!isTimeout && isSpectrum) {
                             if (resType.equals(TcpClientManager.TcpResType.CRC)) {
-                                ConnectToast toast = new ConnectToast(context,
-                                        ConnectToast.ConnectRes.BAD,
-                                        getResources().getString(R.string.tcp_connect_spectrum_data_error_crc),
-                                        Toast.LENGTH_LONG);
-                                toast.show();
+                                Log.e(TAG, getResources().getString(R.string.tcp_connect_spectrum_data_error_crc));
+
+//                                ConnectToast toast = new ConnectToast(context,
+//                                        ConnectToast.ConnectRes.BAD,
+//                                        getResources().getString(R.string.tcp_connect_spectrum_data_error_crc),
+//                                        Toast.LENGTH_LONG);
+//                                toast.show();
                             }
                             if (resType.equals(TcpClientManager.TcpResType.LENGTH)) {
-                                ConnectToast toast = new ConnectToast(context,
-                                        ConnectToast.ConnectRes.BAD,
-                                        getResources().getString(R.string.tcp_connect_spectrum_data_error_length),
-                                        Toast.LENGTH_LONG);
-                                toast.show();
+                                Log.e(TAG, getResources().getString(R.string.tcp_connect_spectrum_data_error_length));
+
+//                                ConnectToast toast = new ConnectToast(context,
+//                                        ConnectToast.ConnectRes.BAD,
+//                                        getResources().getString(R.string.tcp_connect_spectrum_data_error_length),
+//                                        Toast.LENGTH_LONG);
+//                                toast.show();
                             }
                             if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
                                 Log.i(TAG, "更新谐波数据");
@@ -114,11 +129,13 @@ public class SpectrumFragment extends Fragment {
                             // 标记当前为超时状态
                             isTimeout = true;
 
-                            ConnectToast toast = new ConnectToast(getContext(),
-                                    ConnectToast.ConnectRes.BAD,
-                                    getResources().getString(R.string.tcp_connect_spectrum_data_time_out),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                            Log.e(TAG, getResources().getString(R.string.tcp_connect_spectrum_data_time_out));
+
+//                            ConnectToast toast = new ConnectToast(getContext(),
+//                                    ConnectToast.ConnectRes.BAD,
+//                                    getResources().getString(R.string.tcp_connect_spectrum_data_time_out),
+//                                    Toast.LENGTH_LONG);
+//                            toast.show();
                         }
 
                         if (isSpectrum) {
@@ -136,6 +153,8 @@ public class SpectrumFragment extends Fragment {
                             tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.SPECTRUM_DATA,
                                     new String[]{deviceData.get(currPosition).getDeviceNo()},
                                     tcpHandler);
+                            // 发送信号指令
+                            mListener.onFragmentInteraction(signalUri);
                         }
                     }
                 }
@@ -201,6 +220,13 @@ public class SpectrumFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        if (context instanceof UserFragment.OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+
         this.context = context;
     }
 
@@ -214,6 +240,8 @@ public class SpectrumFragment extends Fragment {
         tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.SPECTRUM_DATA,
                 new String[]{deviceData.get(currPosition).getDeviceNo()},
                 tcpHandler);
+        // 发送信号指令
+        mListener.onFragmentInteraction(signalUri);
     }
 
     @Override
@@ -222,8 +250,18 @@ public class SpectrumFragment extends Fragment {
         isSpectrum = false; // 关闭实时数据
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mListener = null;
+    }
+
     private void updateHarmonicDates(HarmonicDatasBean datesBean) {
 
     }
 
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
 }

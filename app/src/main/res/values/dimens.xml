@@ -9,6 +9,9 @@
     <dimen name="toolbar_small_icon_size">24dp</dimen>
     <!--标题栏内边距大小-->
     <dimen name="toolbar_horizontal_padding">10dp</dimen>
+    <!--标题栏的GIF图片-->
+    <dimen name="toolbar_gif_size">15dp</dimen>
+    <dimen name="toolbar_gif_margin">10dp</dimen>
 
     <!--配置页面的文本输入框的内边距-->
     <dimen name="pref_editer_text_dialog_padding">20dp</dimen>

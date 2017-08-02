@@ -184,9 +184,9 @@ public class DataCurveRecycleAdapter extends SectionedRecyclerViewAdapter<
             // 设置这条曲线的颜色
             line.setColor(Color.parseColor(lineColor[i]));
             // 设置曲线圆点的大小
-            line.setPointRadius(5);
+            line.setPointRadius(3);
             // 设置这条曲线的宽度
-            line.setStrokeWidth(2);
+            line.setStrokeWidth(1);
             // 折线图上每个数据点的形状  这里是圆形
             line.setShape(ValueShape.CIRCLE);
             // 曲线是否平滑，即是曲线还是折线

@@ -102,6 +102,17 @@ public class DeviceListActivity extends AppCompatActivity implements
                             break;
                         case HTTPConfig.DeviceListError.SESSION_NO_SET:
                             badMsg = getResources().getString(R.string.device_list_error_session_no_set);
+
+                            // 清空账户信息
+                            SharedPreferences accountPref = getSharedPreferences(
+                                    getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
+                            SharedPreferences.Editor editor = accountPref.edit();
+                            editor.clear();
+                            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+
+                            Intent intent = new Intent(DeviceListActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                             break;
                         case HTTPConfig.DeviceListError.SESSION_ERROR:
                             badMsg = getResources().getString(R.string.device_list_error_session_error);

@@ -1,6 +1,7 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,8 @@ import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
 public class RealTimeFragment extends Fragment implements
         TabLayout.OnTabSelectedListener {
 
+    private OnFragmentInteractionListener mListener = null;
+
     private TcpClientManager tcpClientManager = null;
     private Handler tcpHandler = null;
     private boolean isTimeout = false;
@@ -42,6 +45,14 @@ public class RealTimeFragment extends Fragment implements
 
     private List<DeviceBean> deviceData = null;
     private int currPosition = -1;
+    private Uri signalUri = Uri.parse(
+            UriCommunication.SchemeParams.Fragment
+                    + "://"
+                    + getClass().getName()
+                    + "?"
+                    + UriCommunication.Action
+                    + "="
+                    + UriCommunication.ActionParams.Signal);
 
     private int[] realTimeIndicatorTitleArray = {
             R.string.main_top_tab_real_curve_title,
@@ -83,18 +94,22 @@ public class RealTimeFragment extends Fragment implements
                         String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
                         if (!isTimeout && isRealTime) {
                             if (resType.equals(TcpClientManager.TcpResType.CRC)) {
-                                ConnectToast toast = new ConnectToast(context,
-                                        ConnectToast.ConnectRes.BAD,
-                                        getResources().getString(R.string.tcp_connect_real_data_error_crc),
-                                        Toast.LENGTH_LONG);
-                                toast.show();
+                                Log.e(TAG, getResources().getString(R.string.tcp_connect_real_data_error_crc));
+
+//                                ConnectToast toast = new ConnectToast(context,
+//                                        ConnectToast.ConnectRes.BAD,
+//                                        getResources().getString(R.string.tcp_connect_real_data_error_crc),
+//                                        Toast.LENGTH_LONG);
+//                                toast.show();
                             }
                             if (resType.equals(TcpClientManager.TcpResType.LENGTH)) {
-                                ConnectToast toast = new ConnectToast(context,
-                                        ConnectToast.ConnectRes.BAD,
-                                        getResources().getString(R.string.tcp_connect_real_data_error_length),
-                                        Toast.LENGTH_LONG);
-                                toast.show();
+                                Log.e(TAG, getResources().getString(R.string.tcp_connect_real_data_error_length));
+
+//                                ConnectToast toast = new ConnectToast(context,
+//                                        ConnectToast.ConnectRes.BAD,
+//                                        getResources().getString(R.string.tcp_connect_real_data_error_length),
+//                                        Toast.LENGTH_LONG);
+//                                toast.show();
                             }
                             if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
                                 RealTimeDatasBean datasBean = JSON.parseObject(
@@ -131,6 +146,8 @@ public class RealTimeFragment extends Fragment implements
                             tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.REAL_DATA,
                                     new String[]{deviceData.get(currPosition).getDeviceNo()},
                                     tcpHandler);
+                            // 发送信号指令
+                            mListener.onFragmentInteraction(signalUri);
                         }
                     }
                 }
@@ -163,8 +180,14 @@ public class RealTimeFragment extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         Log.i(TAG, "===onAttach===");
+
+        if (context instanceof UserFragment.OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
 
         this.context = context;
     }
@@ -178,12 +201,20 @@ public class RealTimeFragment extends Fragment implements
         tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.REAL_DATA,
                 new String[]{deviceData.get(currPosition).getDeviceNo()},
                 tcpHandler);
+        mListener.onFragmentInteraction(signalUri);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         isRealTime = false; // 关闭实时数据
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        mListener = null;
     }
 
     @Override
@@ -202,5 +233,9 @@ public class RealTimeFragment extends Fragment implements
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
         Log.i(TAG, "onTabUnselected");
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
     }
 }

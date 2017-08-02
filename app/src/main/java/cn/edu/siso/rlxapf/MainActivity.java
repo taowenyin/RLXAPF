@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.github.sahasbhop.apngview.ApngDrawable;
+import com.github.sahasbhop.apngview.ApngImageLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +45,9 @@ import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_RES_TYPE;
 
 public class MainActivity extends AppCompatActivity implements
         TabHost.OnTabChangeListener,
-        UserFragment.OnFragmentInteractionListener {
+        UserFragment.OnFragmentInteractionListener,
+        RealTimeFragment.OnFragmentInteractionListener,
+        SpectrumFragment.OnFragmentInteractionListener {
 
     private enum CurrOperate {NO_OPERATE, STOP_DEVICE, START_DEVICE, ENTER_PARAMS};
 
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements
     private ImageButton toolbarBack = null;
     private PopupBottomMenu operateMenu = null;
     private ConnectDialogFragment dialogFragment = null;
+    private ImageView signalView = null;
 
     private WindowManager.LayoutParams wLP = null;
 
@@ -104,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements
         toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         toolbarOperate = (ImageButton) findViewById(R.id.toolbar_operate);
         toolbarBack = (ImageButton) findViewById(R.id.toolbar_back);
+        signalView = (ImageView) findViewById(R.id.signal_view);
+        // 初始化GIF动画
+        ApngImageLoader.getInstance().displayImage("assets://apng/signal.png", signalView);
+
         dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
 
         tcpHandler = new Handler() {
@@ -295,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.i(TAG, "关闭设备");
+        Log.i(TAG, "关闭设备 " + deviceData.get(currPosition).getGPSDeviceNo());
 
         tcpClientManager.close(deviceData.get(currPosition).getGPSDeviceNo());
     }
@@ -340,6 +349,11 @@ public class MainActivity extends AppCompatActivity implements
                     startActivity(intent);
                     break;
             }
+        }
+        if (uri.getQueryParameter(UriCommunication.Action).equals(UriCommunication.ActionParams.Signal)) {
+            ApngDrawable signalDrawable = ApngDrawable.getFromView(signalView);
+            signalDrawable.setNumPlays(1); // Fix number of repetition
+            signalDrawable.start(); // Start animation
         }
     }
 }
