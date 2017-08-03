@@ -80,13 +80,13 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
 
     public void setDeleted(String deleted) {
         if (Integer.parseInt(deleted) == 0) {
-            this.deleted.setTextColor(Color.RED);
-//            this.deleted.setText(context.getResources().getString(R.string.device_delete_0));
-            this.deleted.setText(context.getResources().getString(R.string.device_onoff_0));
-        } else {
             this.deleted.setTextColor(Color.GREEN);
-//            this.deleted.setText(context.getResources().getString(R.string.device_delete_1));
-            this.deleted.setText(context.getResources().getString(R.string.device_onoff_1));
+            this.deleted.setText(context.getResources().getString(R.string.device_delete_0));
+//            this.deleted.setText(context.getResources().getString(R.string.device_onoff_0));
+        } else {
+            this.deleted.setTextColor(Color.RED);
+            this.deleted.setText(context.getResources().getString(R.string.device_delete_1));
+//            this.deleted.setText(context.getResources().getString(R.string.device_onoff_1));
         }
 
     }

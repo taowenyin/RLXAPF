@@ -9,20 +9,26 @@ android:
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
+  - extra-android-support
+  - extra-google-google_play_services
   - addon-google_apis-google-24
   - add-on
   - extra
+licenses:
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 dependencies:
    pre:
      - echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 before_install:
   - openssl aes-256-cbc -K $encrypted_c8b2b093f2df_key -iv $encrypted_c8b2b093f2df_iv
-  -in keys/LX.jks.enc -out keys/LX.jks -d
+  - in keys/LX.jks.enc -out keys/LX.jks -d
 deploy:
   provider: releases
   api_key:
     secure: szBvOkcAau6w4dJ4jyl+2fLJZFEurV0C0Gaoz53D/f0DDbBjczoyCUlDOB/0H6Jr51ymkhRrUGagUr0cR/X1TUx1PLO0lPCc2C7Nqy6GO+j4zIwtzVcHEvSnDbEAy39WBzPU/ilcfumUtKqwVCdM2AH9VRcve1dc/JRyPV1oPd0aDFU5kv8YxQDHr+OYMu2xR+ZoGXOQ9PKMm4NxSBCBkWLkElkmvmANPocmMCL6yLjK+tHHN2nWGlYFL9kM9FuGlm+GmCfUsESlyEpt7V71KWf6M8V17VZPD41ekVpu6nFXMX/RwXurNk7b0aIcmJkgq2CkFu+XgTmjRVE64fUHNmF7m4OCVitjcBnVYhUOflviYkIKzRm3qRj4fs+Ca1XT69m+OFVu8+sOUV04MmLl1NF1gY7m0UXmn04QirdYGnh4bX5iZOMbJCbVcfyQb2JSzOlAursVx98v2CfieJY3Q9hZvvyFJdAvX2/qNhmdBY4UU22AX8Hew6LLyr0TIF05Am0d+CPR4yUxMhHuCETZSKNzAZOpO3h+GoXBgqX7Vwx2E7AongFDo6X3KUuSZoktRGg4Mdl1en4G9cZ6XK9OzZeZXY3gRWAGZOJxUkcUHLrHTSw82kwGSE9ePPzGCLWSnifX/Lp/OR4mt/OcOMntchA6DkA6zFBL8Dq4WxQc3BE=
-  file: ''
+  file: 'app/build/outputs/apk/app-release.apk'
   on:
     repo: taowenyin/RLXAPF
 script:

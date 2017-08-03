@@ -137,7 +137,8 @@
             android:paddingRight="@dimen/device_list_item_padding"
             android:src="@drawable/ic_device_operate_gray"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
