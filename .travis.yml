@@ -1,36 +1,31 @@
 language: android
-"jdk": "oraclejdk8"
 android:
   components:
   - tools
   - platform-tools
+  - tools
   - build-tools-26.0.1
   - android-25
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
-  - extra-android-support
-  - extra-google-google_play_services
   - addon-google_apis-google-24
-  - add-on
-  - extra
+  licenses:
+  - android-sdk-license-.+
+script:
+  - "./gradlew assembleRelease"
 before_install:
-  - mkdir "$ANDROID_HOME/licenses" || true
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-  - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-  - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-  - openssl aes-256-cbc -K $encrypted_c8b2b093f2df_key -iv $encrypted_c8b2b093f2df_iv
+- mkdir "$ANDROID_HOME/licenses" || true
+- echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+- openssl aes-256-cbc -K $encrypted_c8b2b093f2df_key -iv $encrypted_c8b2b093f2df_iv
   -in keys/LX.jks.enc -out keys/LX.jks -d
 deploy:
   provider: releases
   api_key:
-    secure: szBvOkcAau6w4dJ4jyl+2fLJZFEurV0C0Gaoz53D/f0DDbBjczoyCUlDOB/0H6Jr51ymkhRrUGagUr0cR/X1TUx1PLO0lPCc2C7Nqy6GO+j4zIwtzVcHEvSnDbEAy39WBzPU/ilcfumUtKqwVCdM2AH9VRcve1dc/JRyPV1oPd0aDFU5kv8YxQDHr+OYMu2xR+ZoGXOQ9PKMm4NxSBCBkWLkElkmvmANPocmMCL6yLjK+tHHN2nWGlYFL9kM9FuGlm+GmCfUsESlyEpt7V71KWf6M8V17VZPD41ekVpu6nFXMX/RwXurNk7b0aIcmJkgq2CkFu+XgTmjRVE64fUHNmF7m4OCVitjcBnVYhUOflviYkIKzRm3qRj4fs+Ca1XT69m+OFVu8+sOUV04MmLl1NF1gY7m0UXmn04QirdYGnh4bX5iZOMbJCbVcfyQb2JSzOlAursVx98v2CfieJY3Q9hZvvyFJdAvX2/qNhmdBY4UU22AX8Hew6LLyr0TIF05Am0d+CPR4yUxMhHuCETZSKNzAZOpO3h+GoXBgqX7Vwx2E7AongFDo6X3KUuSZoktRGg4Mdl1en4G9cZ6XK9OzZeZXY3gRWAGZOJxUkcUHLrHTSw82kwGSE9ePPzGCLWSnifX/Lp/OR4mt/OcOMntchA6DkA6zFBL8Dq4WxQc3BE=
+    secure: dOWaBHYQc1lCnpxVoy6ou3MMt/7n+PPl0UAhyxHAbiPVjtIQ4Yr9sATpB9gLPS2lk7FBbCQbnzGlr6Qf6CBpcNhRdMqH1dTxbRTx1KW5Uy4ztt8xXwfpDm5xdBRfxOpttwS6u/BckqnqpRmPYHKPcg57OJyF7RKdcNWF4u47ArTvWFCPtmV8DGmJkd0VVv0KGe9g5hZA5yVIBQbAWqOzU0Cqckjsyx5cpedt6NoTIvtgB4ZLCBghhamZpKSH9gg7sQTu4h6DY6Kwg2snrFY4TP5RRE7Cg4Hb2PeDA8qdNKTYK0TQEZCMuwqG0PKa4tI0VoBenlCTKU9QAOlXXvVo4pO1Nn9AcQSWIxmopS/kBn0S6P9ILb5VU9c0aguRTlsoXr+m6UXTyR+jC4gAs05YMvkSjpCwPQAbYT19EnWzMwkgVmj6trFyRTUYTCHMVYyOlCiLxVWpm63g35e4Q2/7wiHusTfqiSphUVKW3HvHlwZjWTHLZQzLhGljfFDwjBALIbl0L3bXuCuQJARCumRlmTDnE8CToaW7lE6euIrLGvFRQGKZ6vtSgRWV0y/DUBWyd7ajuvoWQIwUT3XMhyYP1VQZ11TeHvMs10GslfoVGFeOuzAEoarUy4ZpytP13X2A3lHSuM0g0KUu96ArCVtjzhCB7j3jz3rN1V5h4gPZQrI=
   file: app/build/outputs/apk/app-release.apk
   skip_cleanup: true
   on:
-    repo: taowenyin/RLXAPF
     tags: true
     all_branches: true
-script:
-  - "./gradlew assembleRelease"
+    repo: taowenyin/RLXAPF
