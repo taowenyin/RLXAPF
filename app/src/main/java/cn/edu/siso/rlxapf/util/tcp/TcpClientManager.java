@@ -366,14 +366,18 @@ public class TcpClientManager {
 
             // 停止设备
             if (listener.getCmdType() == TcpCmdType.STOP_DEVICE) {
-                tcpUtil.send(ProtocolUtil.stopDevice(Integer.valueOf(params[0]).byteValue()),
-                        listener);
+//                tcpUtil.send(ProtocolUtil.stopDevice(Integer.valueOf(params[0]).byteValue()),
+//                        listener);
+                byte deviceAddr = 0x7F;
+                tcpUtil.send(ProtocolUtil.stopDevice(deviceAddr), listener);
             }
 
             // 启动设备
             if (listener.getCmdType() == TcpCmdType.START_DEVICE) {
-                tcpUtil.send(ProtocolUtil.startDevice(Integer.valueOf(params[0]).byteValue()),
-                        listener);
+//                tcpUtil.send(ProtocolUtil.startDevice(Integer.valueOf(params[0]).byteValue()),
+//                        listener);
+                byte deviceAddr = 0x7F;
+                tcpUtil.send(ProtocolUtil.startDevice(deviceAddr), listener);
             }
 
             // 实时数据
