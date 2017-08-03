@@ -1,5 +1,15 @@
 apply plugin: 'com.android.application'
 
+def gitCommitShortHash = 'git log -1 --pretty=%h'.execute([], project.rootDir).text.trim()
+def gitCommitDate = 'git log -1 --pretty=%ci'.execute([], project.rootDir).text.trim().split()[0]
+def gitShortShaDate = gitCommitShortHash + "_" + gitCommitDate
+
+// Auto-incrementing commit count based on counting commits to HEAD (Build #543)
+def gitCommitCount = Integer.parseInt('git rev-list HEAD --count'.execute([], project.rootDir).text.trim())
+
+// I want to use git tags as my version names (1.2.2)
+def gitCurrentTag = 'git describe --tags --abbrev=0'.execute([], project.rootDir).text.trim()
+
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
@@ -7,8 +17,8 @@ android {
         applicationId "cn.edu.siso.rlxapf"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode gitCommitCount
+        versionName gitCurrentTag
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
