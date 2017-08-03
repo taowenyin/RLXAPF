@@ -15,7 +15,7 @@ public class ProtocolUtil {
      * @return 发送字节数组
      */
     public static byte[] startDevice(){
-        byte[] bytes = {0x7F,0x05,0x00,0x05,0x00,0x01,0x00,0x00};
+        byte[] bytes = {0x7F,0x05,0x00,0x04,0x00,0x00,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
@@ -24,7 +24,7 @@ public class ProtocolUtil {
      * @return 发送字节数组
      */
     public static byte[] stopDevice(){
-        byte[] bytes = {0x7F,0x05,0x00,0x04,0x00,0x01,0x00,0x00};
+        byte[] bytes = {0x7F,0x05,0x00,0x03,0x00,0x00,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
@@ -63,7 +63,7 @@ public class ProtocolUtil {
      * @return
      */
     public static byte[] startDevice(byte deviceAddr){
-        byte[] bytes = {deviceAddr,0x05,0x00,0x05,0x00,0x01,0x00,0x00};
+        byte[] bytes = {deviceAddr,0x05,0x00,0x04,0x00,0x00,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
@@ -73,7 +73,7 @@ public class ProtocolUtil {
      * @return
      */
     public static byte[] stopDevice(byte deviceAddr){
-        byte[] bytes = {deviceAddr,0x05,0x00,0x04,0x00,0x01,0x00,0x00};
+        byte[] bytes = {deviceAddr,0x05,0x00,0x03,0x00,0x00,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
