@@ -130,6 +130,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         voltageData.clear();
         // 系统电压A
         double systemAVoltage = datasBean.getSystemAVoltage();
+        BigDecimal systemAVoltageBD = new BigDecimal(systemAVoltage);
+        systemAVoltage = systemAVoltageBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemAVoltageItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemAVoltageValue = new HashMap<String, Double>();
         systemAVoltageValue.put(DataBean.DATA_KEY, systemAVoltage);
@@ -139,6 +141,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 系统电压B
         double systemBVoltage = datasBean.getSystemBVoltage();
+        BigDecimal systemBVoltageBD = new BigDecimal(systemBVoltage);
+        systemBVoltage = systemBVoltageBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemBVoltageItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemBVoltageValue = new HashMap<String, Double>();
         systemBVoltageValue.put(DataBean.DATA_KEY, systemBVoltage);
@@ -148,6 +152,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 系统电压C
         double systemCVoltage = datasBean.getSystemCVoltage();
+        BigDecimal systemCVoltageBD = new BigDecimal(systemCVoltage);
+        systemCVoltage = systemCVoltageBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemCVoltageItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemCVoltageValue = new HashMap<String, Double>();
         systemCVoltageValue.put(DataBean.DATA_KEY, systemCVoltage);
@@ -212,8 +218,7 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         // 补偿电流A
         double compensationACurrent =  datasBean.getCompensationACurrent();
         BigDecimal compensationACurrentBD = new BigDecimal(compensationACurrent);
-        compensationACurrent = compensationACurrentBD.setScale(
-                3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        compensationACurrent = compensationACurrentBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> compensationACurrentItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> compensationACurrentValue = new HashMap<String, Double>();
         compensationACurrentValue.put(DataBean.DATA_KEY, compensationACurrent);
@@ -224,8 +229,7 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         // 补偿电流B
         double compensationBCurrent =  datasBean.getCompensationBCurrent();
         BigDecimal compensationBCurrentBD = new BigDecimal(compensationBCurrent);
-        compensationBCurrent = compensationBCurrentBD.setScale(
-                3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        compensationBCurrent = compensationBCurrentBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> compensationBCurrentItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> compensationBCurrentValue = new HashMap<String, Double>();
         compensationBCurrentValue.put(DataBean.DATA_KEY, compensationBCurrent);
@@ -236,8 +240,7 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         // 补偿电流C
         double compensationCCurrent =  datasBean.getCompensationCCurrent();
         BigDecimal compensationCCurrentBD = new BigDecimal(compensationCCurrent);
-        compensationCCurrent = compensationCCurrentBD.setScale(
-                3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        compensationCCurrent = compensationCCurrentBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> compensationCCurrentItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> compensationCCurrentValue = new HashMap<String, Double>();
         compensationCCurrentValue.put(DataBean.DATA_KEY, compensationCCurrent);
@@ -248,6 +251,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         powerData.clear();
         // 系统功率因素
         double systemPowerFactor = datasBean.getSystemPowerFactor();
+        BigDecimal systemPowerFactorBD = new BigDecimal(systemPowerFactor);
+        systemPowerFactor = systemPowerFactorBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemPowerFactorItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemPowerFactorValue = new HashMap<String, Double>();
         systemPowerFactorValue.put(DataBean.DATA_KEY, systemPowerFactor);
@@ -257,6 +262,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 系统电流不平衡度
         double systemCurrentUnbalanceDegree = datasBean.getSystemCurrentUnbalanceDegree();
+        BigDecimal systemCurrentUnbalanceDegreeBD = new BigDecimal(systemCurrentUnbalanceDegree);
+        systemCurrentUnbalanceDegree = systemCurrentUnbalanceDegreeBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemCurrentUnbalanceDegreeItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemCurrentUnbalanceDegreeValue = new HashMap<String, Double>();
         systemCurrentUnbalanceDegreeValue.put(DataBean.DATA_KEY, systemCurrentUnbalanceDegree);
@@ -266,6 +273,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 负载功率因素
         double loadPowerFactor = datasBean.getLoadPowerFactor();
+        BigDecimal loadPowerFactorBD = new BigDecimal(loadPowerFactor);
+        loadPowerFactor = loadPowerFactorBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> loadPowerFactorItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> loadPowerFactorValue = new HashMap<String, Double>();
         loadPowerFactorValue.put(DataBean.DATA_KEY, loadPowerFactor);
@@ -275,6 +284,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 负载电流不平衡度
         double loadCurrentUnbalanceDegree = datasBean.getLoadCurrentUnbalanceDegree();
+        BigDecimal loadCurrentUnbalanceDegreeBD = new BigDecimal(loadCurrentUnbalanceDegree);
+        loadCurrentUnbalanceDegree = loadCurrentUnbalanceDegreeBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> loadCurrentUnbalanceDegreeItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> loadCurrentUnbalanceDegreeValue = new HashMap<String, Double>();
         loadCurrentUnbalanceDegreeValue.put(DataBean.DATA_KEY, loadCurrentUnbalanceDegree);
@@ -294,6 +305,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         thdData.clear();
         // A相电压总畸变率
         double voltageATotalDistortionRate = datasBean.getVoltageATotalDistortionRate();
+        BigDecimal voltageATotalDistortionRateBD = new BigDecimal(voltageATotalDistortionRate);
+        voltageATotalDistortionRate = voltageATotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> voltageATotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> voltageATotalDistortionRateValue = new HashMap<String, Double>();
         voltageATotalDistortionRateValue.put(DataBean.DATA_KEY, voltageATotalDistortionRate);
@@ -303,6 +316,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // B相电压总畸变率
         double voltageBTotalDistortionRate = datasBean.getVoltageBTotalDistortionRate();
+        BigDecimal voltageBTotalDistortionRateBD = new BigDecimal(voltageBTotalDistortionRate);
+        voltageBTotalDistortionRate = voltageBTotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> voltageBTotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> voltageBTotalDistortionRateValue = new HashMap<String, Double>();
         voltageBTotalDistortionRateValue.put(DataBean.DATA_KEY, voltageBTotalDistortionRate);
@@ -312,6 +327,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // C相电压总畸变率
         double voltageCTotalDistortionRate = datasBean.getVoltageCTotalDistortionRate();
+        BigDecimal voltageCTotalDistortionRateBD = new BigDecimal(voltageCTotalDistortionRate);
+        voltageCTotalDistortionRate = voltageCTotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> voltageCTotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> voltageCTotalDistortionRateValue = new HashMap<String, Double>();
         voltageCTotalDistortionRateValue.put(DataBean.DATA_KEY, voltageCTotalDistortionRate);
@@ -321,6 +338,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 系统A相电流总畸变率
         double systemCurrentATotalDistortionRate = datasBean.getSystemCurrentATotalDistortionRate();
+        BigDecimal systemCurrentATotalDistortionRateBD = new BigDecimal(systemCurrentATotalDistortionRate);
+        systemCurrentATotalDistortionRate = systemCurrentATotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemCurrentATotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemCurrentATotalDistortionRateValue = new HashMap<String, Double>();
         systemCurrentATotalDistortionRateValue.put(DataBean.DATA_KEY, systemCurrentATotalDistortionRate);
@@ -330,6 +349,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 系统B相电流总畸变率
         double systemCurrentBTotalDistortionRate = datasBean.getSystemCurrentBTotalDistortionRate();
+        BigDecimal systemCurrentBTotalDistortionRateBD = new BigDecimal(systemCurrentBTotalDistortionRate);
+        systemCurrentBTotalDistortionRate = systemCurrentBTotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemCurrentBTotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemCurrentBTotalDistortionRateValue = new HashMap<String, Double>();
         systemCurrentBTotalDistortionRateValue.put(DataBean.DATA_KEY, systemCurrentBTotalDistortionRate);
@@ -339,6 +360,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 系统C相电流总畸变率
         double systemCurrentCTotalDistortionRate = datasBean.getSystemCurrentCTotalDistortionRate();
+        BigDecimal systemCurrentCTotalDistortionRateBD = new BigDecimal(systemCurrentCTotalDistortionRate);
+        systemCurrentCTotalDistortionRate = systemCurrentCTotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> systemCurrentCTotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> systemCurrentCTotalDistortionRateValue = new HashMap<String, Double>();
         systemCurrentCTotalDistortionRateValue.put(DataBean.DATA_KEY, systemCurrentCTotalDistortionRate);
@@ -348,6 +371,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 负载A相电流总畸变率
         double loadCurrentATotalDistortionRate = datasBean.getLoadCurrentATotalDistortionRate();
+        BigDecimal loadCurrentATotalDistortionRateBD = new BigDecimal(loadCurrentATotalDistortionRate);
+        loadCurrentATotalDistortionRate = loadCurrentATotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> loadCurrentATotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> loadCurrentATotalDistortionRateValue = new HashMap<String, Double>();
         loadCurrentATotalDistortionRateValue.put(DataBean.DATA_KEY, loadCurrentATotalDistortionRate);
@@ -357,6 +382,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 负载B相电流总畸变率
         double loadCurrentBTotalDistortionRate = datasBean.getLoadCurrentBTotalDistortionRate();
+        BigDecimal loadCurrentBTotalDistortionRateBD = new BigDecimal(loadCurrentBTotalDistortionRate);
+        loadCurrentBTotalDistortionRate = loadCurrentBTotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> loadCurrentBTotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> loadCurrentBTotalDistortionRateValue = new HashMap<String, Double>();
         loadCurrentBTotalDistortionRateValue.put(DataBean.DATA_KEY, loadCurrentBTotalDistortionRate);
@@ -366,6 +393,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         // 负载C相电流总畸变率
         double loadCurrentCTotalDistortionRate = datasBean.getLoadCurrentCTotalDistortionRate();
+        BigDecimal loadCurrentCTotalDistortionRateBD = new BigDecimal(loadCurrentCTotalDistortionRate);
+        loadCurrentCTotalDistortionRate = loadCurrentCTotalDistortionRateBD.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         List<Map<String, Double>> loadCurrentCTotalDistortionRateItem = new ArrayList<Map<String, Double>>();
         Map<String, Double> loadCurrentCTotalDistortionRateValue = new HashMap<String, Double>();
         loadCurrentCTotalDistortionRateValue.put(DataBean.DATA_KEY, loadCurrentCTotalDistortionRate);
