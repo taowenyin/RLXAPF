@@ -15,10 +15,10 @@ public class RealDataSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
     @Override
     public int getSpanSize(int position) {
-        // -10 因为最后10个数据需要一行一数据，
+        // -10 -7 因为当中的9个数据需要一行一数据，
         if(adapter.isSectionHeaderPosition(position) ||
                 adapter.isSectionFooterPosition(position) ||
-                position >= (adapter.getItemCount() - 10)){
+                (position >= (adapter.getItemCount() - 16) && position < (adapter.getItemCount() - 7))){
             return layoutManager.getSpanCount();
         }else {
             return 1;

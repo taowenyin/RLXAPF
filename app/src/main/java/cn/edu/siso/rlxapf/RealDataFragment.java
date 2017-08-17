@@ -1,7 +1,6 @@
 package cn.edu.siso.rlxapf;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,11 +28,15 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
     private List<DataBean> voltageData = null;
     private List<DataBean> powerData = null;
     private List<DataBean> thdData = null;
+    private List<DataBean> voltageDCData = null;
+    private List<DataBean> deviceInfoData = null;
     private List<DataGroupBean> realData = null;
 
     private String[] voltageTitles = null;
     private String[] powerTitles = null;
     private String[] thdTitles = null;
+    private String[] voltageDCTitles = null;
+    private String[] deviceInfoTitles = null;
 
     public static final String TAG = "RealDataFragment";
 
@@ -54,6 +57,8 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         voltageTitles = getResources().getStringArray(R.array.real_data_voltage_titles);
         powerTitles = getResources().getStringArray(R.array.real_data_power_titles);
         thdTitles = getResources().getStringArray(R.array.real_data_thd_titles);
+        voltageDCTitles = getResources().getStringArray(R.array.real_data_voltage_dc_titles);
+        deviceInfoTitles = getResources().getStringArray(R.array.real_data_device_info_titles);
 
         // 数据列表
         this.realData = new ArrayList<DataGroupBean>();
@@ -96,6 +101,32 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         }
         DataGroupBean thdGroupData = new DataGroupBean(realDataSections[2], thdData);
         realData.add(thdGroupData);
+
+        // 添加直流电压数据
+        voltageDCData = new ArrayList<DataBean>();
+        for (int i = 0; i < voltageDCTitles.length; i++) {
+            List<Map<String, Integer>> item = new ArrayList<Map<String, Integer>>();
+            Map<String, Integer> value = new HashMap<String, Integer>();
+            value.put(DataBean.DATA_KEY, 0);
+            item.add(value);
+            DataBean data = new DataBean(voltageDCTitles[i], item);
+            voltageDCData.add(data);
+        }
+        DataGroupBean directVoltageGroupData = new DataGroupBean(realDataSections[3], voltageDCData);
+        realData.add(directVoltageGroupData);
+
+        // 添加直流电压数据
+        deviceInfoData = new ArrayList<DataBean>();
+        for (int i = 0; i < deviceInfoTitles.length; i++) {
+            List<Map<String, Integer>> item = new ArrayList<Map<String, Integer>>();
+            Map<String, Integer> value = new HashMap<String, Integer>();
+            value.put(DataBean.DATA_KEY, 0);
+            item.add(value);
+            DataBean data = new DataBean(deviceInfoTitles[i], item);
+            deviceInfoData.add(data);
+        }
+        DataGroupBean deviceInfoGroupData = new DataGroupBean(realDataSections[4], deviceInfoData);
+        realData.add(deviceInfoGroupData);
     }
 
     @Override
@@ -401,6 +432,44 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         loadCurrentCTotalDistortionRateItem.add(loadCurrentCTotalDistortionRateValue);
         DataBean loadCurrentCTotalDistortionRateData = new DataBean(thdTitles[8], loadCurrentCTotalDistortionRateItem);
         thdData.add(loadCurrentCTotalDistortionRateData);
+
+        voltageDCData.clear();
+        // 直流电压1
+        int voltageDC1 = datasBean.getVoltageDC1();
+        List<Map<String, Integer>> voltageDC1Item = new ArrayList<Map<String, Integer>>();
+        Map<String, Integer> voltageDC1Value = new HashMap<String, Integer>();
+        voltageDC1Value.put(DataBean.DATA_KEY, voltageDC1);
+        voltageDC1Item.add(voltageDC1Value);
+        DataBean voltageDC1Data = new DataBean(voltageDCTitles[0], voltageDC1Item);
+        voltageDCData.add(voltageDC1Data);
+
+        // 直流电压2
+        int voltageDC2 = datasBean.getVoltageDC2();
+        List<Map<String, Integer>> voltageDC2Item = new ArrayList<Map<String, Integer>>();
+        Map<String, Integer> voltageDC2Value = new HashMap<String, Integer>();
+        voltageDC2Value.put(DataBean.DATA_KEY, voltageDC2);
+        voltageDC2Item.add(voltageDC2Value);
+        DataBean voltageDC2Data = new DataBean(voltageDCTitles[1], voltageDC2Item);
+        voltageDCData.add(voltageDC1Data);
+
+        deviceInfoData.clear();
+        // 设备软件版本
+        int version = datasBean.getVersion();
+        List<Map<String, String>> versionItem = new ArrayList<Map<String, String>>();
+        Map<String, String> versionValue = new HashMap<String, String>();
+        versionValue.put(DataBean.DATA_KEY, "" + version);
+        versionItem.add(versionValue);
+        DataBean versionData = new DataBean(deviceInfoTitles[0], versionItem);
+        deviceInfoData.add(versionData);
+
+        // 设备运行状态
+        int stateAPF = datasBean.getStateAPF();
+        List<Map<String, String>> stateAPFItem = new ArrayList<Map<String, String>>();
+        Map<String, String> stateAPFValue = new HashMap<String, String>();
+        stateAPFValue.put(DataBean.DATA_KEY, (stateAPF == 0 ? "停止" : "运行"));
+        stateAPFItem.add(stateAPFValue);
+        DataBean stateAPFData = new DataBean(deviceInfoTitles[1], stateAPFItem);
+        deviceInfoData.add(stateAPFData);
 
         adapter.notifyDataSetChanged();
     }

@@ -114,6 +114,8 @@
         <item>电压电流</item>
         <item>功率即其他</item>
         <item>THD</item>
+        <item>直流电压</item>
+        <item>设备信息</item>
     </string-array>
 
     <!--实时电压电流数据标题-->
@@ -152,6 +154,18 @@
         <item>负载A相电流总畸变率</item>
         <item>负载B相电流总畸变率</item>
         <item>负载C相电流总畸变率</item>
+    </string-array>
+
+    <!--实时直流电压数据标题-->
+    <string-array name="real_data_voltage_dc_titles">
+        <item>直流电压1</item>
+        <item>直流电压2</item>
+    </string-array>
+
+    <!--实时设备数据标题-->
+    <string-array name="real_data_device_info_titles">
+        <item>设备软件版本</item>
+        <item>设备运行状态</item>
     </string-array>
 
     <!--系统电压图表的标题-->
