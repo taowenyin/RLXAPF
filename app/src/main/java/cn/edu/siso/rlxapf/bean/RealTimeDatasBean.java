@@ -38,7 +38,7 @@ public class RealTimeDatasBean {
     private int stateAPF; //APF 运行状态
     private int voltageDC1; //直流电压 1
     private int voltageDC2; //直流电压 2
-    private int version; //软件版本号
+    private String version; //软件版本号
 
     /**
      * 低位高字节，高位低字节
@@ -95,7 +95,9 @@ public class RealTimeDatasBean {
         stateAPF = bytes2int(bytes[startLoc+52],bytes[startLoc+53]);
         voltageDC1 = bytes2int(bytes[startLoc+54],bytes[startLoc+55]);
         voltageDC2 = bytes2int(bytes[startLoc+56],bytes[startLoc+57]);
-        version = bytes2int(bytes[startLoc+58],bytes[startLoc+59]);
+        int versionH = bytes[startLoc+59];
+        int versionL = bytes[startLoc+58];
+        version = ""+ versionH + "." + versionL;
         return 0;
     }
 
@@ -215,7 +217,7 @@ public class RealTimeDatasBean {
         this.voltageDC2 = voltageDC2;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 
@@ -335,7 +337,7 @@ public class RealTimeDatasBean {
         return voltageDC2;
     }
 
-    public int getVersion() {
+    public String getVersion() {
         return version;
     }
 }
