@@ -454,19 +454,19 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
 
         deviceInfoData.clear();
         // 设备软件版本
-        int version = datasBean.getVersion();
+        String version = datasBean.getVersion();
         List<Map<String, String>> versionItem = new ArrayList<Map<String, String>>();
         Map<String, String> versionValue = new HashMap<String, String>();
-        versionValue.put(DataBean.DATA_KEY, "" + version);
+        versionValue.put(DataBean.DATA_KEY, version);
         versionItem.add(versionValue);
         DataBean versionData = new DataBean(deviceInfoTitles[0], versionItem);
         deviceInfoData.add(versionData);
 
         // 设备运行状态
         int stateAPF = datasBean.getStateAPF();
-        List<Map<String, String>> stateAPFItem = new ArrayList<Map<String, String>>();
-        Map<String, String> stateAPFValue = new HashMap<String, String>();
-        stateAPFValue.put(DataBean.DATA_KEY, (stateAPF == 0 ? "停止" : "运行"));
+        List<Map<String, Integer>> stateAPFItem = new ArrayList<Map<String, Integer>>();
+        Map<String, Integer> stateAPFValue = new HashMap<String, Integer>();
+        stateAPFValue.put(DataBean.DATA_KEY, stateAPF);
         stateAPFItem.add(stateAPFValue);
         DataBean stateAPFData = new DataBean(deviceInfoTitles[1], stateAPFItem);
         deviceInfoData.add(stateAPFData);

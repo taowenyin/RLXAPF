@@ -209,18 +209,18 @@
     <!--实时图表Y轴标签-->
     <string-array name="curve_y_axis_labels">
         <item>0</item>
-        <item>10</item>
-        <item>20</item>
         <item>30</item>
-        <item>40</item>
-        <item>50</item>
         <item>60</item>
-        <item>70</item>
-        <item>80</item>
         <item>90</item>
-        <item>100</item>
-        <item>110</item>
         <item>120</item>
+        <item>150</item>
+        <item>180</item>
+        <item>210</item>
+        <item>240</item>
+        <item>270</item>
+        <item>300</item>
+        <item>330</item>
+        <item>360</item>
     </string-array>
 
     <integer-array name="cure_line_colors">
@@ -349,9 +349,9 @@
     <string name="device_param_ok">确认</string>
 
     <string-array name="real_curve_line_color">
-        <item>#0C85BF</item>
-        <item>#1DBA11</item>
-        <item>#5406C2</item>
+        <item>#FFFF00</item>
+        <item>#00FF00</item>
+        <item>#FF0000</item>
     </string-array>
 
     <!--TCP设备连接状态-->

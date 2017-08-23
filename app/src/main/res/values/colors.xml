@@ -21,9 +21,9 @@
     <color name="main_top_tab_bg_color">#373D41</color>
     <color name="main_top_tab_indicator_color">#00C0DD</color>
 
-    <color name="cure_a_color">#0C85BF</color>
-    <color name="cure_b_color">#1DBA11</color>
-    <color name="cure_c_color">#5406C2</color>
+    <color name="cure_a_color">#FFFF00</color>
+    <color name="cure_b_color">#00FF00</color>
+    <color name="cure_c_color">#FF0000</color>
 
     <color name="popup_item_text_color">#00C0DD</color>
     <color name="popup_cancel_text_color">#6C6C6C</color>
