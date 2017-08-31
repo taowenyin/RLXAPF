@@ -242,10 +242,9 @@ public class MainActivity extends AppCompatActivity implements
                         operateMenu.dismiss();
                         Bundle bundle = new Bundle();
                         switch (position) {
-                            case 0:
+                            case 0: // 执行停止设备的指令
                                 isTimeout = false; // 清空超时，允许进行TCP操作
 
-                                // 执行停止设备的指令
                                 tcpClientManager.sendCmd(getApplicationContext(),
                                         TcpClientManager.TcpCmdType.STOP_DEVICE,
                                         new String[]{deviceData.get(currPosition).getDeviceNo()},
@@ -261,10 +260,9 @@ public class MainActivity extends AppCompatActivity implements
 
                                 dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
                                 break;
-                            case 1:
+                            case 1: // 执行启动设备的指令
                                 isTimeout = false; // 清空超时，允许进行TCP操作
 
-                                // 执行启动设备的指令
                                 tcpClientManager.sendCmd(getApplicationContext(),
                                         TcpClientManager.TcpCmdType.START_DEVICE,
                                         new String[]{deviceData.get(currPosition).getDeviceNo()},
@@ -280,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements
 
                                 dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
                                 break;
-                            case 2:
+                            case 2: // 参数设置
                                 Intent intent = new Intent(MainActivity.this, ParamActivity.class);
                                 bundle.putString(DATA_KEY, JSON.toJSONString(
                                         deviceData, SerializerFeature.WriteMapNullValue));

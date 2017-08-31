@@ -45,9 +45,9 @@
 
             <ImageButton
                 android:id="@+id/toolbar_operate"
-                android:layout_width="@dimen/toolbar_small_icon_size"
-                android:layout_height="@dimen/toolbar_small_icon_size"
-                android:src="@drawable/ic_param_download"
+                android:layout_width="@dimen/toolbar_icon_size"
+                android:layout_height="@dimen/toolbar_icon_size"
+                android:src="@drawable/ic_device_operate"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:layout_centerVertical="true"

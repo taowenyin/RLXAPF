@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
@@ -19,12 +17,11 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.ParameterDatasBean;
-import cn.edu.siso.rlxapf.util.ProtocolUtil;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
 public class ParamPrefFragment extends PreferenceFragmentCompat implements
@@ -108,7 +105,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
                     }
 
                     // 上传参数
-                    if (TcpClientManager.TcpCmdType.UPDATE_PARAM.ordinal() == tcpCmdType) {
+                    if (TcpClientManager.TcpCmdType.UPDATE_PARAMS.ordinal() == tcpCmdType) {
                         String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
 
                         if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
@@ -125,7 +122,82 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
                             if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
                                 ConnectToast toast = new ConnectToast(getContext(),
                                         ConnectToast.ConnectRes.SUCCESS,
-                                        getResources().getString(R.string.tcp_connect_param_update_length),
+                                        getResources().getString(R.string.tcp_connect_param_update_succ),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+
+                    // 保存参数
+                    if (TcpClientManager.TcpCmdType.SAVE_PARAMS.ordinal() == tcpCmdType) {
+                        String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
+
+                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+                            // 标记当前为超时状态
+                            isTimeout = true;
+
+                            ConnectToast toast = new ConnectToast(getContext(),
+                                    ConnectToast.ConnectRes.BAD,
+                                    getResources().getString(R.string.tcp_connect_save_param_time_out),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        if (!isTimeout) {
+                            if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        getResources().getString(R.string.tcp_connect_param_save_succ),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+
+                    // 导出参数
+                    if (TcpClientManager.TcpCmdType.EXPORT_PARAMS.ordinal() == tcpCmdType) {
+                        String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
+
+                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+                            // 标记当前为超时状态
+                            isTimeout = true;
+
+                            ConnectToast toast = new ConnectToast(getContext(),
+                                    ConnectToast.ConnectRes.BAD,
+                                    getResources().getString(R.string.tcp_connect_export_param_time_out),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        if (!isTimeout) {
+                            if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        getResources().getString(R.string.tcp_connect_param_export_succ),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+
+                    // 恢复出厂设置参数
+                    if (TcpClientManager.TcpCmdType.RESTORE_PARAMS.ordinal() == tcpCmdType) {
+                        String resType = data.getString(TcpClientManager.KEY_TCP_RES_TYPE);
+
+                        if (resType.equals(TcpClientManager.TcpResType.TIMEOUT)) {
+                            // 标记当前为超时状态
+                            isTimeout = true;
+
+                            ConnectToast toast = new ConnectToast(getContext(),
+                                    ConnectToast.ConnectRes.BAD,
+                                    getResources().getString(R.string.tcp_connect_restore_param_time_out),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        if (!isTimeout) {
+                            if (resType.equals(TcpClientManager.TcpResType.SUCCESS)) {
+                                ConnectToast toast = new ConnectToast(getContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        getResources().getString(R.string.tcp_connect_param_restore_succ),
                                         Toast.LENGTH_SHORT);
                                 toast.show();
                             }
@@ -344,7 +416,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
 
         isTimeout = false; // 清空超时，允许进行TCP操作
 
-        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.UPDATE_PARAM,
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.UPDATE_PARAMS,
                 new String[]{deviceBean.getDeviceNo(), preference.getKey(), newValue.toString()},
                 tcpHandler);
 
@@ -458,14 +530,52 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         editTextPreference.setSummary(String.valueOf(datasBean.getHarmonicEvenCompensationRate()));
     }
 
-    public void pullDeviceParams() {
-
+    // 参数下载
+    public void downloadDeviceParams() {
         isTimeout = false; // 清空超时，允许进行TCP操作
 
-        // 执行读取参数的指令
+        // 执行参数下载的指令
         tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.LOAD_PARAMS,
                 new String[]{deviceBean.getDeviceNo()}, tcpHandler);
 
         dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
+    }
+
+    // 参数保存
+    public void saveDeviceParams() {
+        isTimeout = false; // 清空超时，允许进行TCP操作
+
+        // 执行参数保存的指令
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.SAVE_PARAMS,
+                new String[]{deviceBean.getDeviceNo()}, tcpHandler);
+    }
+
+    // 参数导出
+    public void exportDeviceParams() {
+        Log.i(TAG, "exportDeviceParams");
+    }
+
+    // 恢复出厂设置
+    public void restoreFactoryParams() {
+        isTimeout = false; // 清空超时，允许进行TCP操作
+
+        // 执行参数恢复出厂设置的指令
+        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.RESTORE_PARAMS,
+                new String[]{deviceBean.getDeviceNo()}, tcpHandler);
+
+        dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
+
+        // 延时指定时间后执行下载参数
+        Timer restoreFactoryTimer = new Timer();
+        restoreFactoryTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                isTimeout = false; // 清空超时，允许进行TCP操作
+
+                // 执行参数下载的指令
+                tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.LOAD_PARAMS,
+                        new String[]{deviceBean.getDeviceNo()}, tcpHandler);
+            }
+        }, context.getResources().getInteger(R.integer.tcp_restore_param_delay));
     }
 }

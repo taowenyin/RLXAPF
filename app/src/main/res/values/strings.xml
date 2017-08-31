@@ -340,9 +340,12 @@
     </string-array>
     <string name="device_operate_popup_cancel">取消</string>
 
+    <!--参数配置界面的菜单-->
     <string-array name="param_operate_popup_window">
         <item>参数下载</item>
-        <item>参数上传</item>
+        <item>参数保存</item>
+        <item>参数导出</item>
+        <item>恢复出厂设置</item>
     </string-array>
 
     <!--设备参数完成按钮的文字-->
@@ -360,12 +363,18 @@
     <string name="tcp_connect_data_succ">数据解析成功</string>
     <string name="tcp_connect_data_error_crc">数据校验失败\r\n点击右上角重新下载</string>
     <string name="tcp_connect_data_error_length">数据长度错误\r\n点击右上角重新下载</string>
-    <string name="tcp_connect_param_update_length">更改参数成功</string>
+    <string name="tcp_connect_param_update_succ">更改参数成功</string>
+    <string name="tcp_connect_param_save_succ">保存参数成功</string>
+    <string name="tcp_connect_param_export_succ">导出参数成功</string>
+    <string name="tcp_connect_param_restore_succ">恢复出厂设置参数成功</string>
     <string name="tcp_connect_time_out">连接设备超时</string>
     <string name="tcp_connect_start_device_succ">启动设备成功</string>
     <string name="tcp_connect_stop_device_succ">停止设备成功</string>
     <string name="tcp_connect_load_params_time_out">载入参数超时</string>
     <string name="tcp_connect_update_param_time_out">上传参数超时</string>
+    <string name="tcp_connect_save_param_time_out">保存参数超时</string>
+    <string name="tcp_connect_export_param_time_out">导出参数超时</string>
+    <string name="tcp_connect_restore_param_time_out">恢复出厂设置参数超时</string>
     <string name="tcp_connect_start_device_time_out">启动设备超时</string>
     <string name="tcp_connect_stop_device_time_out">停止设备超时</string>
     <string name="tcp_connect_real_data_time_out">实时数据超时</string>
@@ -379,6 +388,9 @@
     <integer name="tcp_time_out">15000</integer>
     <!--实时数据指令发送延时-->
     <integer name="tcp_real_time_delay">100</integer>
+
+    <!--执行恢复出厂设置的延时-->
+    <integer name="tcp_restore_param_delay">5000</integer>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -3,10 +3,10 @@ package cn.edu.siso.rlxapf.util.tcp;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.os.AsyncTaskCompat;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -49,9 +49,11 @@ public class TcpClientManager {
     public static final String KEY_TCP_RES_CODE = "res_code";
     public static final String KEY_TCP_RES_DATA = "res_data";
 
+    public static final String TAG = "TcpClientManager";
+
     public enum  TcpCmdType {
         EMPTY, CONNECT_DEVICE,
-        LOAD_PARAMS, UPDATE_PARAM,
+        LOAD_PARAMS, UPDATE_PARAMS, SAVE_PARAMS, EXPORT_PARAMS, RESTORE_PARAMS,
         STOP_DEVICE, START_DEVICE,
         REAL_DATA, SPECTRUM_DATA};
     public static final String KEY_TCP_CMD_TYPE = "cmd_type";
@@ -93,7 +95,11 @@ public class TcpClientManager {
                 new TcpAsyncTask(context, new OnTcpReceiveListener(tcpHandler, type)), params);
 
         // 因为启动和停止设备没有返回值，所以不启动定时器
-        if (!(type == TcpCmdType.START_DEVICE) && !(type == TcpCmdType.STOP_DEVICE)) {
+        if (!(type == TcpCmdType.START_DEVICE)
+                && !(type == TcpCmdType.STOP_DEVICE)
+                && !(type == TcpCmdType.SAVE_PARAMS)
+                && !(type == TcpCmdType.EXPORT_PARAMS)
+                && !(type == TcpCmdType.RESTORE_PARAMS)) {
             // 执行任务时启动超时定时器
             tcpTimer = new Timer();
             tcpTimer.schedule(new TimeOutTask(tcpHandler, type),
@@ -204,6 +210,7 @@ public class TcpClientManager {
             Message msg = new Message();
             Bundle bundle = new Bundle();
 
+            // 下载参数
             if (type == TcpCmdType.LOAD_PARAMS) {
                 ParameterDatasBean datasBean = new ParameterDatasBean();
                 int res = datasBean.parse(data);
@@ -220,21 +227,56 @@ public class TcpClientManager {
                     bundle.putString(KEY_TCP_RES_DATA, bean);
                 }
             }
-            if (type == TcpCmdType.UPDATE_PARAM) {
+
+            // 更新参数
+            if (type == TcpCmdType.UPDATE_PARAMS) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
-                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.UPDATE_PARAM.ordinal()));
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.UPDATE_PARAMS.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
             }
+
+            // 保存参数
+            if (type == TcpCmdType.SAVE_PARAMS) {
+                Log.i(TAG, "===保存参数成功===");
+
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.SAVE_PARAMS.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
+            }
+
+            // 导出参数
+            if (type == TcpCmdType.EXPORT_PARAMS) {
+                Log.i(TAG, "===导出参数成功===");
+
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.EXPORT_PARAMS.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
+            }
+
+            // 恢复出厂设置参数
+            if (type == TcpCmdType.RESTORE_PARAMS) {
+                Log.i(TAG, "===恢复出厂设置成功===");
+
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.RESTORE_PARAMS.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
+            }
+
+            // 启动设备
             if (type == TcpCmdType.START_DEVICE) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.START_DEVICE.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
             }
+
+            // 停止设备
             if (type == TcpCmdType.STOP_DEVICE) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.STOP_DEVICE.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
             }
+
+            // 读取实时数据
             if (type == TcpCmdType.REAL_DATA) {
                 RealTimeDatasBean datasBean = new RealTimeDatasBean();
 
@@ -251,6 +293,8 @@ public class TcpClientManager {
                     bundle.putString(KEY_TCP_RES_DATA, bean);
                 }
             }
+
+            // 读取谐波数据
             if (type == TcpCmdType.SPECTRUM_DATA) {
                 HarmonicDatasBean datasBean = new HarmonicDatasBean();
                 int res = datasBean.parse(data);
@@ -296,8 +340,25 @@ public class TcpClientManager {
                         listener);
             }
 
+            // 保存参数
+            if (listener.getCmdType() == TcpCmdType.SAVE_PARAMS) {
+                tcpUtil.send(ProtocolUtil.saveParams(Integer.valueOf(params[0]).byteValue()),
+                        listener);
+            }
+
+            // 导出参数
+            if (listener.getCmdType() == TcpCmdType.EXPORT_PARAMS) {
+
+            }
+
+            // 恢复出厂设置
+            if (listener.getCmdType() == TcpCmdType.RESTORE_PARAMS) {
+                tcpUtil.send(ProtocolUtil.loadDefaultParams(Integer.valueOf(params[0]).byteValue()),
+                        listener);
+            }
+
             // 更新参数
-            if (listener.getCmdType() == TcpCmdType.UPDATE_PARAM) {
+            if (listener.getCmdType() == TcpCmdType.UPDATE_PARAMS) {
                 byte deviceAddr = Integer.valueOf(params[0]).byteValue();
                 String preferenceKey = params[1];
                 String preferenceValue = params[2];
@@ -413,35 +474,69 @@ public class TcpClientManager {
             Message msg = new Message();
             Bundle bundle = new Bundle();
 
+            // 连接设备超时
             if (tcpType == TcpCmdType.CONNECT_DEVICE) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.CONNECT);
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
+
+            // 载入参数超时
             if (tcpType == TcpCmdType.LOAD_PARAMS) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.LOAD_PARAMS.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
-            if (tcpType == TcpCmdType.UPDATE_PARAM) {
+
+            // 更新参数超时
+            if (tcpType == TcpCmdType.UPDATE_PARAMS) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
-                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.UPDATE_PARAM.ordinal()));
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.UPDATE_PARAMS.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
+
+            // 保存参数超时
+            if (tcpType == TcpCmdType.SAVE_PARAMS) {
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.SAVE_PARAMS.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
+            }
+
+            // 导出参数超时
+            if (tcpType == TcpCmdType.EXPORT_PARAMS) {
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.EXPORT_PARAMS.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
+            }
+
+            // 恢复出厂设置
+            if (tcpType == TcpCmdType.RESTORE_PARAMS) {
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.RESTORE_PARAMS.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
+            }
+
+            // 启动设备超时
             if (tcpType == TcpCmdType.START_DEVICE) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.START_DEVICE.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
+
+            // 停止设备超时
             if (tcpType == TcpCmdType.STOP_DEVICE) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.STOP_DEVICE.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
+
+            // 实时数据超时
             if (tcpType == TcpCmdType.REAL_DATA) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.REAL_DATA.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
+
+            // 谐波数据超时
             if (tcpType == TcpCmdType.SPECTRUM_DATA) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.SPECTRUM_DATA.ordinal()));
