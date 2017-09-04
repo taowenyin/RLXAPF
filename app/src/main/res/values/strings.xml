@@ -96,6 +96,7 @@
     <!--主页面底部标题栏-->
     <string name="main_tab_real_time_title">实时数据</string>
     <string name="main_tab_spectrum_title">谐波频谱</string>
+    <string name="main_tab_device_warning_title">设备故障</string>
     <string name="main_tab_user_title">我的</string>
 
     <!--实时数据的顶部标题-->
@@ -383,6 +384,30 @@
     <string name="tcp_connect_spectrum_data_time_out">谐波数据超时</string>
     <string name="tcp_connect_spectrum_data_error_crc">谐波数据校验失败</string>
     <string name="tcp_connect_spectrum_data_error_length">谐波数据长度错误</string>
+    <string name="tcp_connect_device_warning_data_time_out">设备告警数据超时</string>
+    <string name="tcp_connect_device_warning_data_error_crc">设备告警数据校验失败</string>
+    <string name="tcp_connect_device_warning_data_error_length">设备告警数据长度错误</string>
+
+    <!--设备告警-->
+    <string name="device_warning_ok">正常</string>
+    <string name="device_warning_fail">异常</string>
+    <string name="device_warning_fpga_fault_label">FPGA故障</string>
+    <string name="device_warning_fpga_communication_outTime_label">FPGA超时</string>
+    <string name="device_warning_fpga_communication_error_label">FPGA通信</string>
+    <string name="device_warning_storage_data_fault_label">存储数据</string>
+    <string name="device_warning_system_over_voltage_label">系统过压</string>
+    <string name="device_warning_system_under_voltage_label">系统欠压</string>
+    <string name="device_warning_three_phase_voltage_unbalance_label">三相平衡</string>
+    <string name="device_warning_output_quick_break_label">输出速断</string>
+    <string name="device_warning_output_over_current_label">输出过流</string>
+    <string name="device_warning_unit_ac_high_voltage_label">单元直压</string>
+    <string name="device_warning_temprature_igbt_high_label">IGBT温度</string>
+    <string name="device_warning_system_power_down_label">系统供电</string>
+    <string name="device_warning_close_resistance_fault_label">主预充电阻</string>
+    <string name="device_warning_close_contactor_fault_label">主接触器</string>
+    <string name="device_warning_open_resistance_fault_label">分预充电阻</string>
+    <string name="device_warning_open_contactor_fault_label">分接触器</string>
+    <string name="device_warning_time_label">告警时间</string>
 
     <!--TCP连接超时时间-->
     <integer name="tcp_time_out">15000</integer>

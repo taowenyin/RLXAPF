@@ -167,6 +167,13 @@
     <!--Toast的圆角大小-->
     <dimen name="toast_radius_size">5dp</dimen>
 
+    <!--设备告警列表的间距-->
+    <dimen name="device_warning_item_padding">10dp</dimen>
+    <!--设备告警标签文字大小-->
+    <dimen name="device_warning_item_label_font_size">14sp</dimen>
+    <!--设备告警文字大小-->
+    <dimen name="device_warning_item_font_size">12sp</dimen>
+
     <!--图标的大小-->
     <dimen name="connect_gif_size">36dp</dimen>
 

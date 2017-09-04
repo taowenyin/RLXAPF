@@ -16,6 +16,7 @@ import java.util.TimerTask;
 
 import cn.edu.siso.rlxapf.R;
 import cn.edu.siso.rlxapf.bean.HarmonicDatasBean;
+import cn.edu.siso.rlxapf.bean.NoticeDatasBean;
 import cn.edu.siso.rlxapf.bean.ParameterDatasBean;
 import cn.edu.siso.rlxapf.bean.RealTimeDatasBean;
 import cn.edu.siso.rlxapf.util.ProtocolUtil;
@@ -55,7 +56,8 @@ public class TcpClientManager {
         EMPTY, CONNECT_DEVICE,
         LOAD_PARAMS, UPDATE_PARAMS, SAVE_PARAMS, EXPORT_PARAMS, RESTORE_PARAMS,
         STOP_DEVICE, START_DEVICE,
-        REAL_DATA, SPECTRUM_DATA};
+        REAL_DATA, SPECTRUM_DATA,
+        DEVICE_WARNING};
     public static final String KEY_TCP_CMD_TYPE = "cmd_type";
 
     private TcpClientManager() {
@@ -312,6 +314,23 @@ public class TcpClientManager {
                 }
             }
 
+            // 设备故障
+            if (type == TcpCmdType.DEVICE_WARNING) {
+                NoticeDatasBean datasBean = new NoticeDatasBean();
+                int res = datasBean.parse(data);
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.DEVICE_WARNING.ordinal()));
+                if (res == -1) {
+                    bundle.putString(KEY_TCP_RES_TYPE, TcpResType.CRC);
+                } else if (res == -2) {
+                    bundle.putString(KEY_TCP_RES_TYPE, TcpResType.LENGTH);
+                } else {
+                    bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
+                    String bean = JSON.toJSONString(datasBean, SerializerFeature.WriteMapNullValue);
+                    bundle.putString(KEY_TCP_RES_DATA, bean);
+                }
+            }
+
             // 清空定时器
             clearTimer();
 
@@ -453,6 +472,12 @@ public class TcpClientManager {
                         listener);
             }
 
+            // 设备告警数据
+            if (listener.getCmdType() == TcpCmdType.DEVICE_WARNING) {
+                tcpUtil.send(ProtocolUtil.readNoticeCheck(Integer.valueOf(params[0]).byteValue()),
+                        listener);
+            }
+
             return null;
         }
     }
@@ -540,6 +565,13 @@ public class TcpClientManager {
             if (tcpType == TcpCmdType.SPECTRUM_DATA) {
                 bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
                 bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.SPECTRUM_DATA.ordinal()));
+                bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
+            }
+
+            // 设备告警超时
+            if (tcpType == TcpCmdType.DEVICE_WARNING) {
+                bundle.putString(KEY_TCP_OPERATE_TYPE, TcpOperateType.OPERATE);
+                bundle.putString(KEY_TCP_CMD_TYPE, String.valueOf(TcpCmdType.DEVICE_WARNING.ordinal()));
                 bundle.putString(KEY_TCP_RES_TYPE, TcpResType.TIMEOUT);
             }
 

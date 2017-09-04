@@ -373,7 +373,7 @@ public class DeviceListActivity extends AppCompatActivity implements
         wLP.alpha = 0.5f;
         DeviceListActivity.this.getWindow().setAttributes(wLP);
         operateMenu.showAtLocation(
-                DeviceListActivity.this.findViewById(R.id.main),
+                DeviceListActivity.this.findViewById(R.id.device_list_main),
                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
                 0, 0);
     }

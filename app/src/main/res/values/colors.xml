@@ -16,7 +16,7 @@
     <color name="main_tab_bg_color">#FAFAFA</color>
     <color name="main_tab_split_color">#A9A9A9</color>
     <color name="main_tab_item_normal">#6c6c6c</color>
-    <color name="main_tab_item_selected">#00c0dd</color>
+    <color name="main_tab_item_selected">#00C0DD</color>
     
     <color name="main_top_tab_bg_color">#373D41</color>
     <color name="main_top_tab_indicator_color">#00C0DD</color>

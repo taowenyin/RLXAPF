@@ -187,4 +187,68 @@ public class NoticeDatasBean {
     public int getOpenContactorFault() {
         return openContactorFault;
     }
+
+    public void setFpgaFault(int fpgaFault) {
+        this.fpgaFault = fpgaFault;
+    }
+
+    public void setFpgaCommunicationOutTime(int fpgaCommunicationOutTime) {
+        this.fpgaCommunicationOutTime = fpgaCommunicationOutTime;
+    }
+
+    public void setFpgaCommnunicationError(int fpgaCommnunicationError) {
+        this.fpgaCommnunicationError = fpgaCommnunicationError;
+    }
+
+    public void setStorageDataFault(int storageDataFault) {
+        this.storageDataFault = storageDataFault;
+    }
+
+    public void setSystemOverVoltage(int systemOverVoltage) {
+        this.systemOverVoltage = systemOverVoltage;
+    }
+
+    public void setSystemUnderVoltage(int systemUnderVoltage) {
+        this.systemUnderVoltage = systemUnderVoltage;
+    }
+
+    public void setThreePhaseVoltageUnbalance(int threePhaseVoltageUnbalance) {
+        this.threePhaseVoltageUnbalance = threePhaseVoltageUnbalance;
+    }
+
+    public void setOutputQuickBreak(int outputQuickBreak) {
+        this.outputQuickBreak = outputQuickBreak;
+    }
+
+    public void setOutputOverCurrent(int outputOverCurrent) {
+        this.outputOverCurrent = outputOverCurrent;
+    }
+
+    public void setUnitACHighVoltage(int unitACHighVoltage) {
+        this.unitACHighVoltage = unitACHighVoltage;
+    }
+
+    public void setTempratureIGBTHigh(int tempratureIGBTHigh) {
+        this.tempratureIGBTHigh = tempratureIGBTHigh;
+    }
+
+    public void setSystemPowerDown(int systemPowerDown) {
+        this.systemPowerDown = systemPowerDown;
+    }
+
+    public void setCloseResistanceFault(int closeResistanceFault) {
+        this.closeResistanceFault = closeResistanceFault;
+    }
+
+    public void setCloseContactorFault(int closeContactorFault) {
+        this.closeContactorFault = closeContactorFault;
+    }
+
+    public void setOpenResistanceFault(int openResistanceFault) {
+        this.openResistanceFault = openResistanceFault;
+    }
+
+    public void setOpenContactorFault(int openContactorFault) {
+        this.openContactorFault = openContactorFault;
+    }
 }

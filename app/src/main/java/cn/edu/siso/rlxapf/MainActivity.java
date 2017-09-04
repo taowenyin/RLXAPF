@@ -35,8 +35,6 @@ import java.util.Map;
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.UserBean;
 import cn.edu.siso.rlxapf.config.HTTPConfig;
-import cn.edu.siso.rlxapf.config.TCPConfig;
-import cn.edu.siso.rlxapf.util.TCPUtil;
 import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
@@ -45,12 +43,12 @@ import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
 import static cn.edu.siso.rlxapf.DeviceListActivity.USER_KEY;
 import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_CMD_TYPE;
 import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_OPERATE_TYPE;
-import static cn.edu.siso.rlxapf.util.tcp.TcpClientManager.KEY_TCP_RES_TYPE;
 
 public class MainActivity extends AppCompatActivity implements
         TabHost.OnTabChangeListener,
         UserFragment.OnFragmentInteractionListener,
         RealTimeFragment.OnFragmentInteractionListener,
+        DeviceWarningFragment.OnFragmentInteractionListener,
         SpectrumFragment.OnFragmentInteractionListener {
 
     private enum CurrOperate {NO_OPERATE, STOP_DEVICE, START_DEVICE, ENTER_PARAMS};
@@ -82,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements
     private int[] mainTabIndicatorImgArray = {
             R.drawable.ic_main_tab_real_time_item,
             R.drawable.ic_main_tab_spectrum_item,
+            R.drawable.ic_main_tab_device_warning_item,
             R.drawable.ic_main_tab_user_item
     };
 
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements
     private int[] mainTabIndicatorTitleArray = {
             R.string.main_tab_real_time_title,
             R.string.main_tab_spectrum_title,
+            R.string.main_tab_device_warning_title,
             R.string.main_tab_user_title
     };
 
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements
     private Class[] mainTabItemFragmentArray = {
             RealTimeFragment.class,
             SpectrumFragment.class,
+            DeviceWarningFragment.class,
             UserFragment.class
     };
 
@@ -366,12 +367,19 @@ public class MainActivity extends AppCompatActivity implements
     public void onTabChanged(String tabId) {
         if (tabId.equals(getResources().getString(mainTabIndicatorTitleArray[0]))) {
             toolbarTitle.setText(getResources().getString(R.string.main_tab_real_time_title));
+            signalView.setVisibility(View.VISIBLE);
         }
         if (tabId.equals(getResources().getString(mainTabIndicatorTitleArray[1]))) {
             toolbarTitle.setText(getResources().getString(R.string.main_tab_spectrum_title));
+            signalView.setVisibility(View.VISIBLE);
         }
         if (tabId.equals(getResources().getString(mainTabIndicatorTitleArray[2]))) {
+            toolbarTitle.setText(getResources().getString(R.string.main_tab_device_warning_title));
+            signalView.setVisibility(View.VISIBLE);
+        }
+        if (tabId.equals(getResources().getString(mainTabIndicatorTitleArray[3]))) {
             toolbarTitle.setText(getResources().getString(R.string.main_tab_user_title));
+            signalView.setVisibility(View.INVISIBLE);
         }
     }
 
