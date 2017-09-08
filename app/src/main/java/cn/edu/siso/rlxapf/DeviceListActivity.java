@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -36,10 +38,12 @@ import cn.edu.siso.rlxapf.config.HTTPConfig;
 import cn.edu.siso.rlxapf.config.TCPConfig;
 import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
+import eu.davidea.flexibleadapter.common.SmoothScrollGridLayoutManager;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
 public class DeviceListActivity extends AppCompatActivity implements
         DeviceListRecyclerAdapter.OnItemClickListener,
-        DeviceListRecyclerAdapter.OnOperatorClickListener {
+        DeviceListRecyclerAdapter.OnOperatorClickListener, DrawerLayout.DrawerListener {
 
     private enum CurrOperate {NO_OPERATE, ENTER_PARAMS, ENTER_REAL_DATA};
 
@@ -50,6 +54,9 @@ public class DeviceListActivity extends AppCompatActivity implements
     private WindowManager.LayoutParams wLP = null;
     private ConnectDialogFragment dialogFragment = null;
     private SwipeRefreshLayout swipeRefresh = null;
+
+    private DrawerLayout deviceListDrawer = null;
+    private LinearLayout deviceListSearchLayout = null;
 
     private Handler httpHandler = null;
     private OkHttpClientManager httpManager = null;
@@ -80,8 +87,15 @@ public class DeviceListActivity extends AppCompatActivity implements
                 getIntent().getStringExtra(LoginActivity.USER_DATA_KEY),
                 UserBean.class);
 
+        deviceListDrawer = (DrawerLayout) findViewById(R.id.device_list_drawer);
+        deviceListDrawer.addDrawerListener(this);
+        deviceListSearchLayout = (LinearLayout) findViewById(R.id.device_list_search);
+
         ImageButton toolbarBack = (ImageButton) findViewById(R.id.toolbar_back);
+        ImageButton toolbarSearch = (ImageButton) findViewById(R.id.toolbar_search);
         RecyclerView deviceListView  = (RecyclerView) findViewById(R.id.device_list_view);
+        RecyclerView searchFilterView = (RecyclerView) findViewById(R.id.device_search_filter);
+
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
 
@@ -99,6 +113,9 @@ public class DeviceListActivity extends AppCompatActivity implements
                 if (dialogFragment.getShowsDialog()) {
                     dialogFragment.dismiss();
                 }
+
+                // 清空设备数据
+                deviceData.clear();
 
                 if (!TextUtils.isEmpty(resultData) && StringUtils.isNumeric(resultData)) {
                     String badMsg = "";
@@ -135,21 +152,21 @@ public class DeviceListActivity extends AppCompatActivity implements
                     toast.show();
                 } else {
                     List<DeviceBean> devices = JSON.parseArray(resultData, DeviceBean.class);
-                    deviceData.clear();
                     for (int i = 0; i < devices.size(); i++) {
                         deviceData.add(devices.get(i));
                     }
                     adapter.notifyDataSetChanged();
+                }
 
-                    if (swipeRefresh.isRefreshing()) {
+                // 关闭读取进度
+                if (swipeRefresh.isRefreshing()) {
 
-                        swipeRefresh.post(new Runnable(){
-                            @Override
-                            public void run() {
-                                swipeRefresh.setRefreshing(false);
-                            }
-                        });
-                    }
+                    swipeRefresh.post(new Runnable(){
+                        @Override
+                        public void run() {
+                            swipeRefresh.setRefreshing(false);
+                        }
+                    });
                 }
             }
         };
@@ -290,12 +307,12 @@ public class DeviceListActivity extends AppCompatActivity implements
                 });
 
         // 初始化列表数据
-        LinearLayoutManager layoutManager = new LinearLayoutManager(
+        LinearLayoutManager deviceLayoutManager = new LinearLayoutManager(
                 getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         adapter = new DeviceListRecyclerAdapter(getApplicationContext(), deviceData);
         adapter.setOnItemClickListener(this);
         adapter.setOnOperatorClickListener(this);
-        deviceListView.setLayoutManager(layoutManager);
+        deviceListView.setLayoutManager(deviceLayoutManager);
         deviceListView.setAdapter(adapter);
 
         toolbarBack.setOnClickListener(new View.OnClickListener() {
@@ -311,6 +328,17 @@ public class DeviceListActivity extends AppCompatActivity implements
                 Intent intent = new Intent(DeviceListActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        toolbarSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (deviceListDrawer.isDrawerOpen(deviceListSearchLayout)) {
+                    deviceListDrawer.closeDrawer(deviceListSearchLayout, true);
+                } else {
+                    deviceListDrawer.openDrawer(deviceListSearchLayout, true);
+                }
             }
         });
 
@@ -331,6 +359,7 @@ public class DeviceListActivity extends AppCompatActivity implements
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobileid", userBean.getMobileId());
         params.put("account", userBean.getAccount());
+
         httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_DEVICE, params, httpHandler);
         dialogFragment.show(getSupportFragmentManager(), DeviceListActivity.class.getName());
 
@@ -393,5 +422,25 @@ public class DeviceListActivity extends AppCompatActivity implements
                 httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_DEVICE, params, httpHandler);
             }
         });
+    }
+
+    @Override
+    public void onDrawerSlide(View drawerView, float slideOffset) {
+        Log.i(TAG, "onDrawerSlide");
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+        Log.i(TAG, "onDrawerOpened");
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+        Log.i(TAG, "onDrawerClosed");
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
+        Log.i(TAG, "onDrawerStateChanged");
     }
 }

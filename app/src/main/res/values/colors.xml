@@ -10,7 +10,8 @@
     <color name="label_color">#6C6C6C</color>
     <color name="input_color">#000000</color>
     <color name="split_line_color">#ECECEC</color>
-    <color name="btn_bg_color">#00C0DD</color>
+    <color name="btn_bg_blue_color">#00C0DD</color>
+    <color name="btn_bg_green_color">#EE5437</color>
     <color name="btn_txt_color">#99E6F1</color>
 
     <color name="main_tab_bg_color">#FAFAFA</color>
@@ -30,6 +31,9 @@
 
     <color name="device_list_item_device_delete_color">#00FF00</color>
     <color name="device_list_item_color">#A9A9A9</color>
+
+    <color name="search_filter_item_checked_border_color">#00C0DD</color>
+    <color name="search_filter_item_checked_text_color">#00C0DD</color>
 
     <color name="toast_connect_black">#303030</color>
 </resources>

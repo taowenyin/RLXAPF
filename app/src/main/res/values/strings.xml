@@ -47,6 +47,9 @@
     <string name="device_list_error_session_error">session错误</string>
     <string name="device_list_error_no_data">没有数据</string>
 
+    <string name="device_search_ok">确认</string>
+    <string name="device_search_reset">重置</string>
+
     <!--设备选择-->
     <string name="device_preferences_name">device_preferences</string>
 

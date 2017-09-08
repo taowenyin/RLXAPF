@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/search_filter_item_bg_checked_bg" />
+    <item
+        android:drawable="@drawable/ic_search_filter_item_checked"
+        android:width="@dimen/device_search_filter_btn_icon_size"
+        android:height="@dimen/device_search_filter_btn_icon_size"
+        android:gravity="center_vertical|left"
+        android:left="@dimen/device_search_filter_btn_icon_offset"/>
+</layer-list>
