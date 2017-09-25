@@ -99,35 +99,34 @@
             android:background="@android:color/white"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:paddingTop="@dimen/device_list_search_vertical_padding"
-                android:paddingBottom="@dimen/device_list_search_vertical_padding"
-                android:paddingLeft="@dimen/device_list_search_horizontal_padding"
-                android:paddingRight="@dimen/device_list_search_horizontal_padding"
-                android:orientation="vertical">
+                android:paddingTop="@dimen/device_list_search_padding"
+                android:paddingBottom="@dimen/device_list_search_padding"
+                android:paddingRight="@dimen/device_list_search_padding">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/device_search_filter"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
 
-                <CheckBox
+                <eu.davidea.fastscroller.FastScroller
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fast_scroller"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/device_search_filter_btn_vertical_padding"
-                    android:paddingBottom="@dimen/device_search_filter_btn_vertical_padding"
-                    android:minWidth="@dimen/device_search_filter_btn_mini_width"
-                    android:background="@drawable/search_filter_item_bg"
-                    android:gravity="center"
-                    android:button="@null"
-                    android:textSize="@dimen/device_search_filter_btn_font_size"
-                    android:textColor="@color/search_filter_item_color"
-                    android:text="xxxxxx"/>
+                    android:layout_height="match_parent"
+                    app:fastScrollerAutoHideEnabled="true"
+                    app:fastScrollerAutoHideDelayInMillis="1000"
+                    app:fastScrollerBubblePosition="adjacent"
+                    app:fastScrollerBubbleEnabled="true"
+                    app:fastScrollerIgnoreTouchesOutsideHandle="false"
+                    tools:visibility="visible"/>
 
-            </LinearLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

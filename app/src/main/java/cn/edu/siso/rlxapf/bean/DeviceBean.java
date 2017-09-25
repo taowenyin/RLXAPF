@@ -1,19 +1,22 @@
 package cn.edu.siso.rlxapf.bean;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class DeviceBean {
-    private String id = null;
-    private String province = null;
-    private String city = null;
-    private String county = null;
-    private String account = null;
-    private String deviceType = null;
-    private String GPSDeviceNo = null;
-    private String GPRSComPw = null;
-    private String GPRSMobileNo = null;
-    private String deviceNo = null;
-    private String authority = null;
-    private String onoff = null;
-    private String deleted = null;
+    private String id = StringUtils.EMPTY;
+    private String province = StringUtils.EMPTY;
+    private String city = StringUtils.EMPTY;
+    private String county = StringUtils.EMPTY;
+    private String account = StringUtils.EMPTY;
+    private String name = StringUtils.EMPTY;
+    private String deviceType = StringUtils.EMPTY;
+    private String GPSDeviceNo = StringUtils.EMPTY;
+    private String GPRSComPw = StringUtils.EMPTY;
+    private String GPRSMobileNo = StringUtils.EMPTY;
+    private String deviceNo = StringUtils.EMPTY;
+    private String authority = StringUtils.EMPTY;
+    private String onoff = StringUtils.EMPTY;
+    private String deleted = StringUtils.EMPTY;
 
     public String getId() {
         return id;
@@ -53,6 +56,14 @@ public class DeviceBean {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDeviceType() {

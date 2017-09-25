@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/device_search_filter_item_margin"
+    android:layout_marginLeft="@dimen/device_search_filter_item_margin">
+
+    <CheckBox
+        android:id="@+id/filter_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/device_search_filter_btn_vertical_padding"
+        android:paddingBottom="@dimen/device_search_filter_btn_vertical_padding"
+        android:background="@drawable/search_filter_item_bg"
+        android:gravity="center"
+        android:button="@null"
+        android:textSize="@dimen/device_search_filter_btn_font_size"
+        android:textColor="@color/search_filter_item_color"/>
+
+</LinearLayout>

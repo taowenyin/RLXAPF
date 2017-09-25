@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/device_list_search_lv_1_padding"
+        android:paddingTop="@dimen/device_list_search_padding"
+        android:paddingBottom="@dimen/device_list_search_padding">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/search_filter_item_header_text_color"
+            android:textSize="@dimen/device_search_filter_header_font_size"/>
+
+        <TextView
+            android:id="@+id/status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/search_filter_item_header_status_text_color"
+            android:textSize="@dimen/device_search_filter_header_font_size"/>
+
+        <ImageView
+            android:id="@+id/status_img"
+            android:layout_width="@dimen/device_search_filter_header_icon_size"
+            android:layout_height="@dimen/device_search_filter_header_icon_size"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/split_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/device_search_filter_split_line_height"
+        android:background="@color/split_line_color"/>
+
+</LinearLayout>

@@ -150,9 +150,8 @@
     <!--设备列表筛选界面大小-->
     <dimen name="device_list_search_width">330dp</dimen>
     <!--设备列表筛选界面垂直内边距-->
-    <dimen name="device_list_search_vertical_padding">20dp</dimen>
-    <!--设备列表筛选界面水平内边距-->
-    <dimen name="device_list_search_horizontal_padding">10dp</dimen>
+    <dimen name="device_list_search_padding">10dp</dimen>
+    <dimen name="device_list_search_lv_1_padding">15dp</dimen>
     <!--设备列表筛选界面的底部按钮垂直边距-->
     <dimen name="device_search_btn_vertical_padding">5dp</dimen>
     <!--设备列表筛选项圆角大小-->
@@ -168,7 +167,17 @@
     <!--设备列表筛选项图标最小宽度-->
     <dimen name="device_search_filter_btn_mini_width">100dp</dimen>
     <!--设备列表筛选项字体大小-->
-    <dimen name="device_search_filter_btn_font_size">14sp</dimen>
+    <dimen name="device_search_filter_btn_font_size">13sp</dimen>
+    <!--设备列表筛选项标题字体大小-->
+    <dimen name="device_search_filter_header_font_size">13sp</dimen>
+    <!--设备列表筛选项标题垂直间距-->
+    <dimen name="device_search_filter_header_padding">10dp</dimen>
+    <!--设备列表筛选项标题图标大小-->
+    <dimen name="device_search_filter_header_icon_size">18dp</dimen>
+    <!--设备列表筛选项标题外边距-->
+    <dimen name="device_search_filter_item_margin">10dp</dimen>
+    <!--设备列表筛选项分割线高度-->
+    <dimen name="device_search_filter_split_line_height">1dp</dimen>
 
     <!--设备参数完成按钮的垂直外边距-->
     <dimen name="device_param_ok_vertical_margin">10dp</dimen>
