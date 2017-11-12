@@ -91,7 +91,8 @@ public class DataCurveRecycleAdapter extends SectionedRecyclerViewAdapter<
         String[] yLabels = context.getResources().getStringArray(R.array.curve_y_axis_labels);
         for (String label : xLabels) {
             String labelValue = label.substring(0, label.length() - 1);
-            xAxisLabels.add(new AxisValue(Integer.valueOf(labelValue) - 1).setLabel(label));
+//            xAxisLabels.add(new AxisValue(Integer.valueOf(labelValue) - 1).setLabel(label));
+            xAxisLabels.add(new AxisValue(Integer.valueOf(labelValue) - 1).setLabel(""));
         }
         for (String label : yLabels) {
             yAxisLabels.add(new AxisValue(Integer.valueOf(label)).setLabel(label));
