@@ -2,38 +2,29 @@ package cn.edu.siso.rlxapf;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.truizlop.sectionedrecyclerview.SectionedSpanSizeLookup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cn.edu.siso.rlxapf.bean.DataBean;
 import cn.edu.siso.rlxapf.bean.DataGroupBean;
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.HarmonicDatasBean;
-import cn.edu.siso.rlxapf.config.TCPConfig;
-import cn.edu.siso.rlxapf.util.ProtocolUtil;
-import cn.edu.siso.rlxapf.util.TCPUtil;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
 import static cn.edu.siso.rlxapf.DeviceListActivity.DATA_KEY;

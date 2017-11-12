@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.os.AsyncTaskCompat;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -93,8 +92,8 @@ public class TcpClientManager {
             return -1;
         }
 
-        AsyncTaskCompat.executeParallel(
-                new TcpAsyncTask(context, new OnTcpReceiveListener(tcpHandler, type)), params);
+        // 执行异步任务
+        new TcpAsyncTask(context, new OnTcpReceiveListener(tcpHandler, type)).execute(params);
 
         // 因为启动和停止设备没有返回值，所以不启动定时器
         if (!(type == TcpCmdType.START_DEVICE)
