@@ -55,13 +55,13 @@ public class RealTimeFragment extends Fragment implements
                     + UriCommunication.ActionParams.Signal);
 
     private int[] realTimeIndicatorTitleArray = {
-            R.string.main_top_tab_real_curve_title,
-            R.string.main_top_tab_real_data_title
+            R.string.main_top_tab_real_data_title,
+            R.string.main_top_tab_real_curve_title
     };
 
     private Fragment[] realTimeTabItemFragmentArray = {
-            RealCurveFragment.newInstance(),
-            RealDataFragment.newInstance()
+            RealDataFragment.newInstance(),
+            RealCurveFragment.newInstance()
     };
 
     public static final String TAG = "RealTimeFragment";
