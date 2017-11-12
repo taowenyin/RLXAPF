@@ -12,7 +12,7 @@ def gitCurrentTag = 'git describe --tags --abbrev=0'.execute([], project.rootDir
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "cn.edu.siso.rlxapf"
         minSdkVersion 15

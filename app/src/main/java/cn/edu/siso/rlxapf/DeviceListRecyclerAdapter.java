@@ -46,7 +46,6 @@ public class DeviceListRecyclerAdapter extends RecyclerView.Adapter<DeviceItemVi
 
     @Override
     public void onBindViewHolder(final DeviceItemViewHolder holder, final int position) {
-        holder.setId(data.get(position).getId());
         holder.setProvince(data.get(position).getProvince());
         holder.setCity(data.get(position).getCity());
         holder.setCounty(data.get(position).getCounty());

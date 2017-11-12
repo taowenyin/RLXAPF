@@ -34,6 +34,8 @@
 
     <!--设备列表分割线-->
     <string name="device_list_split">|</string>
+    <string name="device_local">地区:</string>
+    <string name="device_type">设备信息:</string>
     <string name="device_gps_no_label">GPS编号:</string>
     <string name="device_no_label">设备编号:</string>
     <string name="device_delete_0">正常</string>

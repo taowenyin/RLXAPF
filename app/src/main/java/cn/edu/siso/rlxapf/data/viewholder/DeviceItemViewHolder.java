@@ -11,7 +11,6 @@ import cn.edu.siso.rlxapf.R;
 
 public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView id = null;
     private TextView province = null;
     private TextView city = null;
     private TextView county = null;
@@ -29,7 +28,6 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
     public DeviceItemViewHolder(Context context, View itemView) {
         super(itemView);
 
-        this.id = (TextView) itemView.findViewById(R.id.device_id);
         this.province = (TextView) itemView.findViewById(R.id.device_province);
         this.city = (TextView) itemView.findViewById(R.id.device_city);
         this.county = (TextView) itemView.findViewById(R.id.device_county);
@@ -40,10 +38,6 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
         this.deviceOperator = (ImageButton) itemView.findViewById(R.id.device_operator);
 
         this.context = context;
-    }
-
-    public void setId(String id) {
-        this.id.setText(id);
     }
 
     public void setProvince(String province) {
