@@ -99,7 +99,7 @@
     <string name="device_select_ok">确认</string>
 
     <!--主页面底部标题栏-->
-    <string name="main_tab_real_time_title">实时数据</string>
+    <string name="main_tab_real_time_title">实时信息</string>
     <string name="main_tab_spectrum_title">谐波频谱</string>
     <string name="main_tab_device_warning_title">设备故障</string>
     <string name="main_tab_user_title">我的</string>
