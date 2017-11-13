@@ -115,65 +115,6 @@
         <item>C相谐波电流</item>
     </string-array>
 
-    <!--实时数据标题-->
-    <string-array name="real_data_sections">
-        <item>电压电流</item>
-        <item>功率即其他</item>
-        <item>THD</item>
-        <item>直流电压</item>
-        <item>设备信息</item>
-    </string-array>
-
-    <!--实时电压电流数据标题-->
-    <string-array name="real_data_voltage_titles">
-        <item>系统A相电压</item>
-        <item>系统B相电压</item>
-        <item>系统C相电压</item>
-        <item>系统A相电流</item>
-        <item>系统B相电流</item>
-        <item>系统C相电流</item>
-        <item>负载A相电流</item>
-        <item>负载B相电流</item>
-        <item>负载C相电流</item>
-        <item>补偿A相电流</item>
-        <item>补偿B相电流</item>
-        <item>补偿C相电流</item>
-    </string-array>
-
-    <!--实时功率数据标题-->
-    <string-array name="real_data_power_titles">
-        <item>系统功率因数</item>
-        <item>系统电流不平衡度</item>
-        <item>负载功率因数</item>
-        <item>负载电流不平衡度</item>
-        <item>IGBT温度</item>
-    </string-array>
-
-    <!--实时thd数据标题-->
-    <string-array name="real_data_thd_titles">
-        <item>A相电压总畸变率</item>
-        <item>B相电压总畸变率</item>
-        <item>C相电压总畸变率</item>
-        <item>系统A相电流总畸变率</item>
-        <item>系统B相电流总畸变率</item>
-        <item>系统C相电流总畸变率</item>
-        <item>负载A相电流总畸变率</item>
-        <item>负载B相电流总畸变率</item>
-        <item>负载C相电流总畸变率</item>
-    </string-array>
-
-    <!--实时直流电压数据标题-->
-    <string-array name="real_data_voltage_dc_titles">
-        <item>直流电压1</item>
-        <item>直流电压2</item>
-    </string-array>
-
-    <!--实时设备数据标题-->
-    <string-array name="real_data_device_info_titles">
-        <item>设备软件版本</item>
-        <item>设备运行状态</item>
-    </string-array>
-
     <!--系统电压图表的标题-->
     <string name="curve_voltage_title">系统电压</string>
     <string name="curve_a_voltage_title">系统A相电压</string>

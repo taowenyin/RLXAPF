@@ -66,13 +66,15 @@
     <dimen name="main_top_tab_indicator_horizontal_padding">20dp</dimen>
 
     <!--谐波数据水平内边距-->
-    <dimen name="specturm_horizontal_padding">15dp</dimen>
+    <dimen name="real_data_horizontal_padding">15dp</dimen>
     <!--谐波数据垂直内边距-->
-    <dimen name="specturm_vertical_padding">10dp</dimen>
+    <dimen name="real_data_vertical_padding">5dp</dimen>
+    <!--实时数据垂直间距-->
+    <dimen name="real_data_vertical_margin">5dp</dimen>
     <!--谐波数据底部内边距-->
-    <dimen name="specturm_bottom_height">20dp</dimen>
+    <dimen name="real_data_bottom_height">20dp</dimen>
     <!--谐波数据字体-->
-    <dimen name="specturm_font_size">14sp</dimen>
+    <dimen name="real_data_font_size">14sp</dimen>
 
     <!--实时数据图表高度-->
     <dimen name="real_curve_chart_height">350dp</dimen>

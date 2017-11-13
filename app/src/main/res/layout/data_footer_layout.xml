@@ -5,7 +5,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/specturm_bottom_height"
+        android:layout_height="@dimen/real_data_bottom_height"
         android:src="@color/app_bg"/>
 
 </LinearLayout>

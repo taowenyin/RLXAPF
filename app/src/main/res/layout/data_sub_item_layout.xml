@@ -5,23 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingLeft="@dimen/real_data_horizontal_padding"
+    android:paddingRight="@dimen/real_data_horizontal_padding"
+    android:paddingTop="@dimen/real_data_vertical_padding"
+    android:paddingBottom="@dimen/real_data_vertical_padding">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#6C6C6C" />
+        android:layout_marginBottom="@dimen/real_data_vertical_margin"
+        android:textSize="@dimen/real_data_font_size"
+        android:textColor="@color/label_color" />
 
     <TextView
         android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="@dimen/real_data_font_size"
         android:textColor="@android:color/black"/>
 
 </LinearLayout>

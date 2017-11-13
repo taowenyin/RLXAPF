@@ -4,16 +4,16 @@
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/specturm_horizontal_padding"
-    android:paddingRight="@dimen/specturm_horizontal_padding"
-    android:paddingTop="@dimen/specturm_vertical_padding"
-    android:paddingBottom="@dimen/specturm_vertical_padding">
+    android:paddingLeft="@dimen/real_data_horizontal_padding"
+    android:paddingRight="@dimen/real_data_horizontal_padding"
+    android:paddingTop="@dimen/real_data_vertical_padding"
+    android:paddingBottom="@dimen/real_data_vertical_padding">
 
     <TextView
         android:id="@+id/data_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/specturm_font_size"
+        android:textSize="@dimen/real_data_font_size"
         android:textColor="@color/label_color"/>
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
-        android:textSize="@dimen/specturm_font_size"
+        android:textSize="@dimen/real_data_font_size"
         android:textColor="@android:color/black"/>
 
 </LinearLayout>
