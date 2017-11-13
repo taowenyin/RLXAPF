@@ -1,7 +1,6 @@
-package cn.edu.siso.rlxapf.expandable;
+package cn.edu.siso.rlxapf.recycle;
 
 import android.content.Context;
-import android.widget.CompoundButton;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,7 +9,7 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 
 public abstract class AbstractItem<VH extends FlexibleViewHolder> extends AbstractFlexibleItem<VH> {
 
-    public enum ITEM_TYPE {CATEGORY, LOCAL};
+    public enum ITEM_TYPE {CATEGORY, LOCAL, REAL};
 
     protected String id = StringUtils.EMPTY;
     protected String title = StringUtils.EMPTY;

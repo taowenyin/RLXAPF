@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.DataBean;
 import cn.edu.siso.rlxapf.bean.DataGroupBean;
@@ -53,7 +51,7 @@ public class DataSectionRecyclerAdapter extends SectionedRecyclerViewAdapter<
 
     @Override
     protected DataSectionViewHolder onCreateSectionHeaderViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.data_section_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.data_header_item_layout, parent, false);
         return new DataSectionViewHolder(view);
     }
 

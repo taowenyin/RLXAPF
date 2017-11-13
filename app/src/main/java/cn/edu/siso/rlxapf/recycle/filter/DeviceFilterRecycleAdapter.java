@@ -1,11 +1,10 @@
-package cn.edu.siso.rlxapf;
+package cn.edu.siso.rlxapf.recycle.filter;
 
 import android.support.annotation.Nullable;
 
 import java.util.List;
 
-import cn.edu.siso.rlxapf.expandable.AbstractItem;
-import cn.edu.siso.rlxapf.expandable.FilterExpandableSubHeadItem;
+import cn.edu.siso.rlxapf.OnItemCheckedChangedListener;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 

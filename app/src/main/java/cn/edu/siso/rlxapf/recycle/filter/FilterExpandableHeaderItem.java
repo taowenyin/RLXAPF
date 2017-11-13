@@ -1,7 +1,6 @@
-package cn.edu.siso.rlxapf.expandable;
+package cn.edu.siso.rlxapf.recycle.filter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.siso.rlxapf.R;
+import cn.edu.siso.rlxapf.recycle.AbstractItem;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.IExpandable;
 import eu.davidea.flexibleadapter.items.IHeader;

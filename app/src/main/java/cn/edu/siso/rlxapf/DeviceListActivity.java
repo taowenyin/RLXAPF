@@ -26,11 +26,8 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -47,10 +44,11 @@ import cn.edu.siso.rlxapf.bean.ProvinceBean;
 import cn.edu.siso.rlxapf.bean.UserBean;
 import cn.edu.siso.rlxapf.config.HTTPConfig;
 import cn.edu.siso.rlxapf.config.TCPConfig;
-import cn.edu.siso.rlxapf.expandable.AbstractItem;
-import cn.edu.siso.rlxapf.expandable.FilterExpandableHeaderItem;
-import cn.edu.siso.rlxapf.expandable.FilterExpandableSubHeadItem;
-import cn.edu.siso.rlxapf.expandable.FilterExpandableSubItem;
+import cn.edu.siso.rlxapf.recycle.AbstractItem;
+import cn.edu.siso.rlxapf.recycle.filter.DeviceFilterRecycleAdapter;
+import cn.edu.siso.rlxapf.recycle.filter.FilterExpandableHeaderItem;
+import cn.edu.siso.rlxapf.recycle.filter.FilterExpandableSubHeadItem;
+import cn.edu.siso.rlxapf.recycle.filter.FilterExpandableSubItem;
 import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 import eu.davidea.fastscroller.FastScroller;

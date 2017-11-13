@@ -13,7 +13,7 @@ public class DataSectionViewHolder extends RecyclerView.ViewHolder {
     public DataSectionViewHolder(View itemView) {
         super(itemView);
 
-        sectionView = (TextView) itemView.findViewById(R.id.section_title);
+        sectionView = (TextView) itemView.findViewById(R.id.title);
     }
 
     public void setSection(String title) {
