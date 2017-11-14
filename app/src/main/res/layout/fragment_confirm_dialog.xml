@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/confirm_dialog_title_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_fragment_dialog_title_label"
+            android:textSize="@dimen/confirm_dialog_font_size"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/confirm_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/confirm_dialog_font_size"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/split_line_width"
+        android:background="@color/confirm_dialog_split_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/confirm_dialog_btn_height"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/confirm_dialog_btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/confirm_fragment_dialog_ok_text"
+            android:textColor="@android:color/black"
+            android:background="@color/app_bg"
+            android:paddingLeft="@dimen/confirm_dialog_btn_padding"
+            android:paddingRight="@dimen/confirm_dialog_btn_padding"/>
+
+        <ImageView
+            android:layout_width="@dimen/split_line_width"
+            android:layout_height="match_parent"
+            android:background="@color/confirm_dialog_split_color"/>
+
+        <Button
+            android:id="@+id/confirm_dialog_btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/confirm_fragment_dialog_cancel_text"
+            android:textColor="@android:color/black"
+            android:background="@color/app_bg"
+            android:paddingLeft="@dimen/confirm_dialog_btn_padding"
+            android:paddingRight="@dimen/confirm_dialog_btn_padding"/>
+
+    </LinearLayout>
+
+</LinearLayout>

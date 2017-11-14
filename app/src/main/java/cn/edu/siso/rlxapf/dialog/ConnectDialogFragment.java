@@ -1,6 +1,5 @@
-package cn.edu.siso.rlxapf;
+package cn.edu.siso.rlxapf.dialog;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +10,8 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.github.sahasbhop.apngview.ApngImageLoader;
+
+import cn.edu.siso.rlxapf.R;
 
 public class ConnectDialogFragment extends DialogFragment {
 

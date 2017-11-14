@@ -38,4 +38,6 @@
     <color name="search_filter_item_header_status_text_color">#6C6C6C</color>
 
     <color name="toast_connect_black">#303030</color>
+
+    <color name="confirm_dialog_split_color">#00C0DD</color>
 </resources>

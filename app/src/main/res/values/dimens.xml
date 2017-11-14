@@ -211,4 +211,10 @@
     <!--图标的大小-->
     <dimen name="connect_gif_size">36dp</dimen>
 
+    <!--设备管理确认对话框的字体大小-->
+    <dimen name="confirm_dialog_font_size">14sp</dimen>
+    <dimen name="confirm_dialog_title_padding">20dp</dimen>
+    <dimen name="confirm_dialog_btn_height">50dp</dimen>
+    <dimen name="confirm_dialog_btn_padding">60dp</dimen>
+
 </resources>

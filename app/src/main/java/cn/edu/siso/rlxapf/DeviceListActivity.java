@@ -44,6 +44,7 @@ import cn.edu.siso.rlxapf.bean.ProvinceBean;
 import cn.edu.siso.rlxapf.bean.UserBean;
 import cn.edu.siso.rlxapf.config.HTTPConfig;
 import cn.edu.siso.rlxapf.config.TCPConfig;
+import cn.edu.siso.rlxapf.dialog.ConnectDialogFragment;
 import cn.edu.siso.rlxapf.recycle.AbstractItem;
 import cn.edu.siso.rlxapf.recycle.filter.DeviceFilterRecycleAdapter;
 import cn.edu.siso.rlxapf.recycle.filter.FilterExpandableHeaderItem;

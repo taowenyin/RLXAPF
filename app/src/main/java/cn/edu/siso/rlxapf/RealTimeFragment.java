@@ -96,6 +96,7 @@ public class RealTimeFragment extends Fragment implements
                             if (resType.equals(TcpClientManager.TcpResType.CRC)) {
                                 Log.e(TAG, getResources().getString(R.string.tcp_connect_real_data_error_crc));
 
+                                // TODO: 17-11-14 异常问题暂时屏蔽
 //                                ConnectToast toast = new ConnectToast(context,
 //                                        ConnectToast.ConnectRes.BAD,
 //                                        getResources().getString(R.string.tcp_connect_real_data_error_crc),
@@ -105,6 +106,7 @@ public class RealTimeFragment extends Fragment implements
                             if (resType.equals(TcpClientManager.TcpResType.LENGTH)) {
                                 Log.e(TAG, getResources().getString(R.string.tcp_connect_real_data_error_length));
 
+                                // TODO: 17-11-14 异常问题暂时屏蔽
 //                                ConnectToast toast = new ConnectToast(context,
 //                                        ConnectToast.ConnectRes.BAD,
 //                                        getResources().getString(R.string.tcp_connect_real_data_error_length),
@@ -124,11 +126,12 @@ public class RealTimeFragment extends Fragment implements
                             // 标记当前为超时状态
                             isTimeout = true;
 
-                            ConnectToast toast = new ConnectToast(getContext(),
-                                    ConnectToast.ConnectRes.BAD,
-                                    getResources().getString(R.string.tcp_connect_real_data_time_out),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                            // TODO: 17-11-14 异常问题暂时屏蔽
+//                            ConnectToast toast = new ConnectToast(getContext(),
+//                                    ConnectToast.ConnectRes.BAD,
+//                                    getResources().getString(R.string.tcp_connect_real_data_time_out),
+//                                    Toast.LENGTH_LONG);
+//                            toast.show();
                         }
 
                         if (isRealTime) {

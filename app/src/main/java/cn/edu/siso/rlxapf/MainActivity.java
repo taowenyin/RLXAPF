@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +34,8 @@ import java.util.Map;
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.UserBean;
 import cn.edu.siso.rlxapf.config.HTTPConfig;
+import cn.edu.siso.rlxapf.dialog.DeviceConfirmDialogFragment;
+import cn.edu.siso.rlxapf.dialog.ConnectDialogFragment;
 import cn.edu.siso.rlxapf.util.http.OkHttpClientManager;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements
         UserFragment.OnFragmentInteractionListener,
         RealTimeFragment.OnFragmentInteractionListener,
         DeviceWarningFragment.OnFragmentInteractionListener,
-        SpectrumFragment.OnFragmentInteractionListener {
+        SpectrumFragment.OnFragmentInteractionListener,
+        DeviceConfirmDialogFragment.OnConfirmBtnClickListener {
 
     private enum CurrOperate {NO_OPERATE, STOP_DEVICE, START_DEVICE, ENTER_PARAMS};
 
@@ -57,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements
     private ImageButton toolbarOperate = null;
     private ImageButton toolbarBack = null;
     private PopupBottomMenu operateMenu = null;
-    private ConnectDialogFragment dialogFragment = null;
+    private ConnectDialogFragment connectDialogFragment = null;
+    private DeviceConfirmDialogFragment confirmDialogFragment = null;
     private ImageView signalView = null;
 
     private WindowManager.LayoutParams wLP = null;
@@ -125,7 +128,8 @@ public class MainActivity extends AppCompatActivity implements
         // 初始化GIF动画
         ApngImageLoader.getInstance().displayImage("assets://apng/signal.png", signalView);
 
-        dialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
+        connectDialogFragment = new ConnectDialogFragment(); // 初始化通信对话框对象
+        confirmDialogFragment = new DeviceConfirmDialogFragment(); // 初始化设备操作对话框对象
 
         httpHandler = new Handler() {
             @Override
@@ -155,10 +159,10 @@ public class MainActivity extends AppCompatActivity implements
                     toast.show();
                 }
 
-                if (dialogFragment != null &&
-                        dialogFragment.getDialog() != null &&
-                        dialogFragment.getDialog().isShowing()) {
-                    dialogFragment.dismiss();
+                if (connectDialogFragment != null &&
+                        connectDialogFragment.getDialog() != null &&
+                        connectDialogFragment.getDialog().isShowing()) {
+                    connectDialogFragment.dismiss();
                 }
             }
         };
@@ -168,10 +172,10 @@ public class MainActivity extends AppCompatActivity implements
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                if (dialogFragment != null &&
-                        dialogFragment.getDialog() != null &&
-                        dialogFragment.getDialog().isShowing()) {
-                    dialogFragment.dismiss();
+                if (connectDialogFragment != null &&
+                        connectDialogFragment.getDialog() != null &&
+                        connectDialogFragment.getDialog().isShowing()) {
+                    connectDialogFragment.dismiss();
                 }
 
                 Bundle data = msg.getData();
@@ -244,40 +248,16 @@ public class MainActivity extends AppCompatActivity implements
                         Bundle bundle = new Bundle();
                         switch (position) {
                             case 0: // 执行停止设备的指令
-                                isTimeout = false; // 清空超时，允许进行TCP操作
 
-                                tcpClientManager.sendCmd(getApplicationContext(),
-                                        TcpClientManager.TcpCmdType.STOP_DEVICE,
-                                        new String[]{deviceData.get(currPosition).getDeviceNo()},
-                                        tcpHandler);
-
-                                // 发送HTTP关机指令
-                                Map<String, String> offParams = new HashMap<String, String>();
-                                offParams.put("mobileid", userData.getMobileId());
-                                offParams.put("id", deviceData.get(currPosition).getId());
-                                offParams.put("onoff", "0");
-                                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_ON_OFF_DEVICE, offParams, httpHandler);
-                                currentOperate = CurrOperate.STOP_DEVICE;
-
-                                dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
+                                confirmDialogFragment.setDialogType(DeviceConfirmDialogFragment.DIALOG_TYPE.STOP_DEVICE);
+                                confirmDialogFragment.show(getSupportFragmentManager(),
+                                        MainActivity.class.getName());
                                 break;
                             case 1: // 执行启动设备的指令
-                                isTimeout = false; // 清空超时，允许进行TCP操作
 
-                                tcpClientManager.sendCmd(getApplicationContext(),
-                                        TcpClientManager.TcpCmdType.START_DEVICE,
-                                        new String[]{deviceData.get(currPosition).getDeviceNo()},
-                                        tcpHandler);
-
-                                // 发送HTTP停止指令
-                                Map<String, String> onParams = new HashMap<String, String>();
-                                onParams.put("mobileid", userData.getMobileId());
-                                onParams.put("id", deviceData.get(currPosition).getId());
-                                onParams.put("onoff", "1");
-                                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_ON_OFF_DEVICE, onParams, httpHandler);
-                                currentOperate = CurrOperate.START_DEVICE;
-
-                                dialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
+                                confirmDialogFragment.setDialogType(DeviceConfirmDialogFragment.DIALOG_TYPE.RUN_DEVICE);
+                                confirmDialogFragment.show(getSupportFragmentManager(),
+                                        MainActivity.class.getName());
                                 break;
                             case 2: // 参数设置
                                 Intent intent = new Intent(MainActivity.this, ParamActivity.class);
@@ -399,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements
                             getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
                     SharedPreferences.Editor editor = accountPref.edit();
                     editor.clear();
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                    editor.apply();
 
                     intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -417,6 +397,58 @@ public class MainActivity extends AppCompatActivity implements
                 signalDrawable.setNumPlays(1); // Fix number of repetition
                 signalDrawable.start(); // Start animation
             }
+        }
+    }
+
+    @Override
+    public void onConfirmBtnClick(boolean isConfrim, DeviceConfirmDialogFragment.DIALOG_TYPE type) {
+        if (isConfrim) {
+
+            if (type == DeviceConfirmDialogFragment.DIALOG_TYPE.STOP_DEVICE) {
+                Log.i(TAG, "停止设备");
+
+                isTimeout = false; // 清空超时，允许进行TCP操作
+
+                tcpClientManager.sendCmd(getApplicationContext(),
+                        TcpClientManager.TcpCmdType.STOP_DEVICE,
+                        new String[]{deviceData.get(currPosition).getDeviceNo()},
+                        tcpHandler);
+
+                // 发送HTTP关机指令
+                Map<String, String> offParams = new HashMap<String, String>();
+                offParams.put("mobileid", userData.getMobileId());
+                offParams.put("id", deviceData.get(currPosition).getId());
+                offParams.put("onoff", "0");
+                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_ON_OFF_DEVICE, offParams, httpHandler);
+                currentOperate = CurrOperate.STOP_DEVICE;
+
+                connectDialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
+            } else {
+                Log.i(TAG, "启动设备");
+
+                isTimeout = false; // 清空超时，允许进行TCP操作
+
+                tcpClientManager.sendCmd(getApplicationContext(),
+                        TcpClientManager.TcpCmdType.START_DEVICE,
+                        new String[]{deviceData.get(currPosition).getDeviceNo()},
+                        tcpHandler);
+
+                // 发送HTTP停止指令
+                Map<String, String> onParams = new HashMap<String, String>();
+                onParams.put("mobileid", userData.getMobileId());
+                onParams.put("id", deviceData.get(currPosition).getId());
+                onParams.put("onoff", "1");
+                httpManager.httpStrGetAsyn(HTTPConfig.API_URL_ON_OFF_DEVICE, onParams, httpHandler);
+                currentOperate = CurrOperate.START_DEVICE;
+
+                connectDialogFragment.show(getSupportFragmentManager(), MainActivity.class.getName());
+            }
+        }
+
+        if (confirmDialogFragment != null &&
+                confirmDialogFragment.getDialog() != null &&
+                confirmDialogFragment.getDialog().isShowing()) {
+            confirmDialogFragment.dismiss();
         }
     }
 }

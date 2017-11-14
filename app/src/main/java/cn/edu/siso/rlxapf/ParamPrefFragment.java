@@ -22,6 +22,7 @@ import java.util.TimerTask;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.ParameterDatasBean;
+import cn.edu.siso.rlxapf.dialog.ConnectDialogFragment;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
 public class ParamPrefFragment extends PreferenceFragmentCompat implements

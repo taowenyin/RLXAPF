@@ -373,7 +373,6 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
         }
 
         // 更新数据
-//        adapter.updateDataSet(realDataItems);
         adapter.notifyDataSetChanged();
     }
 }

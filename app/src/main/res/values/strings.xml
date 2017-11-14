@@ -17,6 +17,13 @@
 
     <string name="connect_fragment_dialog_tag">connect_dialog</string>
 
+    <!--设备操作对话框的标题标签-->
+    <string name="confirm_fragment_dialog_title_label">是否</string>
+    <!--设备操作对话框的确认按钮文字-->
+    <string name="confirm_fragment_dialog_ok_text">确认</string>
+    <!--设备操作对话框的取消按钮文字-->
+    <string name="confirm_fragment_dialog_cancel_text">取消</string>
+
     <!--用户账户信息-->
     <string name="account_pref_name">account_pref</string>
 
@@ -308,8 +315,8 @@
     <string name="tcp_connect_succ">设备连接成功</string>
     <string name="tcp_connect_close">设备连接已断开</string>
     <string name="tcp_connect_data_succ">数据解析成功</string>
-    <string name="tcp_connect_data_error_crc">数据校验失败\r\n点击右上角重新下载</string>
-    <string name="tcp_connect_data_error_length">数据长度错误\r\n点击右上角重新下载</string>
+    <string name="tcp_connect_data_error_crc">数据校验失败\n点击右上角重新下载</string>
+    <string name="tcp_connect_data_error_length">数据长度错误\n点击右上角重新下载</string>
     <string name="tcp_connect_param_update_succ">更改参数成功</string>
     <string name="tcp_connect_param_save_succ">保存参数成功</string>
     <string name="tcp_connect_param_export_succ">导出参数成功</string>
@@ -363,7 +370,6 @@
     <!--执行恢复出厂设置的延时-->
     <integer name="tcp_restore_param_delay">5000</integer>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
