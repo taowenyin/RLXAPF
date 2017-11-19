@@ -34,11 +34,11 @@ deploy:
   provider: releases
   api_key:
     secure: dOWaBHYQc1lCnpxVoy6ou3MMt/7n+PPl0UAhyxHAbiPVjtIQ4Yr9sATpB9gLPS2lk7FBbCQbnzGlr6Qf6CBpcNhRdMqH1dTxbRTx1KW5Uy4ztt8xXwfpDm5xdBRfxOpttwS6u/BckqnqpRmPYHKPcg57OJyF7RKdcNWF4u47ArTvWFCPtmV8DGmJkd0VVv0KGe9g5hZA5yVIBQbAWqOzU0Cqckjsyx5cpedt6NoTIvtgB4ZLCBghhamZpKSH9gg7sQTu4h6DY6Kwg2snrFY4TP5RRE7Cg4Hb2PeDA8qdNKTYK0TQEZCMuwqG0PKa4tI0VoBenlCTKU9QAOlXXvVo4pO1Nn9AcQSWIxmopS/kBn0S6P9ILb5VU9c0aguRTlsoXr+m6UXTyR+jC4gAs05YMvkSjpCwPQAbYT19EnWzMwkgVmj6trFyRTUYTCHMVYyOlCiLxVWpm63g35e4Q2/7wiHusTfqiSphUVKW3HvHlwZjWTHLZQzLhGljfFDwjBALIbl0L3bXuCuQJARCumRlmTDnE8CToaW7lE6euIrLGvFRQGKZ6vtSgRWV0y/DUBWyd7ajuvoWQIwUT3XMhyYP1VQZ11TeHvMs10GslfoVGFeOuzAEoarUy4ZpytP13X2A3lHSuM0g0KUu96ArCVtjzhCB7j3jz3rN1V5h4gPZQrI=
-  file: app/build/outputs/apk/app-release.apk
+  file: app/build/outputs/apk/release/app-release.apk
   skip_cleanup: true
   on:
     tags: true
     all_branches: true
     repo: taowenyin/RLXAPF
 after_deploy:
-  - fir publish app/build/outputs/apk/app-release.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+  - fir publish app/build/outputs/apk/release/app-release.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
