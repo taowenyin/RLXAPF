@@ -103,7 +103,7 @@
                     android:layout_marginRight="@dimen/device_list_item_label_margin"
                     android:textColor="@color/device_list_item_color"
                     android:textSize="@dimen/device_list_item_font_size"
-                    android:text="@string/device_gps_no_label"/>
+                    android:text="@string/device_gprs_no_label"/>
 
                 <TextView
                     android:id="@+id/device_gps_no"
