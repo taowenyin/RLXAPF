@@ -162,6 +162,8 @@
 
     <!--实时图表Y轴标签-->
     <string-array name="curve_y_axis_labels">
+        <item>-60</item>
+        <item>-30</item>
         <item>0</item>
         <item>30</item>
         <item>60</item>
