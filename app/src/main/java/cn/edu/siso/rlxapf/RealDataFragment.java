@@ -279,40 +279,40 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
             if (item instanceof RealDataSubItem) {
                 RealDataSubItem subItem = (RealDataSubItem) item;
 
-                if (subItem.getId().equals("电压电流-系统电压-UA")) {
+                if (subItem.getId().equals("电压电流-系统电压(V)-UA")) {
                     subItem.setValue(String.valueOf(systemAVoltage));
                 }
-                if (subItem.getId().equals("电压电流-系统电压-UB")) {
+                if (subItem.getId().equals("电压电流-系统电压(V)-UB")) {
                     subItem.setValue(String.valueOf(systemBVoltage));
                 }
-                if (subItem.getId().equals("电压电流-系统电压-UC")) {
+                if (subItem.getId().equals("电压电流-系统电压(V)-UC")) {
                     subItem.setValue(String.valueOf(systemCVoltage));
                 }
-                if (subItem.getId().equals("电压电流-系统电流-IA")) {
+                if (subItem.getId().equals("电压电流-系统电流(A)-IA")) {
                     subItem.setValue(String.valueOf(systemACurrent));
                 }
-                if (subItem.getId().equals("电压电流-系统电流-IB")) {
+                if (subItem.getId().equals("电压电流-系统电流(A)-IB")) {
                     subItem.setValue(String.valueOf(systemBCurrent));
                 }
-                if (subItem.getId().equals("电压电流-系统电流-IC")) {
+                if (subItem.getId().equals("电压电流-系统电流(A)-IC")) {
                     subItem.setValue(String.valueOf(systemCCurrent));
                 }
-                if (subItem.getId().equals("电压电流-负载电流-IA")) {
+                if (subItem.getId().equals("电压电流-负载电流(A)-IA")) {
                     subItem.setValue(String.valueOf(loadACurrent));
                 }
-                if (subItem.getId().equals("电压电流-负载电流-IB")) {
+                if (subItem.getId().equals("电压电流-负载电流(A)-IB")) {
                     subItem.setValue(String.valueOf(loadBCurrent));
                 }
-                if (subItem.getId().equals("电压电流-负载电流-IC")) {
+                if (subItem.getId().equals("电压电流-负载电流(A)-IC")) {
                     subItem.setValue(String.valueOf(loadCCurrent));
                 }
-                if (subItem.getId().equals("电压电流-补偿电流-IA")) {
+                if (subItem.getId().equals("电压电流-补偿电流(A)-IA")) {
                     subItem.setValue(String.valueOf(compensationACurrent));
                 }
-                if (subItem.getId().equals("电压电流-补偿电流-IB")) {
+                if (subItem.getId().equals("电压电流-补偿电流(A)-IB")) {
                     subItem.setValue(String.valueOf(compensationBCurrent));
                 }
-                if (subItem.getId().equals("电压电流-补偿电流-IC")) {
+                if (subItem.getId().equals("电压电流-补偿电流(A)-IC")) {
                     subItem.setValue(String.valueOf(compensationCCurrent));
                 }
                 if (subItem.getId().equals("电压电流-直流电压及温度-UDC1")) {
@@ -330,31 +330,31 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
                 if (subItem.getId().equals("电压电流-设备信息-设备运行状态")) {
                     subItem.setValue(String.valueOf(stateAPF));
                 }
-                if (subItem.getId().equals("总畸变率-电压总畸变率-A相")) {
+                if (subItem.getId().equals("总畸变率-电压总畸变率(%)-A相")) {
                     subItem.setValue(String.valueOf(voltageATotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-电压总畸变率-B相")) {
+                if (subItem.getId().equals("总畸变率-电压总畸变率(%)-B相")) {
                     subItem.setValue(String.valueOf(voltageBTotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-电压总畸变率-C相")) {
+                if (subItem.getId().equals("总畸变率-电压总畸变率(%)-C相")) {
                     subItem.setValue(String.valueOf(voltageCTotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-系统电流总畸变率-A相")) {
+                if (subItem.getId().equals("总畸变率-系统电流总畸变率(%)-A相")) {
                     subItem.setValue(String.valueOf(systemCurrentATotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-系统电流总畸变率-B相")) {
+                if (subItem.getId().equals("总畸变率-系统电流总畸变率(%)-B相")) {
                     subItem.setValue(String.valueOf(systemCurrentBTotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-系统电流总畸变率-C相")) {
+                if (subItem.getId().equals("总畸变率-系统电流总畸变率(%)-C相")) {
                     subItem.setValue(String.valueOf(systemCurrentCTotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-负载电流总畸变率-A相")) {
+                if (subItem.getId().equals("总畸变率-负载电流总畸变率(%)-A相")) {
                     subItem.setValue(String.valueOf(loadCurrentATotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-负载电流总畸变率-B相")) {
+                if (subItem.getId().equals("总畸变率-负载电流总畸变率(%)-B相")) {
                     subItem.setValue(String.valueOf(loadCurrentBTotalDistortionRate));
                 }
-                if (subItem.getId().equals("总畸变率-负载电流总畸变率-C相")) {
+                if (subItem.getId().equals("总畸变率-负载电流总畸变率(%)-C相")) {
                     subItem.setValue(String.valueOf(loadCurrentCTotalDistortionRate));
                 }
                 if (subItem.getId().equals("总畸变率-功率因数-系统COS")) {
@@ -363,10 +363,10 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
                 if (subItem.getId().equals("总畸变率-功率因数-负载COS")) {
                     subItem.setValue(String.valueOf(loadPowerFactor));
                 }
-                if (subItem.getId().equals("总畸变率-不平衡度-系统电流")) {
+                if (subItem.getId().equals("总畸变率-不平衡度(%)-系统电流")) {
                     subItem.setValue(String.valueOf(systemCurrentUnbalanceDegree));
                 }
-                if (subItem.getId().equals("总畸变率-不平衡度-负载电流")) {
+                if (subItem.getId().equals("总畸变率-不平衡度(%)-负载电流")) {
                     subItem.setValue(String.valueOf(loadCurrentUnbalanceDegree));
                 }
             }
