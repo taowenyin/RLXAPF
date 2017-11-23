@@ -10,15 +10,37 @@ import cn.edu.siso.rlxapf.bean.RealTimeDatasBean;
  */
 
 public class ProtocolUtil {
+
     /**
-     * 广播启动所有设备
+     * 广播保存所有配置
      * @return 发送字节数组
      */
-    public static byte[] startDevice(){
-        byte[] bytes = {0x7F,0x05,0x00,0x04,0x00,0x00,0x00,0x00};
+    public static byte[] saveParams(){
+        byte[] bytes = {0x7F,0x05,0x00,0x00,0x00,0x00,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
+
+    /**
+     * 广播恢复出厂所有参数
+     * @return 发送字节数组
+     */
+    public static byte[] loadDefaultParams(){
+        byte[] bytes = {0x7F,0x05,0x00,0x01,0x00,0x00,0x00,0x00};
+        byte[] crcBytes = CRCUtil.encode(bytes);
+        return crcBytes;
+    }
+
+    /**
+     * 广播所有导出配置
+     * @return 发送字节数组
+     */
+    public static byte[] exportParams(){
+        byte[] bytes = {0x7F,0x05,0x00,0x02,0x00,0x00,0x00,0x00};
+        byte[] crcBytes = CRCUtil.encode(bytes);
+        return crcBytes;
+    }
+
     /**
      * 广播停止所有设备
      * @return 发送字节数组
@@ -28,31 +50,13 @@ public class ProtocolUtil {
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }
-    /**
-     * 广播所有设备配置
-     * @return 发送字节数组
-     */
-    public static byte[] readParams(){
-        byte[] bytes = {0x7F,0x05,0x00,0x03,0x00,0x01,0x00,0x00};
-        byte[] crcBytes = CRCUtil.encode(bytes);
-        return crcBytes;
-    }
-    /**
-     * 广播恢复出厂所有参数
-     * @return 发送字节数组
-     */
-    public static byte[] loadDefaultParams(){
-        byte[] bytes = {0x7F,0x05,0x00,0x02,0x00,0x01,0x00,0x00};
-        byte[] crcBytes = CRCUtil.encode(bytes);
-        return crcBytes;
-    }
 
     /**
-     * 广播保存所有配置
+     * 广播启动所有设备
      * @return 发送字节数组
      */
-    public static byte[] saveParams(){
-        byte[] bytes = {0x7F,0x05,0x00,0x01,0x00,0x01,0x00,0x00};
+    public static byte[] startDevice(){
+        byte[] bytes = {0x7F,0x05,0x00,0x04,0x00,0x00,0x00,0x00};
         byte[] crcBytes = CRCUtil.encode(bytes);
         return crcBytes;
     }

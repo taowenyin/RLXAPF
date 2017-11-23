@@ -352,26 +352,24 @@ public class TcpClientManager {
         @Override
         protected Void doInBackground(String... params) {
 
-            // 下载参数
-            if (listener.getCmdType() == TcpCmdType.LOAD_PARAMS) {
-                tcpUtil.send(ProtocolUtil.readParamsDatas(Integer.valueOf(params[0]).byteValue()),
-                        listener);
-            }
-
             // 保存参数
             if (listener.getCmdType() == TcpCmdType.SAVE_PARAMS) {
-                tcpUtil.send(ProtocolUtil.saveParams(Integer.valueOf(params[0]).byteValue()),
-                        listener);
-            }
-
-            // 导出参数
-            if (listener.getCmdType() == TcpCmdType.EXPORT_PARAMS) {
-
+                tcpUtil.send(ProtocolUtil.saveParams(), listener);
             }
 
             // 恢复出厂设置
             if (listener.getCmdType() == TcpCmdType.RESTORE_PARAMS) {
-                tcpUtil.send(ProtocolUtil.loadDefaultParams(Integer.valueOf(params[0]).byteValue()),
+                tcpUtil.send(ProtocolUtil.loadDefaultParams(), listener);
+            }
+
+            // 导出参数
+            if (listener.getCmdType() == TcpCmdType.EXPORT_PARAMS) {
+                tcpUtil.send(ProtocolUtil.exportParams(), listener);
+            }
+
+            // 下载参数
+            if (listener.getCmdType() == TcpCmdType.LOAD_PARAMS) {
+                tcpUtil.send(ProtocolUtil.readParamsDatas(Integer.valueOf(params[0]).byteValue()),
                         listener);
             }
 
@@ -447,16 +445,14 @@ public class TcpClientManager {
             if (listener.getCmdType() == TcpCmdType.STOP_DEVICE) {
 //                tcpUtil.send(ProtocolUtil.stopDevice(Integer.valueOf(params[0]).byteValue()),
 //                        listener);
-                byte deviceAddr = 0x7F;
-                tcpUtil.send(ProtocolUtil.stopDevice(deviceAddr), listener);
+                tcpUtil.send(ProtocolUtil.stopDevice(), listener);
             }
 
             // 启动设备
             if (listener.getCmdType() == TcpCmdType.START_DEVICE) {
 //                tcpUtil.send(ProtocolUtil.startDevice(Integer.valueOf(params[0]).byteValue()),
 //                        listener);
-                byte deviceAddr = 0x7F;
-                tcpUtil.send(ProtocolUtil.startDevice(deviceAddr), listener);
+                tcpUtil.send(ProtocolUtil.startDevice(), listener);
             }
 
             // 实时数据
