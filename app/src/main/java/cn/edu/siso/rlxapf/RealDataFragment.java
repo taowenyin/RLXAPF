@@ -72,7 +72,7 @@ public class RealDataFragment extends Fragment implements IRealTimeData {
                 String headerTitle = headerItem.getString("name");
                 RealDataHeaderItem header = new RealDataHeaderItem(headerTitle, AbstractItem.ITEM_TYPE.REAL, getContext());
                 header.setTitle(headerTitle);
-                realDataItems.add(header);
+//                realDataItems.add(header);
 
                 JSONArray subHeaderItems = headerItem.getJSONArray("data");
                 if (subHeaderItems != null) {
