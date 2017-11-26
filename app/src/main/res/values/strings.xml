@@ -117,9 +117,9 @@
 
     <!--谐波数据标题-->
     <string-array name="specturm_sections">
-        <item>A相谐波电流</item>
-        <item>B相谐波电流</item>
-        <item>C相谐波电流</item>
+        <item>A相谐波电流(A)</item>
+        <item>B相谐波电流(A)</item>
+        <item>C相谐波电流(A)</item>
     </string-array>
 
     <!--系统电压图表的标题-->
