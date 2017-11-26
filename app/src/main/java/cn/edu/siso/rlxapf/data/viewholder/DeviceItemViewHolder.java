@@ -14,11 +14,9 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
     private TextView province = null;
     private TextView city = null;
     private TextView county = null;
-    private TextView account = null;
     private TextView deviceType = null;
     private TextView gpsNo = null;
     private TextView deviceNo = null;
-    private TextView authority = null;
     private TextView deleted = null;
 
     private ImageButton deviceOperator = null;
@@ -34,7 +32,6 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
         this.deviceType = (TextView) itemView.findViewById(R.id.device_type);
         this.gpsNo = (TextView) itemView.findViewById(R.id.device_gps_no);
         this.deviceNo = (TextView) itemView.findViewById(R.id.device_no);
-        this.deleted = (TextView) itemView.findViewById(R.id.device_deleted);
         this.deviceOperator = (ImageButton) itemView.findViewById(R.id.device_operator);
 
         this.context = context;
@@ -52,10 +49,6 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
         this.county.setText(county);
     }
 
-//    public void setAccount(String account) {
-//        this.account.setText(account);
-//    }
-
     public void setDeviceType(String deviceType) {
         this.deviceType.setText(deviceType);
     }
@@ -66,23 +59,6 @@ public class DeviceItemViewHolder extends RecyclerView.ViewHolder {
 
     public void setDeviceNo(String deviceNo) {
         this.deviceNo.setText(deviceNo);
-    }
-
-//    public void setAuthority(String authority) {
-//        this.authority.setText(authority);
-//    }
-
-    public void setDeleted(String deleted) {
-        if (Integer.parseInt(deleted) == 0) {
-            this.deleted.setTextColor(Color.GREEN);
-            this.deleted.setText(context.getResources().getString(R.string.device_delete_0));
-//            this.deleted.setText(context.getResources().getString(R.string.device_onoff_0));
-        } else {
-            this.deleted.setTextColor(Color.RED);
-            this.deleted.setText(context.getResources().getString(R.string.device_delete_1));
-//            this.deleted.setText(context.getResources().getString(R.string.device_onoff_1));
-        }
-
     }
 
     public void setOperatorClickListner(View.OnClickListener onClickListener) {

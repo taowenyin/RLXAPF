@@ -41,7 +41,7 @@
 
     <!--设备列表分割线-->
     <string name="device_list_split">|</string>
-    <string name="device_local">地区:</string>
+    <string name="device_local">地区</string>
     <string name="device_type">设备信息:</string>
     <string name="device_gprs_no_label">GPRS编号:</string>
     <string name="device_no_label">设备编号:</string>
@@ -298,7 +298,7 @@
 
     <!--参数配置界面的菜单-->
     <string-array name="param_operate_popup_window">
-        <item>参数下载</item>
+        <item>参数召唤</item>
         <item>参数保存</item>
         <item>参数导出</item>
         <item>恢复出厂设置</item>
