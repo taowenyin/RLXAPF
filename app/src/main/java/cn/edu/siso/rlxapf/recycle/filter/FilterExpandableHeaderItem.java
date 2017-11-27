@@ -45,7 +45,6 @@ public class FilterExpandableHeaderItem extends AbstractItem<FilterExpandableHea
     public void bindViewHolder(FlexibleAdapter adapter, FilterExpandableHeaderViewHolder holder, int position, List payloads) {
         holder.id = getId(); // 解决ID不能传递的问题
         holder.title.setText(getTitle());
-//        holder.statusTitle.setText(isExpanded() ? "展开" : "折叠");
         holder.splitLine.setVisibility(isExpanded() ? View.GONE : View.VISIBLE);
         holder.statusImg.setImageResource(isExpanded() ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down);
     }
@@ -104,7 +103,6 @@ public class FilterExpandableHeaderItem extends AbstractItem<FilterExpandableHea
         public String id = StringUtils.EMPTY; // 解决ID不能传递的问题
 
         public TextView title = null;
-        public TextView statusTitle = null;
         public ImageView statusImg = null;
         public ImageView splitLine = null;
 
@@ -112,9 +110,13 @@ public class FilterExpandableHeaderItem extends AbstractItem<FilterExpandableHea
             super(view, adapter);
 
             title = (TextView) view.findViewById(R.id.title);
-//            statusTitle = (TextView) view.findViewById(R.id.status_title);
             statusImg = (ImageView) view.findViewById(R.id.status_img);
             splitLine = (ImageView) view.findViewById(R.id.split_line);
+        }
+
+        @Override
+        protected boolean isViewExpandableOnClick() {
+            return true;
         }
 
         @Override

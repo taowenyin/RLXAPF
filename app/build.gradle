@@ -11,8 +11,8 @@ def gitCommitCount = Integer.parseInt('git rev-list HEAD --count'.execute([], pr
 def gitCurrentTag = 'git describe --tags --abbrev=0'.execute([], project.rootDir).text.trim()
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "cn.edu.siso.rlxapf"
         minSdkVersion 15

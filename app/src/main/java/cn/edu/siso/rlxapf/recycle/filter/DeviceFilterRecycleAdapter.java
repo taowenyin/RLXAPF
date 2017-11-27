@@ -13,7 +13,7 @@ public class DeviceFilterRecycleAdapter extends FlexibleAdapter<AbstractFlexible
     private OnItemCheckedChangedListener onItemCheckedChangedListener = null;
 
     public DeviceFilterRecycleAdapter(@Nullable List<AbstractFlexibleItem> items, @Nullable Object listeners) {
-        super(items, listeners);
+        super(items, listeners, true);
     }
 
     public void setOnItemClickListener(OnItemCheckedChangedListener onItemCheckedChangedListener) {

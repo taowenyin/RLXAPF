@@ -22,13 +22,6 @@
             android:textColor="@color/search_filter_item_header_text_color"
             android:textSize="@dimen/device_search_filter_header_font_size"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/status_title"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/search_filter_item_header_status_text_color"-->
-            <!--android:textSize="@dimen/device_search_filter_header_font_size"/>-->
-
         <ImageView
             android:id="@+id/status_img"
             android:layout_width="@dimen/device_search_filter_header_icon_size"

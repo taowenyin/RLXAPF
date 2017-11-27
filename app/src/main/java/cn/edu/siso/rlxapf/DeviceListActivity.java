@@ -168,7 +168,7 @@ public class DeviceListActivity extends AppCompatActivity implements
                                     getResources().getString(R.string.account_pref_name), MODE_PRIVATE);
                             SharedPreferences.Editor editor = accountPref.edit();
                             editor.clear();
-                            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                            editor.apply();
 
                             Intent intent = new Intent(DeviceListActivity.this, LoginActivity.class);
                             startActivity(intent);
@@ -459,7 +459,7 @@ public class DeviceListActivity extends AppCompatActivity implements
                 });
 
         // 初始化列表数据
-        final LinearLayoutManager deviceLayoutManager = new LinearLayoutManager(
+        LinearLayoutManager deviceLayoutManager = new LinearLayoutManager(
                 getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         deviceAdapter = new DeviceListRecyclerAdapter(getApplicationContext(), deviceFilterData);
         deviceAdapter.setOnItemClickListener(this);
@@ -480,7 +480,6 @@ public class DeviceListActivity extends AppCompatActivity implements
                     case R.layout.filter_expandable_local_item:
                         return 4;
                     case R.layout.filter_expandable_category_item:
-                        return 2;
                     case R.layout.filter_expandable_sub_item:
                         return 2;
                     default:
@@ -503,7 +502,7 @@ public class DeviceListActivity extends AppCompatActivity implements
                         getResources().getString(R.string.account_pref_name),
                         MODE_PRIVATE).edit();
                 editor.clear();
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                editor.apply();
 
                 Intent intent = new Intent(DeviceListActivity.this, LoginActivity.class);
                 startActivity(intent);
