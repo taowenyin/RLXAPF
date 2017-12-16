@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
@@ -34,6 +35,9 @@ public class ParamActivity extends AppCompatActivity {
     private List<DeviceBean> deviceData = null;
     private int currPosition = -1;
 
+    private String[] operatePopupData = null;
+    private  String[] operateResultPopupData = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +56,8 @@ public class ParamActivity extends AppCompatActivity {
 
         wLP = getWindow().getAttributes();
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        String[] operatePopupData = getResources().getStringArray(R.array.param_operate_popup_window);
+        operatePopupData = getResources().getStringArray(R.array.param_operate_popup_window);
+        operateResultPopupData = getResources().getStringArray(R.array.param_operate_result_popup_window);
         for (int i = 0; i < operatePopupData.length; i++) {
             Map<String, String> item = new HashMap<String, String>();
             item.put(PopupBottomMenu.TITLE_KEY, operatePopupData[i]);
@@ -72,18 +77,34 @@ public class ParamActivity extends AppCompatActivity {
                         ParamPrefFragment fragment = (ParamPrefFragment) getSupportFragmentManager()
                                 .findFragmentById(R.id.param_content);
 
+                        ConnectToast toast = null;
                         switch (position) {
-                            case 0: // 参数下载
+                            case 0: // 参数召唤
                                 fragment.downloadDeviceParams();
                                 break;
                             case 1: // 参数保存
                                 fragment.saveDeviceParams();
+                                toast = new ConnectToast(getApplicationContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        operateResultPopupData[1],
+                                        Toast.LENGTH_LONG);
+                                toast.show();
                                 break;
                             case 2: // 参数导出
                                 fragment.exportDeviceParams();
+                                toast = new ConnectToast(getApplicationContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        operateResultPopupData[2],
+                                        Toast.LENGTH_LONG);
+                                toast.show();
                                 break;
                             case 3: // 恢复出厂设置
                                 fragment.restoreFactoryParams();
+                                toast = new ConnectToast(getApplicationContext(),
+                                        ConnectToast.ConnectRes.SUCCESS,
+                                        operateResultPopupData[3],
+                                        Toast.LENGTH_LONG);
+                                toast.show();
                                 break;
                         }
                     }

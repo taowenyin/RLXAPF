@@ -304,6 +304,13 @@
         <item>恢复出厂设置</item>
     </string-array>
 
+    <string-array name="param_operate_result_popup_window">
+        <item>参数召唤指令下载成功</item>
+        <item>参数保存指令下载成功</item>
+        <item>参数导出指令下载成功</item>
+        <item>恢复出厂设置指令下载成功</item>
+    </string-array>
+
     <!--设备参数完成按钮的文字-->
     <string name="device_param_ok">确认</string>
 
