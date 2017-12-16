@@ -162,8 +162,6 @@
 
     <!--实时图表Y轴标签-->
     <string-array name="curve_y_axis_labels">
-        <item>-60</item>
-        <item>-30</item>
         <item>0</item>
         <item>30</item>
         <item>60</item>
@@ -189,13 +187,15 @@
     <string name="user_preferences_about">关于我们</string>
     <!--用户退出当前账户的按钮文字-->
     <string name="user_preferences_cancel">退出当前账号</string>
+    <string name="user_preferences_company">LX_RMON</string>
+    <string name="user_preferences_product">远程监控终端</string>
 
     <!--关于界面的版权说明-->
     <string name="about_copy_right">苏州立旭 版权所有</string>
     <string name="about_label_sw_version">软件版本</string>
     <string name="about_sw_version">V0.1</string>
     <string name="about_label_contact_us">联系我们</string>
-    <string name="about_contact_us">1234567890</string>
+    <string name="about_contact_us">0512&#8211;86864809</string>
     <string name="about_label_description">功能说明</string>
     <string name="about_description">电力质量管理系统</string>
 

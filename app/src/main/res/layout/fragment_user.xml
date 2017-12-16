@@ -39,7 +39,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/prefs_user_header_font_size"
                 android:layout_marginBottom="@dimen/prefs_user_header_title_margin"
-                android:text="wenyin.tao@163.com"/>
+                android:text="@string/user_preferences_company"/>
 
             <TextView
                 android:id="@+id/device_name"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/prefs_user_header_font_size"
-                android:text="APF 3201"/>
+                android:text="@string/user_preferences_product"/>
 
         </LinearLayout>
 
