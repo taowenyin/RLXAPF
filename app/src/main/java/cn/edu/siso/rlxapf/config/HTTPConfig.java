@@ -55,6 +55,36 @@ public class HTTPConfig {
     public static final String API_URL_QUERY_DEVICE = "JasonQueryDevice.aspx";
 
     /**
+     * 查找省级信息
+     */
+    public static final String API_URL_QUERY_PROVINCE = "JasonQueryProvince.aspx";
+
+    /**
+     * 查找市级信息
+     */
+    public static final String API_URL_QUERY_CITY = "JasonQueryCity.aspx";
+
+    /**
+     * 查找区级信息
+     */
+    public static final String API_URL_QUERY_COUNTY = "JasonQueryCounty.aspx";
+
+    /**
+     * 查找公司信息
+     */
+    public static final String API_URL_QUERY_CUSTOMER = "JasonQueryCustomer.aspx";
+
+    /**
+     * 查找设备类型
+     */
+    public static final String API_URL_QUERY_DEVICE_TYPE = "JasonQueryDeviceType.aspx";
+
+    /**
+     * 查找GPRS编号
+     */
+    public static final String API_URL_QUERY_GPRS = "JasonQueryGPRS.aspx";
+
+    /**
      * 开关设备
      */
     public static final String API_URL_ON_OFF_DEVICE = "JasonSetDevice.aspx";

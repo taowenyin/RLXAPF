@@ -55,6 +55,13 @@
     <string name="device_list_error_session_no_set">session没有设置</string>
     <string name="device_list_error_session_error">session错误</string>
     <string name="device_list_error_no_data">没有数据</string>
+    <string name="device_list_label_province">省级</string>
+    <string name="device_list_label_city">市级</string>
+    <string name="device_list_label_county">区级</string>
+    <string name="device_list_label_company">公司</string>
+    <string name="device_list_label_type">类型</string>
+    <string name="device_list_label_gprs">GPRS</string>
+    <string name="device_list_label_connect">连接</string>
 
     <string name="device_search_ok">确认</string>
     <string name="device_search_reset">重置</string>
@@ -323,6 +330,7 @@
     <!--TCP设备连接状态-->
     <string name="tcp_connect_succ">设备连接成功</string>
     <string name="tcp_connect_close">设备连接已断开</string>
+    <string name="tcp_connect_gprs_error">设备的GPRS未对应</string>
     <string name="tcp_connect_data_succ">数据解析成功</string>
     <string name="tcp_connect_data_error_crc">数据校验失败\n点击右上角重新下载</string>
     <string name="tcp_connect_data_error_length">数据长度错误\n点击右上角重新下载</string>

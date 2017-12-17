@@ -1,20 +1,45 @@
 package cn.edu.siso.rlxapf.bean;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class CityBean {
-    private List<CountyBean> counties = new ArrayList<CountyBean>();
 
-    private String name = "";
+    private String id = StringUtils.EMPTY;
+    public static String ID = "id";
 
-    public List<CountyBean> getCounties() {
-        return counties;
+    private String code = StringUtils.EMPTY;
+    public static String CODE = "code";
+
+    private String name = StringUtils.EMPTY;
+    public static String NAME = "name";
+
+    private String parentId = StringUtils.EMPTY;
+    public static String PARENT_ID = "parentId";
+
+    private String firstLetter = StringUtils.EMPTY;
+    public static String FIRST_LETTER = "firstLetter";
+
+    private String cityLevel = StringUtils.EMPTY;
+    public static String CITY_LEVEL = "cityLevel";
+
+    public String getId() {
+        return id;
     }
 
-    public void setCounties(List<CountyBean> counties) {
-        this.counties = counties;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -25,18 +50,27 @@ public class CityBean {
         this.name = name;
     }
 
-    public CountyBean getCounty(String name) {
-        for (int i = 0; i < counties.size(); i++) {
-            CountyBean bean = counties.get(i);
-            if (bean.getName().equals(name)) {
-                return bean;
-            }
-        }
+    public String getParentId() {
+        return parentId;
+    }
 
-        CountyBean bean = new CountyBean();
-        bean.setName(name);
-        counties.add(bean);
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-        return bean;
+    public String getFirstLetter() {
+        return firstLetter;
+    }
+
+    public void setFirstLetter(String firstLetter) {
+        this.firstLetter = firstLetter;
+    }
+
+    public String getCityLevel() {
+        return cityLevel;
+    }
+
+    public void setCityLevel(String cityLevel) {
+        this.cityLevel = cityLevel;
     }
 }
