@@ -137,15 +137,22 @@
     <dimen name="popup_window_font_size">14sp</dimen>
 
     <!--设备列表的设备ID字号-->
+    <dimen name="device_list_padding">10dp</dimen>
+    <dimen name="device_list_connect_btn_text_size">14sp</dimen>
+    <dimen name="device_list_connect_btn_horizontal_margin">15dp</dimen>
+    <dimen name="device_list_connect_btn_vertical_margin">10dp</dimen>
+    <dimen name="device_list_connect_btn_vertical_padding">10dp</dimen>
     <dimen name="device_list_item_device_id_font_size">14sp</dimen>
+    <dimen name="device_list_item_split_size">1dp</dimen>
     <!--设备列表的字号-->
     <dimen name="device_list_item_font_size">12sp</dimen>
     <!--设备列表的间距-->
     <dimen name="device_list_item_padding">10dp</dimen>
     <!--设备列表的垂直间距-->
     <dimen name="device_list_item_vertical_margin">5dp</dimen>
+    <dimen name="device_list_item_vertical_padding">5dp</dimen>
     <!--设备列表的标签间距-->
-    <dimen name="device_list_item_label_margin">5dp</dimen>
+    <dimen name="device_list_item_label_width">50dp</dimen>
     <!--设备列表按钮大小-->
     <dimen name="device_list_item_img_btn_size">40dp</dimen>
 

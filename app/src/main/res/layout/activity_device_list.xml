@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/toolbar_bg_color"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     tools:context="cn.edu.siso.rlxapf.DeviceListActivity">
@@ -57,18 +56,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:padding="@dimen/device_list_padding"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/device_list_item_vertical_padding"
+                android:paddingBottom="@dimen/device_list_item_vertical_padding"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/device_list_item_label_width"
                     android:layout_height="wrap_content"
                     android:textColor="@color/label_color"
-                    android:text="@string/device_list_label_province"/>
+                    android:text="@string/device_list_label_province"
+                    android:textSize="@dimen/device_list_item_font_size"/>
 
                 <Spinner
                     android:id="@+id/device_list_province"
@@ -76,17 +80,26 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/device_list_item_split_size"
+                android:background="@color/split_line_color"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/device_list_item_vertical_padding"
+                android:paddingBottom="@dimen/device_list_item_vertical_padding"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/device_list_item_label_width"
                     android:layout_height="wrap_content"
                     android:textColor="@color/label_color"
-                    android:text="@string/device_list_label_city"/>
+                    android:text="@string/device_list_label_city"
+                    android:textSize="@dimen/device_list_item_font_size"/>
 
                 <Spinner
                     android:id="@+id/device_list_city"
@@ -95,16 +108,25 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/device_list_item_split_size"
+                android:background="@color/split_line_color"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/device_list_item_vertical_padding"
+                android:paddingBottom="@dimen/device_list_item_vertical_padding"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/device_list_item_label_width"
                     android:layout_height="wrap_content"
                     android:textColor="@color/label_color"
-                    android:text="@string/device_list_label_county"/>
+                    android:text="@string/device_list_label_county"
+                    android:textSize="@dimen/device_list_item_font_size"/>
 
                 <Spinner
                     android:id="@+id/device_list_county"
@@ -113,16 +135,25 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/device_list_item_split_size"
+                android:background="@color/split_line_color"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/device_list_item_vertical_padding"
+                android:paddingBottom="@dimen/device_list_item_vertical_padding"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/device_list_item_label_width"
                     android:layout_height="wrap_content"
                     android:textColor="@color/label_color"
-                    android:text="@string/device_list_label_company"/>
+                    android:text="@string/device_list_label_company"
+                    android:textSize="@dimen/device_list_item_font_size"/>
 
                 <Spinner
                     android:id="@+id/device_list_company"
@@ -131,16 +162,25 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/device_list_item_split_size"
+                android:background="@color/split_line_color"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/device_list_item_vertical_padding"
+                android:paddingBottom="@dimen/device_list_item_vertical_padding"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/device_list_item_label_width"
                     android:layout_height="wrap_content"
                     android:textColor="@color/label_color"
-                    android:text="@string/device_list_label_type"/>
+                    android:text="@string/device_list_label_type"
+                    android:textSize="@dimen/device_list_item_font_size"/>
 
                 <Spinner
                     android:id="@+id/device_list_type"
@@ -149,16 +189,25 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/device_list_item_split_size"
+                android:background="@color/split_line_color"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/device_list_item_vertical_padding"
+                android:paddingBottom="@dimen/device_list_item_vertical_padding"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/device_list_item_label_width"
                     android:layout_height="wrap_content"
                     android:textColor="@color/label_color"
-                    android:text="@string/device_list_label_gprs"/>
+                    android:text="@string/device_list_label_gprs"
+                    android:textSize="@dimen/device_list_item_font_size"/>
 
                 <Spinner
                     android:id="@+id/device_list_gprs"
@@ -173,7 +222,18 @@
             android:id="@+id/device_connect_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device_list_label_connect"/>
+            android:layout_marginLeft="@dimen/device_list_connect_btn_horizontal_margin"
+            android:layout_marginRight="@dimen/device_list_connect_btn_horizontal_margin"
+            android:layout_marginTop="@dimen/device_list_connect_btn_vertical_margin"
+            android:layout_marginBottom="@dimen/device_list_connect_btn_vertical_margin"
+            android:paddingTop="@dimen/device_list_connect_btn_vertical_padding"
+            android:paddingBottom="@dimen/device_list_connect_btn_vertical_padding"
+            android:text="@string/device_list_label_connect"
+            android:textSize="@dimen/device_list_connect_btn_text_size"
+            android:textColor="@color/btn_txt_color"
+            android:minHeight="0dp"
+            android:background="@drawable/button_bg_rectangle_radius"
+            style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>
 

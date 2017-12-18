@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:text="@string/device_local"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/device_list_item_font_size"/>
@@ -37,7 +37,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:text="@string/device_list_split"
                     android:textColor="@android:color/black"/>
 
@@ -45,7 +45,7 @@
                     android:id="@+id/device_province"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/device_list_item_font_size"/>
 
@@ -53,7 +53,7 @@
                     android:id="@+id/device_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/device_list_item_font_size"/>
 
@@ -61,7 +61,7 @@
                     android:id="@+id/device_county"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/device_list_item_font_size"/>
 
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@color/device_list_item_color"
                     android:textSize="@dimen/device_list_item_font_size"
                     android:text="@string/device_type"/>
@@ -99,7 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@color/device_list_item_color"
                     android:textSize="@dimen/device_list_item_font_size"
                     android:text="@string/device_gprs_no_label"/>
@@ -108,21 +108,21 @@
                     android:id="@+id/device_gps_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@color/device_list_item_color"
                     android:textSize="@dimen/device_list_item_font_size"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:text="@string/device_list_split"
                     android:textColor="@color/device_list_item_color"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/device_list_item_label_margin"
+                    android:layout_marginRight="@dimen/device_list_item_label_width"
                     android:textColor="@color/device_list_item_color"
                     android:textSize="@dimen/device_list_item_font_size"
                     android:text="@string/device_no_label"/>

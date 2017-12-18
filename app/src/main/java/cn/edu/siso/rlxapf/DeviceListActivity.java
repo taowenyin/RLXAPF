@@ -410,6 +410,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         deviceListProvinceData.add(item);
                     }
                     deviceListProvinceAdapter.notifyDataSetChanged();
+                    deviceListProvince.setSelection(0);
                 }
 
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_CITY) {
@@ -427,6 +428,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         deviceListCityData.add(item);
                     }
                     deviceListCityAdapter.notifyDataSetChanged();
+                    deviceListCity.setSelection(0);
                 }
 
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_COUNTY) {
@@ -444,6 +446,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         deviceListCountyData.add(item);
                     }
                     deviceListCountyAdapter.notifyDataSetChanged();
+                    deviceListCounty.setSelection(0);
                 }
 
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_COMPANY) {
@@ -457,6 +460,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         deviceListCompanyData.add(item);
                     }
                     deviceListCompanyAdapter.notifyDataSetChanged();
+                    deviceListCompany.setSelection(0);
                 }
 
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_TYPE) {
@@ -469,6 +473,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         deviceListTypeData.add(item);
                     }
                     deviceListTypeAdapter.notifyDataSetChanged();
+                    deviceListType.setSelection(0);
                 }
 
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_GPRS) {
@@ -481,6 +486,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         deviceListGprsData.add(item);
                     }
                     deviceListGprsAdapter.notifyDataSetChanged();
+                    deviceListGprs.setSelection(0);
                 }
 
             }
