@@ -21,6 +21,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,7 +104,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
     public static final String DATA_KEY = "data";
     public static final String POSITION_KEY = "position";
 
-    public static final String TAG = "DeviceListActivity";
+    public static final String TAG = "==DeviceListActivity==";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,6 +205,9 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
         deviceConnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Log.i(TAG, "GPS_DEVICE_NO:" + deviceListGprsData.get(currGprsIndex).get(GprsBean.GPS_DEVICE_NO));
+
                 int position = -1; // 设备的索引
 
                 for (int i = 0; i < deviceData.size(); i++) {
@@ -261,8 +265,39 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+        // 解决Spinner同一索引不能触发点击事件的问题
+        try {
+            Field field = AdapterView.class.getDeclaredField("mOldSelectedPosition");
+            field.setAccessible(true);
+            if (adapterView.getId() == R.id.device_list_province) {
+                field.setInt(deviceListProvince, AdapterView.INVALID_POSITION);
+            }
+            if (adapterView.getId() == R.id.device_list_city) {
+                field.setInt(deviceListCity, AdapterView.INVALID_POSITION);
+            }
+            if (adapterView.getId() == R.id.device_list_county) {
+                field.setInt(deviceListCounty, AdapterView.INVALID_POSITION);
+            }
+            if (adapterView.getId() == R.id.device_list_company) {
+                field.setInt(deviceListCompany, AdapterView.INVALID_POSITION);
+            }
+            if (adapterView.getId() == R.id.device_list_type) {
+                field.setInt(deviceListType, AdapterView.INVALID_POSITION);
+            }
+            if (adapterView.getId() == R.id.device_list_gprs) {
+                field.setInt(deviceListGprs, AdapterView.INVALID_POSITION);
+            }
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         if (adapterView.getId() == R.id.device_list_province) {
             currProvinceIndex = i;
+
+            Log.i(TAG, "device_list_province");
 
             // 获取市级信息
             Map<String, String> params = new HashMap<String, String>();
@@ -274,6 +309,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
         if (adapterView.getId() == R.id.device_list_city) {
             currCityIndex = i;
 
+            Log.i(TAG, "device_list_city");
+
             // 获取区级信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
@@ -283,6 +320,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
         }
         if (adapterView.getId() == R.id.device_list_county) {
             currCountyIndex = i;
+
+            Log.i(TAG, "device_list_county");
 
             // 获取公司信息
             Map<String, String> params = new HashMap<String, String>();
@@ -295,6 +334,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
         }
         if (adapterView.getId() == R.id.device_list_company) {
             currCompanyIndex = i;
+
+            Log.i(TAG, "device_list_company");
 
             // 获取类型信息
             Map<String, String> params = new HashMap<String, String>();
@@ -309,6 +350,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
         if (adapterView.getId() == R.id.device_list_type) {
             currTypeIndex = i;
 
+            Log.i(TAG, "device_list_type");
+
             // 获取GPRS信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
@@ -322,6 +365,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
         }
         if (adapterView.getId() == R.id.device_list_gprs) {
             currGprsIndex = i;
+
+            Log.i(TAG, "device_list_gprs");
 
             // 获取全部设备信息
             Map<String, String> params = new HashMap<String, String>();
@@ -386,6 +431,77 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         break;
                     case HTTPConfig.DeviceListError.NO_DATA:
                         badMsg = getResources().getString(R.string.device_list_error_no_data);
+
+                        // 无数据时清空相应数据
+                        if (currHttpReqType == HTTP_REQ_TYPE.REQ_PROVINCE) {
+                            deviceListProvinceData.clear();
+                            deviceListProvinceAdapter.notifyDataSetChanged();
+
+                            deviceListCityData.clear();
+                            deviceListCityAdapter.notifyDataSetChanged();
+
+                            deviceListCountyData.clear();
+                            deviceListCountyAdapter.notifyDataSetChanged();
+
+                            deviceListCompanyData.clear();
+                            deviceListCompanyAdapter.notifyDataSetChanged();
+
+                            deviceListTypeData.clear();
+                            deviceListTypeAdapter.notifyDataSetChanged();
+
+                            deviceListGprsData.clear();
+                            deviceListGprsAdapter.notifyDataSetChanged();
+                        }
+                        if (currHttpReqType == HTTP_REQ_TYPE.REQ_CITY) {
+                            deviceListCityData.clear();
+                            deviceListCityAdapter.notifyDataSetChanged();
+
+                            deviceListCountyData.clear();
+                            deviceListCountyAdapter.notifyDataSetChanged();
+
+                            deviceListCompanyData.clear();
+                            deviceListCompanyAdapter.notifyDataSetChanged();
+
+                            deviceListTypeData.clear();
+                            deviceListTypeAdapter.notifyDataSetChanged();
+
+                            deviceListGprsData.clear();
+                            deviceListGprsAdapter.notifyDataSetChanged();
+                        }
+                        if (currHttpReqType == HTTP_REQ_TYPE.REQ_COUNTY) {
+                            deviceListCountyData.clear();
+                            deviceListCountyAdapter.notifyDataSetChanged();
+
+                            deviceListCompanyData.clear();
+                            deviceListCompanyAdapter.notifyDataSetChanged();
+
+                            deviceListTypeData.clear();
+                            deviceListTypeAdapter.notifyDataSetChanged();
+
+                            deviceListGprsData.clear();
+                            deviceListGprsAdapter.notifyDataSetChanged();
+                        }
+                        if (currHttpReqType == HTTP_REQ_TYPE.REQ_COMPANY) {
+                            deviceListCompanyData.clear();
+                            deviceListCompanyAdapter.notifyDataSetChanged();
+
+                            deviceListTypeData.clear();
+                            deviceListTypeAdapter.notifyDataSetChanged();
+
+                            deviceListGprsData.clear();
+                            deviceListGprsAdapter.notifyDataSetChanged();
+                        }
+                        if (currHttpReqType == HTTP_REQ_TYPE.REQ_TYPE) {
+                            deviceListTypeData.clear();
+                            deviceListTypeAdapter.notifyDataSetChanged();
+
+                            deviceListGprsData.clear();
+                            deviceListGprsAdapter.notifyDataSetChanged();
+                        }
+                        if (currHttpReqType == HTTP_REQ_TYPE.REQ_GPRS) {
+                            deviceListGprsData.clear();
+                            deviceListGprsAdapter.notifyDataSetChanged();
+                        }
                         break;
                 }
 
