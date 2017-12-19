@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(UserBean.CONTACT_KEY, userData.getContact());
                     editor.putString(UserBean.PHONE_KEY, userData.getPhone());
                     editor.putString(UserBean.MOBILE_ID_KEY, userData.getMobileId());
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                    editor.apply();
 
                     Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
                     intent.putExtra(USER_DATA_KEY, JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue));
