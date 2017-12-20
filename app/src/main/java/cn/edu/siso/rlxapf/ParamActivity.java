@@ -1,7 +1,9 @@
 package cn.edu.siso.rlxapf;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,16 +21,18 @@ import java.util.List;
 import java.util.Map;
 
 import cn.edu.siso.rlxapf.bean.DeviceBean;
+import cn.edu.siso.rlxapf.dialog.PrefConfirmDialogFragment;
 
 import static cn.edu.siso.rlxapf.DeviceListActivity.DATA_KEY;
 import static cn.edu.siso.rlxapf.DeviceListActivity.POSITION_KEY;
 
-public class ParamActivity extends AppCompatActivity {
+public class ParamActivity extends AppCompatActivity implements PrefConfirmDialogFragment.OnConfirmBtnClickListener {
 
     private ImageButton toolbarNavBack = null;
     private ImageButton toolbarOperate = null;
     private PopupBottomMenu operateMenu = null;
     private Button deviceParamOk = null;
+    private ParamPrefFragment paramPrefFragment = null;
 
     private WindowManager.LayoutParams wLP = null;
 
@@ -37,6 +41,8 @@ public class ParamActivity extends AppCompatActivity {
 
     private String[] operatePopupData = null;
     private  String[] operateResultPopupData = null;
+
+    public static final String TAG = "==ParamActivity==";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,8 +158,33 @@ public class ParamActivity extends AppCompatActivity {
             }
         });
 
+        paramPrefFragment = ParamPrefFragment.newInstance(JSON.toJSONString(
+                deviceData.get(currPosition)));
         getSupportFragmentManager().beginTransaction().replace(
-                R.id.param_content, ParamPrefFragment.newInstance(
-                        JSON.toJSONString(deviceData.get(currPosition)))).commit();
+                R.id.param_content, paramPrefFragment).commit();
+    }
+
+    @Override
+    public void onConfirmBtnClick(DialogFragment dialogFragment, boolean isConfrim, String pwd) {
+        if (isConfrim && !pwd.equals(deviceData.get(currPosition).getGPRSComPw())) {
+            ConnectToast toast  = new ConnectToast(getApplicationContext(),
+                    ConnectToast.ConnectRes.BAD,
+                    getResources().getString(R.string.pref_fragment_dialog_pwd_error),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            if (dialogFragment != null &&
+                    dialogFragment.getDialog() != null &&
+                    dialogFragment.getDialog().isShowing()) {
+                dialogFragment.dismiss();
+            }
+            if (isConfrim) {
+                paramPrefFragment.setCurrentParamStatus(true);
+                Log.i(TAG, "修改密码成功");
+            } else {
+                paramPrefFragment.setCurrentParamStatus(false);
+                Log.i(TAG, "取消修改密码");
+            }
+        }
     }
 }

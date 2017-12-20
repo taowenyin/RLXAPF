@@ -23,15 +23,20 @@ import java.util.TimerTask;
 import cn.edu.siso.rlxapf.bean.DeviceBean;
 import cn.edu.siso.rlxapf.bean.ParameterDatasBean;
 import cn.edu.siso.rlxapf.dialog.ConnectDialogFragment;
+import cn.edu.siso.rlxapf.dialog.PrefConfirmDialogFragment;
 import cn.edu.siso.rlxapf.util.tcp.TcpClientManager;
 
 public class ParamPrefFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener,
-        Preference.OnPreferenceChangeListener {
+        Preference.OnPreferenceChangeListener,
+        Preference.OnPreferenceClickListener {
 
     private TcpClientManager tcpClientManager = null;
     private Handler tcpHandler = null;
     private boolean isTimeout = false;
+    private boolean correctParamPwd = false;
+
+    private PrefConfirmDialogFragment confirmDialogFragment = null;
 
     private SharedPreferences paramPrefs = null;
 
@@ -43,7 +48,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
 
     public static final String KEY_DEVICE_PARAM = "key_device_param";
 
-    public static final String TAG = "ParamPrefFragment";
+    public static final String TAG = "===ParamPrefFragment===";
 
     public ParamPrefFragment() {
         tcpClientManager = TcpClientManager.getInstance();
@@ -221,6 +226,8 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        confirmDialogFragment = new PrefConfirmDialogFragment();
+
         if (getArguments() != null) {
             String device = getArguments().getString(KEY_DEVICE_PARAM);
             deviceBean = JSON.parseObject(device, DeviceBean.class);
@@ -248,16 +255,19 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_unit_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         ListPreference listPreference = null;
 
         listPreference = (ListPreference) findPreference(getResources().getString(R.string.param_preferences_sampling_model_key));
         listPreference.setSummary(listPreference.getEntry());
         listPreference.setOnPreferenceChangeListener(this);
+        listPreference.setOnPreferenceClickListener(this);
 
         listPreference = (ListPreference) findPreference(getResources().getString(R.string.param_preferences_compensate_model_key));
         listPreference.setSummary(listPreference.getEntry());
         listPreference.setOnPreferenceChangeListener(this);
+        listPreference.setOnPreferenceClickListener(this);
 
         // 系统CT
         editTextPreference = (EditTextPreference) findPreference(
@@ -265,6 +275,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_system_ct_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         // 负载CT
         editTextPreference = (EditTextPreference) findPreference(
@@ -272,6 +283,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_load_ct_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         // 目标功率因素
         editTextPreference = (EditTextPreference) findPreference(
@@ -279,6 +291,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_target_power_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         // N次谐波
         editTextPreference = (EditTextPreference) findPreference(
@@ -286,78 +299,91 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_3_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_5_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_5_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_7_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_7_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_9_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_9_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_11_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_11_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_13_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_13_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_15_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_15_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_17_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_17_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_19_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_19_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_21_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_21_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_23_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_23_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_25_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_25_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         editTextPreference = (EditTextPreference) findPreference(
                 getResources().getString(R.string.param_preferences_26_compensate_key));
         editTextPreference.setSummary(this.paramPrefs.getString(
                 getResources().getString(R.string.param_preferences_26_compensate_key), ""));
         editTextPreference.setOnPreferenceChangeListener(this);
+        editTextPreference.setOnPreferenceClickListener(this);
 
         // 打开网络通信进度框
         dialogFragment = new ConnectDialogFragment();
@@ -372,7 +398,7 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
 
         tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.LOAD_PARAMS,
                 new String[]{deviceBean.getDeviceNo()}, tcpHandler);
-        dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
+        dialogFragment.show(getChildFragmentManager(), ParamPrefFragment.class.getName());
     }
 
     @Override
@@ -417,13 +443,32 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
 
         isTimeout = false; // 清空超时，允许进行TCP操作
 
-        tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.UPDATE_PARAMS,
-                new String[]{deviceBean.getDeviceNo(), preference.getKey(), newValue.toString()},
-                tcpHandler);
+        if (correctParamPwd) {
+            tcpClientManager.sendCmd(context, TcpClientManager.TcpCmdType.UPDATE_PARAMS,
+                    new String[]{deviceBean.getDeviceNo(), preference.getKey(), newValue.toString()},
+                    tcpHandler);
 
-        dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
+            dialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
 
-        return true;
+            return true;
+        }
+
+        ConnectToast toast  = new ConnectToast(getContext(),
+                ConnectToast.ConnectRes.BAD,
+                getResources().getString(R.string.pref_fragment_dialog_pwd_error_double),
+                Toast.LENGTH_SHORT);
+        toast.show();
+
+        return false;
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        Log.i(TAG, "onPreferenceClick");
+
+        confirmDialogFragment.show(getFragmentManager(), ParamPrefFragment.class.getName());
+
+        return false;
     }
 
     private void writePreference(ParameterDatasBean datasBean) {
@@ -578,5 +623,11 @@ public class ParamPrefFragment extends PreferenceFragmentCompat implements
                         new String[]{deviceBean.getDeviceNo()}, tcpHandler);
             }
         }, context.getResources().getInteger(R.integer.tcp_restore_param_delay));
+    }
+
+    public void setCurrentParamStatus(boolean status) {
+        Log.i(TAG, status ? "可以修改数据" : "不能修改数据");
+
+        correctParamPwd = status;
     }
 }
