@@ -13,6 +13,7 @@ public class DeviceBean {
     private String GPSDeviceNo = StringUtils.EMPTY;
     private String GPRSComPw = StringUtils.EMPTY;
     private String GPRSMobileNo = StringUtils.EMPTY;
+    private String GPRSChangePwd = StringUtils.EMPTY;
     private String deviceNo = StringUtils.EMPTY;
     private String authority = StringUtils.EMPTY;
     private String onoff = StringUtils.EMPTY;
@@ -96,6 +97,14 @@ public class DeviceBean {
 
     public void setGPRSMobileNo(String GPRSMobileNo) {
         this.GPRSMobileNo = GPRSMobileNo;
+    }
+
+    public String getGPRSChangePwd() {
+        return GPRSChangePwd;
+    }
+
+    public void setGPRSChangePwd(String GPRSChangePwd) {
+        this.GPRSChangePwd = GPRSChangePwd;
     }
 
     public String getDeviceNo() {

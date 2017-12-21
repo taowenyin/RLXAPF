@@ -3,6 +3,7 @@ package cn.edu.siso.rlxapf;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,7 +169,8 @@ public class ParamActivity extends AppCompatActivity implements PrefConfirmDialo
 
     @Override
     public void onConfirmBtnClick(DialogFragment dialogFragment, boolean isConfrim, String pwd) {
-        if (isConfrim && !pwd.equals(deviceData.get(currPosition).getGPRSComPw())) {
+        if (isConfrim && !StringUtils.isEmpty(deviceData.get(currPosition).getGPRSChangePwd()) &&
+                !pwd.equals(deviceData.get(currPosition).getGPRSChangePwd())) {
             ConnectToast toast  = new ConnectToast(getApplicationContext(),
                     ConnectToast.ConnectRes.BAD,
                     getResources().getString(R.string.pref_fragment_dialog_pwd_error),
