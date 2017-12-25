@@ -113,6 +113,13 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(UserBean.CONTACT_KEY, userData.getContact());
                     editor.putString(UserBean.PHONE_KEY, userData.getPhone());
                     editor.putString(UserBean.MOBILE_ID_KEY, userData.getMobileId());
+                    if (userData.getSysAdmin() != null) { // 判断时候是管理员
+                        editor.putString(UserBean.SYS_ADMIN_KEY, userData.getSysAdmin());
+                    } else {
+                        editor.putString(UserBean.SYS_ADMIN_KEY, "1sz");
+                        userData.setSysAdmin("1");
+                    }
+
                     editor.apply();
 
                     Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
@@ -131,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                 && accountPref.contains(UserBean.ADDRESS_KEY)
                 && accountPref.contains(UserBean.CONTACT_KEY)
                 && accountPref.contains(UserBean.PHONE_KEY)
-                && accountPref.contains(UserBean.MOBILE_ID_KEY)) {
+                && accountPref.contains(UserBean.MOBILE_ID_KEY)
+                && accountPref.contains(UserBean.SYS_ADMIN_KEY)) {
             UserBean userData = new UserBean();
             userData.setAccount(accountPref.getString(UserBean.ACCOUNT_KEY, ""));
             userData.setPassword(accountPref.getString(UserBean.PASSWORD_KEY, ""));
@@ -140,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
             userData.setContact(accountPref.getString(UserBean.CONTACT_KEY, ""));
             userData.setPhone(accountPref.getString(UserBean.PHONE_KEY, ""));
             userData.setMobileId(accountPref.getString(UserBean.MOBILE_ID_KEY, ""));
+            userData.setSysAdmin(accountPref.getString(UserBean.SYS_ADMIN_KEY, ""));
 
             Intent intent = new Intent(LoginActivity.this, DeviceListActivity.class);
             String data = JSON.toJSONString(userData, SerializerFeature.WriteMapNullValue);

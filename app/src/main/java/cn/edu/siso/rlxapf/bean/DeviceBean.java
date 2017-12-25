@@ -5,18 +5,28 @@ import org.apache.commons.lang3.StringUtils;
 public class DeviceBean {
     private String id = StringUtils.EMPTY;
     private String province = StringUtils.EMPTY;
+    private String provinceName = StringUtils.EMPTY;
     private String city = StringUtils.EMPTY;
+    private String cityName = StringUtils.EMPTY;
     private String county = StringUtils.EMPTY;
+    private String countyName = StringUtils.EMPTY;
     private String account = StringUtils.EMPTY;
-    private String name = StringUtils.EMPTY;
+    private String accountName = StringUtils.EMPTY;
     private String deviceType = StringUtils.EMPTY;
     private String GPSDeviceNo = StringUtils.EMPTY;
     private String GPRSComPw = StringUtils.EMPTY;
     private String GPRSMobileNo = StringUtils.EMPTY;
+    private String GPRSChangePwd = StringUtils.EMPTY;
     private String deviceNo = StringUtils.EMPTY;
     private String authority = StringUtils.EMPTY;
     private String onoff = StringUtils.EMPTY;
     private String deleted = StringUtils.EMPTY;
+    private String address = StringUtils.EMPTY;
+    private String contact = StringUtils.EMPTY;
+    private String phone = StringUtils.EMPTY;
+    private String sysAdmin = StringUtils.EMPTY;
+    private String customerDeleted = StringUtils.EMPTY;
+    private String loginDate = StringUtils.EMPTY;
 
     public String getId() {
         return id;
@@ -34,12 +44,28 @@ public class DeviceBean {
         this.province = province;
     }
 
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
     public String getCity() {
         return city;
     }
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public String getCounty() {
@@ -50,6 +76,14 @@ public class DeviceBean {
         this.county = county;
     }
 
+    public String getCountyName() {
+        return countyName;
+    }
+
+    public void setCountyName(String countyName) {
+        this.countyName = countyName;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -58,12 +92,12 @@ public class DeviceBean {
         this.account = account;
     }
 
-    public String getName() {
-        return name;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getDeviceType() {
@@ -98,6 +132,14 @@ public class DeviceBean {
         this.GPRSMobileNo = GPRSMobileNo;
     }
 
+    public String getGPRSChangePwd() {
+        return GPRSChangePwd;
+    }
+
+    public void setGPRSChangePwd(String GPRSChangePwd) {
+        this.GPRSChangePwd = GPRSChangePwd;
+    }
+
     public String getDeviceNo() {
         return deviceNo;
     }
@@ -128,5 +170,53 @@ public class DeviceBean {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSysAdmin() {
+        return sysAdmin;
+    }
+
+    public void setSysAdmin(String sysAdmin) {
+        this.sysAdmin = sysAdmin;
+    }
+
+    public String getCustomerDeleted() {
+        return customerDeleted;
+    }
+
+    public void setCustomerDeleted(String customerDeleted) {
+        this.customerDeleted = customerDeleted;
+    }
+
+    public String getLoginDate() {
+        return loginDate;
+    }
+
+    public void setLoginDate(String loginDate) {
+        this.loginDate = loginDate;
     }
 }

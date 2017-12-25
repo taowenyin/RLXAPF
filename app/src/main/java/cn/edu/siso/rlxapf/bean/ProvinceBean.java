@@ -7,29 +7,18 @@ import java.util.List;
 
 public class ProvinceBean {
 
-    private String id = StringUtils.EMPTY;
-    public static String ID = "id";
-
-    private String code = StringUtils.EMPTY;
-    public static String CODE = "code";
+    private String province = StringUtils.EMPTY;
+    public static String PROVINCE = "province";
 
     private String name = StringUtils.EMPTY;
     public static String NAME = "name";
 
-    public String getId() {
-        return id;
+    public String getProvince() {
+        return province;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getName() {

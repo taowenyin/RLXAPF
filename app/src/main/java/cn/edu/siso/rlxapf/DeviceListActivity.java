@@ -212,8 +212,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
 
                 for (int i = 0; i < deviceData.size(); i++) {
                     DeviceBean bean = deviceData.get(i);
-                    if (bean.getGPSDeviceNo().equals(
-                            deviceListGprsData.get(currGprsIndex).get(GprsBean.GPS_DEVICE_NO))) {
+                    if (bean.getId().equals(
+                            deviceListGprsData.get(currGprsIndex).get(GprsBean.ID))) {
                         position = i;
                         break;
                     }
@@ -302,7 +302,9 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取市级信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("province", deviceListProvinceData.get(i).get(ProvinceBean.ID));
+            params.put("account", userBean.getAccount());
+            params.put("sysAdmin", userBean.getSysAdmin());
+            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
             httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_CITY, params, httpHandler);
             currHttpReqType = HTTP_REQ_TYPE.REQ_CITY;
         }
@@ -314,7 +316,10 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取区级信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("city", deviceListCityData.get(i).get(CityBean.ID));
+            params.put("account", userBean.getAccount());
+            params.put("sysAdmin", userBean.getSysAdmin());
+            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
+            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CITY));
             httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_COUNTY, params, httpHandler);
             currHttpReqType = HTTP_REQ_TYPE.REQ_COUNTY;
         }
@@ -326,9 +331,11 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取公司信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.CODE));
-            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CODE));
-            params.put("county", deviceListCountyData.get(currCountyIndex).get(CountyBean.CODE));
+            params.put("account", userBean.getAccount());
+            params.put("sysAdmin", userBean.getSysAdmin());
+            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
+            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CITY));
+            params.put("county", deviceListCountyData.get(currCountyIndex).get(CountyBean.COUNTY));
             httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_CUSTOMER, params, httpHandler);
             currHttpReqType = HTTP_REQ_TYPE.REQ_COMPANY;
         }
@@ -340,10 +347,11 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取类型信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.CODE));
-            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CODE));
-            params.put("county", deviceListCountyData.get(currCountyIndex).get(CountyBean.CODE));
-            params.put("account", deviceListCompanyData.get(currCompanyIndex).get(CompanyBean.ACCOUNT));
+            params.put("account", userBean.getAccount());
+            params.put("sysAdmin", userBean.getSysAdmin());
+            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
+            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CITY));
+            params.put("county", deviceListCountyData.get(currCountyIndex).get(CountyBean.COUNTY));
             httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_DEVICE_TYPE, params, httpHandler);
             currHttpReqType = HTTP_REQ_TYPE.REQ_TYPE;
         }
@@ -355,10 +363,11 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取GPRS信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.CODE));
-            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CODE));
-            params.put("county", deviceListCountyData.get(currCountyIndex).get(CountyBean.CODE));
-            params.put("account", deviceListCompanyData.get(currCompanyIndex).get(CompanyBean.ACCOUNT));
+            params.put("account", userBean.getAccount());
+            params.put("sysAdmin", userBean.getSysAdmin());
+            params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
+            params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CITY));
+            params.put("county", deviceListCountyData.get(currCountyIndex).get(CountyBean.COUNTY));
             params.put("devicetype", deviceListTypeData.get(currTypeIndex).get(TypeBean.DEVICE_TYPE));
             httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_GPRS, params, httpHandler);
             currHttpReqType = HTTP_REQ_TYPE.REQ_GPRS;
@@ -371,7 +380,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取全部设备信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("account", userBean.getAccount());
+            params.put("deviceId", deviceListGprsData.get(currGprsIndex).get(GprsBean.ID));
             httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_DEVICE, params, httpHandler);
             currHttpReqType = HTTP_REQ_TYPE.REQ_DEVICE;
         }
@@ -388,6 +397,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobileid", userBean.getMobileId());
+        params.put("account", userBean.getAccount());
+        params.put("sysAdmin", userBean.getSysAdmin());
         httpManager.httpStrGetAsyn(HTTPConfig.API_URL_QUERY_PROVINCE, params, httpHandler);
         currHttpReqType = HTTP_REQ_TYPE.REQ_PROVINCE;
     }
@@ -503,6 +514,9 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                             deviceListGprsAdapter.notifyDataSetChanged();
                         }
                         break;
+                    default:
+                        badMsg = getResources().getString(R.string.device_list_error_unknown_error) + ",代码:" + resCode;
+                        break;
                 }
 
                 Toast toast = new ConnectToast(
@@ -510,17 +524,12 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                         ConnectToast.ConnectRes.BAD, badMsg, Toast.LENGTH_SHORT);
                 toast.show();
             } else {
-                if (currHttpReqType == HTTP_REQ_TYPE.REQ_DEVICE) {
-                    deviceData = JSON.parseArray(resultData, DeviceBean.class);
-                }
-
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_PROVINCE) {
                     deviceListProvinceData.clear();
                     List<ProvinceBean> provinceData = JSON.parseArray(resultData, ProvinceBean.class);
                     for (ProvinceBean bean : provinceData) {
                         Map<String, String> item = new HashMap<String, String>();
-                        item.put(ProvinceBean.ID, bean.getId());
-                        item.put(ProvinceBean.CODE, bean.getCode());
+                        item.put(ProvinceBean.PROVINCE, bean.getProvince());
                         item.put(ProvinceBean.NAME, bean.getName());
 
                         deviceListProvinceData.add(item);
@@ -534,12 +543,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                     List<CityBean> cityData = JSON.parseArray(resultData, CityBean.class);
                     for (CityBean bean : cityData) {
                         Map<String, String> item = new HashMap<String, String>();
-                        item.put(CityBean.ID, bean.getId());
-                        item.put(CityBean.CODE, bean.getCode());
+                        item.put(CityBean.CITY, bean.getCity());
                         item.put(CityBean.NAME, bean.getName());
-                        item.put(CityBean.PARENT_ID, bean.getParentId());
-                        item.put(CityBean.FIRST_LETTER, bean.getFirstLetter());
-                        item.put(CityBean.CITY_LEVEL, bean.getCityLevel());
 
                         deviceListCityData.add(item);
                     }
@@ -552,12 +557,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                     List<CountyBean> countyData = JSON.parseArray(resultData, CountyBean.class);
                     for (CountyBean bean : countyData) {
                         Map<String, String> item = new HashMap<String, String>();
-                        item.put(CountyBean.ID, bean.getId());
-                        item.put(CountyBean.CODE, bean.getCode());
+                        item.put(CountyBean.COUNTY, bean.getCounty());
                         item.put(CountyBean.NAME, bean.getName());
-                        item.put(CountyBean.PARENT_ID, bean.getParentId());
-                        item.put(CountyBean.FIRST_LETTER, bean.getFirstLetter());
-                        item.put(CountyBean.CITY_LEVEL, bean.getCityLevel());
 
                         deviceListCountyData.add(item);
                     }
@@ -598,11 +599,16 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                     for (GprsBean bean : gprsData) {
                         Map<String, String> item = new HashMap<String, String>();
                         item.put(GprsBean.GPS_DEVICE_NO, bean.getGPSDeviceNo());
+                        item.put(GprsBean.ID, bean.getId());
 
                         deviceListGprsData.add(item);
                     }
                     deviceListGprsAdapter.notifyDataSetChanged();
                     deviceListGprs.setSelection(0);
+                }
+
+                if (currHttpReqType == HTTP_REQ_TYPE.REQ_DEVICE) {
+                    deviceData = JSON.parseArray(resultData, DeviceBean.class);
                 }
 
             }

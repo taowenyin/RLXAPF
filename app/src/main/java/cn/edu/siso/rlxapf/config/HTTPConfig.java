@@ -82,7 +82,7 @@ public class HTTPConfig {
     /**
      * 查找GPRS编号
      */
-    public static final String API_URL_QUERY_GPRS = "JasonQueryGPRS.aspx";
+    public static final String API_URL_QUERY_GPRS = "JasonQueryDeviceList.aspx";
 
     /**
      * 开关设备

@@ -65,6 +65,7 @@
     <string name="device_list_error_mobile_id_no_set">mobileid没有设置</string>
     <string name="device_list_error_session_no_set">session没有设置</string>
     <string name="device_list_error_session_error">session错误</string>
+    <string name="device_list_error_unknown_error">未知错误</string>
     <string name="device_list_error_no_data">没有数据</string>
     <string name="device_list_label_province">省级</string>
     <string name="device_list_label_city">市级</string>

@@ -27,6 +27,9 @@ public class UserBean {
     private String mobileId = null;
     public static String MOBILE_ID_KEY = "mobileId";
 
+    private String sysAdmin = null;
+    public static String SYS_ADMIN_KEY = "sysAdmin";
+
     public String getAccount() {
         return account;
     }
@@ -81,5 +84,13 @@ public class UserBean {
 
     public void setMobileId(String mobileId) {
         this.mobileId = mobileId;
+    }
+
+    public String getSysAdmin() {
+        return sysAdmin;
+    }
+
+    public void setSysAdmin(String sysAdmin) {
+        this.sysAdmin = sysAdmin;
     }
 }
