@@ -347,7 +347,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取类型信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("account", userBean.getAccount());
+            params.put("account", deviceListCompanyData.get(currCompanyIndex).get(CompanyBean.ACCOUNT));
             params.put("sysAdmin", userBean.getSysAdmin());
             params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
             params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CITY));
@@ -363,7 +363,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
             // 获取GPRS信息
             Map<String, String> params = new HashMap<String, String>();
             params.put("mobileid", userBean.getMobileId());
-            params.put("account", userBean.getAccount());
+            params.put("account", deviceListCompanyData.get(currCompanyIndex).get(CompanyBean.ACCOUNT));
             params.put("sysAdmin", userBean.getSysAdmin());
             params.put("province", deviceListProvinceData.get(currProvinceIndex).get(ProvinceBean.PROVINCE));
             params.put("city", deviceListCityData.get(currCityIndex).get(CityBean.CITY));

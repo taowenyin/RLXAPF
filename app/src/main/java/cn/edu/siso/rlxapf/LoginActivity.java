@@ -113,12 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(UserBean.CONTACT_KEY, userData.getContact());
                     editor.putString(UserBean.PHONE_KEY, userData.getPhone());
                     editor.putString(UserBean.MOBILE_ID_KEY, userData.getMobileId());
-                    if (userData.getSysAdmin() != null) { // 判断时候是管理员
-                        editor.putString(UserBean.SYS_ADMIN_KEY, userData.getSysAdmin());
-                    } else {
-                        editor.putString(UserBean.SYS_ADMIN_KEY, "1sz");
-                        userData.setSysAdmin("1");
-                    }
+                    editor.putString(UserBean.SYS_ADMIN_KEY, userData.getSysAdmin());
 
                     editor.apply();
 
