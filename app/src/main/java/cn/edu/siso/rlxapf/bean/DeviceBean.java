@@ -21,6 +21,7 @@ public class DeviceBean {
     private String authority = StringUtils.EMPTY;
     private String onoff = StringUtils.EMPTY;
     private String deleted = StringUtils.EMPTY;
+    private String comment = StringUtils.EMPTY;
     private String address = StringUtils.EMPTY;
     private String contact = StringUtils.EMPTY;
     private String phone = StringUtils.EMPTY;
@@ -170,6 +171,14 @@ public class DeviceBean {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getAddress() {

@@ -73,6 +73,7 @@
     <string name="device_list_label_company">公司</string>
     <string name="device_list_label_type">类型</string>
     <string name="device_list_label_gprs">GPRS</string>
+    <string name="device_list_label_comment">备注</string>
     <string name="device_list_label_connect">连接</string>
 
     <string name="device_search_ok">确认</string>

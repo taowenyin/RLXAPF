@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -83,6 +84,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
     private SimpleAdapter deviceListGprsAdapter = null;
     private List<Map<String, String>> deviceListGprsData = null;
     private int currGprsIndex = 0;
+
+    private TextView deviceListComment = null;
 
     private Button deviceConnectBtn = null;
 
@@ -179,6 +182,8 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
                 new int[]{R.id.device_spinner_item_name});
         deviceListGprs.setAdapter(deviceListGprsAdapter);
         deviceListGprs.setOnItemSelectedListener(this);
+
+        deviceListComment = (TextView) findViewById(R.id.device_list_comment);
 
         deviceConnectBtn = (Button) findViewById(R.id.device_connect_btn);
 
@@ -609,6 +614,7 @@ public class DeviceListActivity extends AppCompatActivity implements AdapterView
 
                 if (currHttpReqType == HTTP_REQ_TYPE.REQ_DEVICE) {
                     deviceData = JSON.parseArray(resultData, DeviceBean.class);
+                    deviceListComment.setText(deviceData.get(0).getComment());
                 }
 
             }
