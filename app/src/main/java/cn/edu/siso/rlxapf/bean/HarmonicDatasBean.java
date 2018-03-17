@@ -1,5 +1,7 @@
 package cn.edu.siso.rlxapf.bean;
 
+import android.util.Log;
+
 import cn.edu.siso.rlxapf.util.CRCUtil;
 
 /**
@@ -8,6 +10,7 @@ import cn.edu.siso.rlxapf.util.CRCUtil;
  */
 
 public class HarmonicDatasBean {
+    public static final String PARAM_DATA_KEY = "paramsData";
 
     private int[] paramsData;
 
@@ -21,13 +24,11 @@ public class HarmonicDatasBean {
      * @return -1 CRC校验错误；  -2长度解析出错； 0解析成功
      */
     public int parse(byte[] bytes) {
-
-        if(bytes == null || bytes.length != 155 || bytes[2] != 150)//指定参数一次读出的长度
+        if(bytes == null || bytes.length != 155 || bytes[2] != (byte) 0x96)//指定参数一次读出的长度
             return -2;
 
         if (!CRCUtil.decode(bytes))
             return -1;
-
 
         int startLoc = 3;
 
@@ -43,5 +44,9 @@ public class HarmonicDatasBean {
 
     public int[] getParamsData() {
         return paramsData;
+    }
+
+    public void setParamsData(int[] paramsData) {
+        this.paramsData = paramsData;
     }
 }

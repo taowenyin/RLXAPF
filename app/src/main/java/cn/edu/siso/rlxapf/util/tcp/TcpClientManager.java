@@ -308,8 +308,8 @@ public class TcpClientManager {
                 } else {
                     bundle.putString(KEY_TCP_RES_TYPE, TcpResType.SUCCESS);
                     // 谐波数据还未定义
-//                    String bean = JSON.toJSONString(datasBean, SerializerFeature.WriteMapNullValue);
-//                    bundle.putString(KEY_TCP_RES_DATA, bean);
+                    String bean = JSON.toJSONString(datasBean, SerializerFeature.WriteMapNullValue);
+                    bundle.putString(KEY_TCP_RES_DATA, bean);
                 }
             }
 

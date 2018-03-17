@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.truizlop.sectionedrecyclerview.SectionedSpanSizeLookup;
 
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class SpectrumFragment extends Fragment {
             currPosition = bundle.getInt(POSITION_KEY);
         }
 
-        tcpClientManager = TcpClientManager.getInstance();
+                tcpClientManager = TcpClientManager.getInstance();
         tcpHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -108,12 +110,19 @@ public class SpectrumFragment extends Fragment {
                                 Log.i(TAG, "更新谐波数据");
 
                                 // 谐波数据还未定义
-//                                HarmonicDatasBean datasBean = JSON.parseObject(
-//                                        data.getString(TcpClientManager.KEY_TCP_RES_DATA),
-//                                        HarmonicDatasBean.class);
-//
-//                                // 更新谐波数据
-//                                updateHarmonicDates(datasBean);
+                                HarmonicDatasBean datasBean = new HarmonicDatasBean();
+
+                                JSONArray harmonicnArrayData = JSON.parseObject(data.getString(
+                                        TcpClientManager.KEY_TCP_RES_DATA)).getJSONArray(HarmonicDatasBean.PARAM_DATA_KEY);
+                                int[] harmonicnByteData = new int[harmonicnArrayData.size()];
+                                for (int i = 0; i < harmonicnArrayData.size(); i++) {
+                                    harmonicnByteData[i] = Integer.valueOf(harmonicnArrayData.getString(i)).intValue();
+                                }
+
+                                datasBean.setParamsData(harmonicnByteData);
+
+                                // 更新谐波数据
+                                updateHarmonicDates(datasBean);
                             }
                         }
                         if (resType.equals(TcpClientManager.TcpResType.TIMEOUT) && isSpectrum) {
@@ -249,7 +258,19 @@ public class SpectrumFragment extends Fragment {
     }
 
     private void updateHarmonicDates(HarmonicDatasBean datesBean) {
+        int[] harmonicDates = datesBean.getParamsData();
 
+        for (int i = 0; i < spectrumData.size(); i++) {
+            DataGroupBean groupBean = spectrumData.get(i);
+            List<DataBean> dataList = groupBean.getData();
+            for (int j = 0; j < dataList.size(); j++) {
+                DataBean item = dataList.get(j);
+                List<Map<String, Integer>> itemData = item.getData();
+                itemData.get(0).put(DataBean.DATA_KEY, harmonicDates[i * 25 + j]);
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     public interface OnFragmentInteractionListener {
