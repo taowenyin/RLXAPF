@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RLXAPF</string>
 
-    <string name="base_url">http://www.suzhoulixu.com</string>
+    <string name="base_url">http://www.lixuelectric.com</string>
 
     <string name="title_activity_first">FirstActivity</string>
     <string name="title_activity_login">登录</string>
